@@ -1,0 +1,8 @@
+
+
+//Interface to do dependency inversion
+export interface IJiraApi {
+
+  searchJql: (jql: string) => Promise<any>;
+  getCurrentUser: () => Promise<any>;
+};

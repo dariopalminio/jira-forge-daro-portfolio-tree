@@ -1,0 +1,62 @@
+.inputTextFieldGroup {
+    color: black;
+    font-size: 12px;
+    margin: 0px;
+    display: block;
+}
+
+.inputTextField {
+    width: 100%;
+    border: 1px solid #999;
+    border-radius: 3px;
+}
+
+.inputTextField[type=text] {
+    background: #fff;
+    float: left;
+    font-size: 12px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.inputTextField[type=password] {
+    background: rgb(245, 245, 245);
+    float: left;
+    font-size: 12px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.errorMessage {
+    color: #FA3867;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 5px 0 0;
+}
+
+.inputTextField .errorMessage {
+    display: none;
+}
+
+.errorTextField label {
+    color: #FF114A;
+}
+
+.errorTextField input[type=text] {
+    background-color: #fce4e4;
+    border: 1px solid #FF114A;
+    outline: none;
+}
+
+.errorTextField input[type=password] {
+    background-color: #fce4e4;
+    border: 1px solid #FF114A;
+    outline: none;
+}
+
+.errorTextField .errorMessage {
+    display: inline-block;
+}

@@ -1,0 +1,20 @@
+modules:
+  jira:globalPage:
+    - key: easy-upstream-portfolio-dario-palminio
+      resource: main
+      resolver:
+        function: resolver
+      title: easy-upstream-portfolio
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/app/build
+app:
+  id: ari:cloud:ecosystem::app/b25ec481-1c6e-43f4-bdb3-646803b6fea8
+permissions:
+  scopes:
+    - read:jira-user
+    - storage:app
+    - read:jira-work

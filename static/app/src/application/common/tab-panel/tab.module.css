@@ -1,0 +1,41 @@
+
+.container{
+	width: 100%;
+	margin: 0 auto;
+}
+
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.tabs li{
+	background: #f4f5f7;
+	color: #505F79;
+	display: inline-block;
+	padding: 5px 10px;
+	cursor: pointer;
+	
+}
+
+ul.tabs li:hover {
+    background: #DEEBFF
+
+}
+
+ul.tabs li.current{
+	background: white;
+	color: #0065ff;
+    font-weight: bold;
+    border-bottom: solid #0065ff
+}
+
+.tabContent{
+	display: none;
+	background: white;
+	padding: 15px;
+}
+
+.tabContent.current{
+	display: inherit;
+}
