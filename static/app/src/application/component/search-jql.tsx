@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useJiraHook from "../../domain/hook/jira-hook";
+import { IssueItemType, treeExample } from "../../domain/model/issue-item.type";
 import Button from "../common/button/button";
 import TextField from "../common/text-field/text-field";
+import Tree from "./tree/tree";
 
 
 const SearchJql: React.FC = () => {
@@ -40,6 +42,11 @@ const SearchJql: React.FC = () => {
         }
     };
 
+    const handleClick = (item: IssueItemType) => {
+        //Here do navigate to path
+        alert(`Select item: ${item.summary}`);
+      }
+
     return (
         <>
 
@@ -60,6 +67,10 @@ const SearchJql: React.FC = () => {
 
             <div id="contentPanel">
                 <p>Results Total (issues count): {total}</p>
+
+                <Tree list={treeExample} onClick={(item) => handleClick(item)} />
+
+
             </div>
         </>
     );
