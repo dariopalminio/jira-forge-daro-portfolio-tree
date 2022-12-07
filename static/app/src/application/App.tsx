@@ -7,27 +7,25 @@ import useJiraHook from '../domain/hook/jira-hook';
 import { supportedLngs } from '../domain/i18n/supported-lngs';
 import Tabs from './common/tab-panel/tabs';
 import { TabsType } from './common/tab-panel/types';
-//import { useTranslation } from "react-i18next";
-//  const { t, i18n } = useTranslation();
-//i18n.changeLanguage(lng);
+
+
 
 function App() {
     const { getCurrentUser } = useJiraHook();
     const [currentUser, setCurrentUser] = useState<any>({});
     const { t, i18n } = useTranslation();
     const [tabSelected, setTabSelected] = useState<string>('tab-1');
-    const tabs: TabsType = [{
-        id: 'tab-1',
-        text: 'Tab 1'
-    },
-    {
-        id: 'tab-2',
-        text: 'Tab 2'
-    },
-    {
-        id: 'tab-3',
-        text: 'Tab 3'
-    }];
+
+    const tabs: TabsType = [
+        {
+            id: 'tab-1',
+            text: t('portfolio')
+        },
+        {
+            id: 'tab-2',
+            text: t('configure')
+        }
+    ];
 
     /**
      * Change the language to display in the browser based on the language of the current user
@@ -65,15 +63,14 @@ function App() {
     return (
         <div className={styles.app}>
 
-            <div id="TabPanel">
+            <div id="TabPanel" className={styles.panelContainer}>
                 <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
                 <div id="Panel">
                     {tabSelected === 'tab-1' && <SearchJql />}
-                    {tabSelected === 'tab-2' && <div>tab-2 content</div>}
-                    {tabSelected === 'tab-3' && <div>tab-3 content</div>}
+                    {tabSelected === 'tab-2' && <div>{t('permission')}: all users</div>}
                 </div>
             </div>
-            
+
             <br />
         </div>
     );

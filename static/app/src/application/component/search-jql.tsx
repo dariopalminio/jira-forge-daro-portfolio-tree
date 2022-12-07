@@ -12,7 +12,7 @@ const SearchJql: React.FC = () => {
     const [value, setValue] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
-    
+
     const getDatas = async () => {
         try {
             const data = await searchJql(value);
@@ -41,10 +41,10 @@ const SearchJql: React.FC = () => {
     };
 
     return (
-        <div>
+        <>
 
-            <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
-                <div style={{ float: 'left', width: '80%', alignItems: 'center' }}>
+            <div id="actionPanel" style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
+                <div style={{ float: 'left', width: '90%', alignItems: 'center' }}>
                     <TextField
                         id="standard-basic-1"
                         placeholder="Here text..."
@@ -53,13 +53,15 @@ const SearchJql: React.FC = () => {
                         {...(!isValid && { error: true, helperText: 'input error' })}
                     />
                 </div>
-                <div style={{ marginLeft: '10px', marginTop: '0px'}}>
+                <div style={{ marginLeft: '10px', marginTop: '0px' }}>
                     <Button onClick={() => handleOnClick()} style={{ float: 'right' }}>Search</Button>
                 </div>
             </div>
 
-            <p>Results Total (issues count): {total}</p>
-        </div>
+            <div id="contentPanel">
+                <p>Results Total (issues count): {total}</p>
+            </div>
+        </>
     );
 };
 

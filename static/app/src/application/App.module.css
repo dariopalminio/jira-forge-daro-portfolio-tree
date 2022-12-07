@@ -8,3 +8,8 @@
 .heading {
     margin-bottom: 16px;
 }
+
+.panelContainer{
+	width: 100%;
+	margin: 0 auto;
+}

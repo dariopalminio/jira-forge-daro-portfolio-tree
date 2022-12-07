@@ -24,7 +24,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                 "displayName": "Daro Palmi",
                 "active": true,
                 "timeZone": "America/Santiago",
-                "locale": "en_US",
+                "locale": "es_ES",
                 "groups": {
                     "size": 4,
                     "items": [
