@@ -5,7 +5,7 @@ import { IssueItemType, togglesTreeExample, treeExample, TreeToggleType } from "
 import Button from "../common/button/button";
 import TextField from "../common/text-field/text-field";
 import Tree from "./tree/tree";
-
+import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../common/splitable-container"
 
 const SearchJql: React.FC = () => {
     const jqlDefault: string = "project=TKP and issuetype = Epic order by created DESC";
@@ -15,6 +15,7 @@ const SearchJql: React.FC = () => {
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [toggles, setToggle] = useState<TreeToggleType>(togglesTreeExample);
+    const idSpliter = "Daro";
 
     const getDatas = async () => {
         try {
@@ -49,8 +50,8 @@ const SearchJql: React.FC = () => {
     }
 
     const handlerToggleChange = (newToggles: TreeToggleType) => {
-        console.log("toggles:",toggles);
-        console.log("newToggles:",newToggles);
+        console.log("toggles:", toggles);
+        console.log("newToggles:", newToggles);
         setToggle(newToggles)
     }
 
@@ -75,10 +76,24 @@ const SearchJql: React.FC = () => {
             <div id="contentPanel">
                 <p>Results Total (issues count): {total}</p>
 
-                <Tree list={treeExample} 
-                toggles={toggles}
-                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                onClick={(item) => handleClick(item)} />
+                <SplitableContainer id={idSpliter}>
+                    <SplitLeft id={idSpliter}>
+                        <Tree list={treeExample}
+                            toggles={toggles}
+                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                            onClick={(item) => handleClick(item)} />
+                    </SplitLeft>
+                    <SplitBar id={idSpliter}></SplitBar>
+                    <SplitRight id={idSpliter}>
+                        <p>Individuals and interactions over processes and tools</p>
+                        <p>Working software over comprehensive documentation</p>
+                        <p>Customer collaboration over contract negotiation</p>
+                        <p>Responding to change over following a plan</p>
+                        <p>That is, while there is value in the items on</p>
+                        <p>the right, we value the items on the left more.</p>
+                    </SplitRight>
+                </SplitableContainer>
+
 
 
             </div>

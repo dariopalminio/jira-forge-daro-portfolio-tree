@@ -1,0 +1,26 @@
+.containerSplit {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.internalSplitBar {
+    background: rgb(201, 192, 192);
+    border-right: 1px solid #32a1ce;
+    border-left: 1px solid #BCBCBC;
+    width: 1px;
+    height: 400px;
+    cursor: col-resize;
+}
+
+.containerSplitLeft {
+    width: 50%;
+    overflow-x: scroll;
+}
+
+.containerSplitRight {
+    flex: 1; 
+    background: white;
+    overflow-x: scroll;
+
+}

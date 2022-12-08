@@ -16,7 +16,7 @@ const Tree: React.FC<Props> = ({ list, onClick, toggles, togglesChange }) => {
     }
 
     return (
-        <div>
+        <div style={{width:"5000px"}}>
             {list?.map((item, index) => {
                 return (
                     <TreeItem 
