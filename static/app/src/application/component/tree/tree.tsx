@@ -1,23 +1,26 @@
 import React from 'react'
-import { IssueItemType, TreeToggleType } from '../../../domain/model/issue-item.type';
+import { IssueItemType, TreeToggleType } from './types';
 import TreeItem from './tree-item';
+import styles from './tree-item.module.css';
 
 interface Props {
+    title: string;
     onClick: (item: IssueItemType) => void;
-    list: IssueItemType[];
+    tree: IssueItemType[];
     togglesChange: (newToggles: TreeToggleType) => void;
     toggles: TreeToggleType;
 }
 
-const Tree: React.FC<Props> = ({ list, onClick, toggles, togglesChange }) => {
+const Tree: React.FC<Props> = ({ title, tree, onClick, toggles, togglesChange }) => {
 
     const handleOnClickLink = (item: IssueItemType) => {
         onClick(item);
     }
 
     return (
-        <div style={{width:"5000px"}}>
-            {list?.map((item, index) => {
+        <div className={styles.treeContainer}>
+            <label className={styles.treeHead}>{title}</label>
+            {tree?.map((item, index) => {
                 return (
                     <TreeItem 
                     key={index} 

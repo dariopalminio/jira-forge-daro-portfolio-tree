@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IssueItemType, TreeToggleType } from '../../../domain/model/issue-item.type';
+import { IssueItemType, TreeToggleType } from './types';
 import styles from './tree-item.module.css';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 //className={styles.inputTextField}
@@ -20,7 +20,7 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
         togglesChange(newToggles);
     }
 
-    const handleOnClickSubMenuItem = (item: IssueItemType) => {
+    const handleOnClick = (item: IssueItemType) => {
         onClick(item);
     }
 
@@ -50,16 +50,21 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                             <RiArrowDownSLine size={15} color="#a6a6a6" /> :
                             <RiArrowRightSLine size={15} color="#a6a6a6" />}
                     </div>
-                ) : <label style={{marginLeft: "15px"}}/>
+                ) : <label style={{ marginLeft: "15px" }} />
                 }
 
                 <a className={styles.anchorLink} href="#"
                     onClick={(e) => handleOnClickAnchorLink(e)}>
-                    <img src={treeItem.iconUrl} alt="" />
+                    <img className={styles.treeItemImg} 
+                    src={treeItem.iconUrl} alt="" />
                     <div className={styles.treeItemTextLine} >
-                        <span style={{ color: "blue" }}>{treeItem.key}</span>
+                        <span className={styles.textKey}>
+                            {treeItem.key}
+                        </span>
                         &nbsp;
-                        <span>{treeItem.summary}</span> </div>
+                        <span className={styles.textSummary}>
+                            {treeItem.summary}
+                        </span> </div>
 
 
                 </a>
@@ -74,7 +79,7 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                                 treeItem={item}
                                 togglesChange={togglesChange}
                                 toggles={toggles}
-                                onClick={(item) => handleOnClickSubMenuItem(item)} />
+                                onClick={(item) => handleOnClick(item)} />
                         );
                     }
                 )

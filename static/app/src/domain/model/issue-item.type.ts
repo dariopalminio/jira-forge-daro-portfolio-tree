@@ -1,11 +1,4 @@
-export type IssueItemType = {
-    key: string;
-    summary: string;
-    iconUrl: string;
-    fields: any;
-    hasChildren: boolean;
-    childrens: Array<IssueItemType>;
-  };
+
   
   /*
 "key": "POR-4",
@@ -33,7 +26,7 @@ export type IssueItemType = {
 
 */
 
-export type TreeToggleType = { [key: string]: boolean };
+import { IssueItemType, TreeToggleType } from "../../application/component/tree";
 
 export const togglesTreeExample: TreeToggleType = {};
 togglesTreeExample['k-1'] = false;

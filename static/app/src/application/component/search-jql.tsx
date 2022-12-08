@@ -1,11 +1,32 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useJiraHook from "../../domain/hook/jira-hook";
-import { IssueItemType, togglesTreeExample, treeExample, TreeToggleType } from "../../domain/model/issue-item.type";
+import { togglesTreeExample, treeExample } from "../../domain/model/issue-item.type";
 import Button from "../common/button/button";
 import TextField from "../common/text-field/text-field";
-import Tree from "./tree/tree";
+import { IssueItemType, Tree, TreeToggleType } from "./tree";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../common/splitable-container"
+import { TableSelectable } from "./table";
+
+
+const TableHeadersDefault = [
+    {
+        "prop": "assignee",
+        "label": "assignee"
+    }, 
+    {
+        "prop": "status",
+        "label": "status"
+    },
+    {
+        "prop": "startdate",
+        "label": "startdate"
+    }, 
+    {
+        "prop": "duedate",
+        "label": "duedate"
+    },
+];
 
 const SearchJql: React.FC = () => {
     const jqlDefault: string = "project=TKP and issuetype = Epic order by created DESC";
@@ -78,19 +99,23 @@ const SearchJql: React.FC = () => {
 
                 <SplitableContainer id={idSpliter}>
                     <SplitLeft id={idSpliter}>
-                        <Tree list={treeExample}
+                        <Tree
+                            title={"work.breakdown"}
+                            tree={treeExample}
                             toggles={toggles}
                             togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                             onClick={(item) => handleClick(item)} />
                     </SplitLeft>
                     <SplitBar id={idSpliter}></SplitBar>
                     <SplitRight id={idSpliter}>
-                        <p>Individuals and interactions over processes and tools</p>
-                        <p>Working software over comprehensive documentation</p>
-                        <p>Customer collaboration over contract negotiation</p>
-                        <p>Responding to change over following a plan</p>
-                        <p>That is, while there is value in the items on</p>
-                        <p>the right, we value the items on the left more.</p>
+
+                        <TableSelectable
+                            headers={TableHeadersDefault}
+                            tree={treeExample}
+                            toggles={toggles}
+                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                            onClick={(item: any) => alert(item.key)} />
+
                     </SplitRight>
                 </SplitableContainer>
 

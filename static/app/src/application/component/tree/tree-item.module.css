@@ -1,9 +1,28 @@
+.treeContainer {
+    width:5000px;
+    padding: 0px;
+}
+
+.treeContainer ul ul:not(:first-child), ol ul:not(:first-child), ul ol:not(:first-child), ol ol:not(:first-child) {
+    margin-top: 0px;
+}
+
+.treeHead {
+    height: 20px;
+    width: 100%;
+    color: #73A8FF;
+    font-size: 12px;
+}
+
 .treeItem {
     color: black;
     display: block;
     padding-top: 0px;
     padding-right: 0px;
     padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 12px;
 }
 
 .treeItem:hover {
@@ -15,8 +34,9 @@
 
 .treeItemContainer {
     list-style: none;
-    padding-left: 0;
-    margin: 0;
+    padding: 0;
+    margin: 0px;
+    height: 20px;
 }
 
 .anchorLink {
@@ -26,7 +46,10 @@
 
 .treeItemTextLine {
     display: inline-block;
-    margin: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    font-size: 12px;
 }
 
 .toggleSelector {
@@ -38,3 +61,21 @@
     background: #DEEBFF;
     border-radius: 3px;
 }
+
+.textSummary {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: blue;
+}
+
+.textKey {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: black;
+}
+
+.treeItemImg {
+    margin: 0px;
+    padding: 0px;
+}
+
