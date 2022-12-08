@@ -1,2 +1,2 @@
 export { default as TreeItem } from './tree-item'
-export { default as TreeItemList } from './tree'
+export { default as Tree } from './tree'

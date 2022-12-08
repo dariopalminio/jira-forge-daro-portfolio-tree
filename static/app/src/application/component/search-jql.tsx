@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useJiraHook from "../../domain/hook/jira-hook";
-import { IssueItemType, treeExample } from "../../domain/model/issue-item.type";
+import { IssueItemType, togglesTreeExample, treeExample, TreeToggleType } from "../../domain/model/issue-item.type";
 import Button from "../common/button/button";
 import TextField from "../common/text-field/text-field";
 import Tree from "./tree/tree";
@@ -14,6 +14,7 @@ const SearchJql: React.FC = () => {
     const [value, setValue] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
+    const [toggles, setToggle] = useState<TreeToggleType>(togglesTreeExample);
 
     const getDatas = async () => {
         try {
@@ -45,7 +46,13 @@ const SearchJql: React.FC = () => {
     const handleClick = (item: IssueItemType) => {
         //Here do navigate to path
         alert(`Select item: ${item.summary}`);
-      }
+    }
+
+    const handlerToggleChange = (newToggles: TreeToggleType) => {
+        console.log("toggles:",toggles);
+        console.log("newToggles:",newToggles);
+        setToggle(newToggles)
+    }
 
     return (
         <>
@@ -68,7 +75,10 @@ const SearchJql: React.FC = () => {
             <div id="contentPanel">
                 <p>Results Total (issues count): {total}</p>
 
-                <Tree list={treeExample} onClick={(item) => handleClick(item)} />
+                <Tree list={treeExample} 
+                toggles={toggles}
+                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                onClick={(item) => handleClick(item)} />
 
 
             </div>

@@ -1,24 +1,23 @@
 import React, { useState } from 'react'
-import { IssueItemType } from '../../../domain/model/issue-item.type';
+import { IssueItemType, TreeToggleType } from '../../../domain/model/issue-item.type';
 import styles from './tree-item.module.css';
+import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 //className={styles.inputTextField}
 
 
 interface IProps {
     level: number;
     onClick: (item: IssueItemType) => void;
-    menuItem: IssueItemType;
-    isOpenSidebar?: boolean;
+    treeItem: IssueItemType;
+    togglesChange: (newToggles: TreeToggleType) => void;
+    toggles: TreeToggleType;
 }
 
-const TreeItem: React.FC<IProps> = ({ level, menuItem, onClick, isOpenSidebar }) => {
-
-    const [open, setOpen] = useState(false)
+const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, togglesChange }) => {
 
     const handleClickOpen = () => {
-        if (menuItem?.hasChildren) setOpen(!open)
-        else onClick(menuItem);
-        onClick(menuItem);
+        const newToggles = { ...toggles, [treeItem.key]: !toggles[treeItem.key] };
+        togglesChange(newToggles);
     }
 
     const handleOnClickSubMenuItem = (item: IssueItemType) => {
@@ -27,32 +26,54 @@ const TreeItem: React.FC<IProps> = ({ level, menuItem, onClick, isOpenSidebar })
 
     const handleOnClickAnchorLink = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
+        onClick(treeItem);
     }
 
     const getPaddingLeft = (): string => {
         //padding: 12px 0px 15px ${props => (props.level * 15).toString()}px;
-        return (level * 15).toString()+'px';
+        return (level * 15).toString() + 'px';
+    }
+
+    const isOpen = (): boolean => {
+        console.log(`toggles[${treeItem.key}]: `, toggles[treeItem.key]);
+        return toggles[treeItem.key];
     }
 
     return (
         <ul className={styles.treeItemContainer}>
             <li className={styles.treeItem}
-                onClick={() => handleClickOpen()}
                 style={{ marginLeft: getPaddingLeft() }}>
-                <a className={styles.anchorLink} href="#" onClick={(e) => handleOnClickAnchorLink(e)}>
-                    {<img src={menuItem.iconUrl} alt="" />}&nbsp;
-                    {isOpenSidebar ? menuItem.summary : null}
+                {treeItem?.hasChildren ? (
+                    <div className={styles.toggleSelector}
+                        onClick={() => handleClickOpen()}>
+                        {isOpen() ?
+                            <RiArrowDownSLine size={15} color="#a6a6a6" /> :
+                            <RiArrowRightSLine size={15} color="#a6a6a6" />}
+                    </div>
+                ) : <label style={{marginLeft: "15px"}}/>
+                }
+
+                <a className={styles.anchorLink} href="#"
+                    onClick={(e) => handleOnClickAnchorLink(e)}>
+                    <img src={treeItem.iconUrl} alt="" />
+                    <div className={styles.treeItemTextLine} >
+                        <span style={{ color: "blue" }}>{treeItem.key}</span>
+                        &nbsp;
+                        <span>{treeItem.summary}</span> </div>
+
+
                 </a>
             </li>
-            {open &&
-                menuItem?.childrens?.map(
+            {isOpen() &&
+                treeItem?.childrens?.map(
                     (item, index) => {
                         return (
                             <TreeItem
                                 key={index}
                                 level={level + 1}
-                                isOpenSidebar={isOpenSidebar}
-                                menuItem={item}
+                                treeItem={item}
+                                togglesChange={togglesChange}
+                                toggles={toggles}
                                 onClick={(item) => handleOnClickSubMenuItem(item)} />
                         );
                     }

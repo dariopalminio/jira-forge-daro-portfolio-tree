@@ -8,7 +8,9 @@
 
 .treeItem:hover {
     color: black;
-    background: yellow;
+    background: #f4f5f7;
+    text-decoration: none;
+    border-radius: 3px;
 }
 
 .treeItemContainer {
@@ -20,4 +22,19 @@
 .anchorLink {
     text-decoration: none;
     color: black;
+}
+
+.treeItemTextLine {
+    display: inline-block;
+    margin: 5px;
+}
+
+.toggleSelector {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.toggleSelector:hover {
+    background: #DEEBFF;
+    border-radius: 3px;
 }

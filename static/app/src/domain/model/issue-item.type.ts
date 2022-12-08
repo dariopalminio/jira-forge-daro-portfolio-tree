@@ -33,9 +33,19 @@ export type IssueItemType = {
 
 */
 
+export type TreeToggleType = { [key: string]: boolean };
+
+export const togglesTreeExample: TreeToggleType = {};
+togglesTreeExample['k-1'] = false;
+togglesTreeExample['k-2'] = false;
+togglesTreeExample['k-21'] = false;
+togglesTreeExample['k-22'] = false;
+togglesTreeExample['k-221'] = false;
+togglesTreeExample['k-222'] = false;
+
 export const treeExample: IssueItemType[] = [
     {
-      key: "1",
+      key: "k-1",
       summary: "item 1",
       iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
       hasChildren: false,
@@ -43,14 +53,14 @@ export const treeExample: IssueItemType[] = [
       childrens: []
     },
     {
-        key: "2",
+        key: "k-2",
         summary: "item 2",
         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
         hasChildren: true,
         fields: {},
         childrens: [
             {
-                key: "21",
+                key: "k-21",
                 summary: "item 21",
                 iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                 hasChildren: false,
@@ -58,14 +68,14 @@ export const treeExample: IssueItemType[] = [
                 childrens: []
               },
               {
-                  key: "22",
+                  key: "k-22",
                   summary: "item 22",
                   iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                   hasChildren: true,
                   fields: {},
                   childrens: [
                     {
-                        key: "221",
+                        key: "k-221",
                         summary: "item 221",
                         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                         hasChildren: false,
@@ -73,7 +83,7 @@ export const treeExample: IssueItemType[] = [
                         childrens: []
                       },
                       {
-                          key: "222",
+                          key: "k-222",
                           summary: "item 222",
                           iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                           hasChildren: false,

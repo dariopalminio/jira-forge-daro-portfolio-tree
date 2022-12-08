@@ -1,14 +1,15 @@
 import React from 'react'
-import { IssueItemType } from '../../../domain/model/issue-item.type';
+import { IssueItemType, TreeToggleType } from '../../../domain/model/issue-item.type';
 import TreeItem from './tree-item';
 
 interface Props {
     onClick: (item: IssueItemType) => void;
     list: IssueItemType[];
-    isOpenSidebar?: boolean; 
+    togglesChange: (newToggles: TreeToggleType) => void;
+    toggles: TreeToggleType;
 }
 
-const Tree: React.FC<Props> = ({ list, onClick, isOpenSidebar=true }) => {
+const Tree: React.FC<Props> = ({ list, onClick, toggles, togglesChange }) => {
 
     const handleOnClickLink = (item: IssueItemType) => {
         onClick(item);
@@ -21,8 +22,9 @@ const Tree: React.FC<Props> = ({ list, onClick, isOpenSidebar=true }) => {
                     <TreeItem 
                     key={index} 
                     level={0}
-                    isOpenSidebar={isOpenSidebar}
-                    menuItem={item} 
+                    toggles={toggles}
+                    togglesChange={togglesChange}
+                    treeItem={item} 
                     onClick={(item) => handleOnClickLink(item)} />
                 );
             })}
