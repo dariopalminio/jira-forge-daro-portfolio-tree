@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import { TreeToggleType } from '../tree';
+import AssigneeCell from './cells/assignee-cell';
 import styles from './table-selectable.module.css';
 //className={styles.inputTextField}
 import { IColHeader } from "./types";
@@ -28,32 +29,32 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
 
     const getCellElement = (item: any, element: IColHeader, index: number): React.ReactNode => {
         switch (element.prop) {
-            case 'assignee':{
-               return ( <div key={index}>
-                assignee
-            </div>)
+            case 'assignee': {
+                return (
+                    <AssigneeCell key={index} item={item} element={element} />
+                )
             }
-            case 'status':{
-                return ( <div key={index}>
-                 status
-             </div>)
-             }
-            case 'startdate':{
-                return ( <div key={index}>
-                 startdate
-             </div>)
-             }
-             case 'duedate':{
-                return ( <div key={index}>
-                 duedate
-             </div>)
-             }
-            default:{
-                return ( <div key={index}>
-                 default
-             </div>)
-             }
-          }
+            case 'status': {
+                return (<div key={index}>
+                    status
+                </div>)
+            }
+            case 'startdate': {
+                return (<div key={index}>
+                    startdate
+                </div>)
+            }
+            case 'duedate': {
+                return (<div key={index}>
+                    duedate
+                </div>)
+            }
+            default: {
+                return (<div key={index}>
+                    default
+                </div>)
+            }
+        }
     }
 
     const getRowCellElements = (item: any): React.ReactNode => {
@@ -64,9 +65,9 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
         )
     }
 
-    const getGridTemplateColumns = ()=> {
+    const getGridTemplateColumns = () => {
         const cols = headers?.length;
-        return {gridTemplateColumns: `repeat(${cols}, 1fr)`};
+        return { gridTemplateColumns: `repeat(${cols}, 1fr)` };
     }
 
     return (
@@ -74,7 +75,7 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
             <div className={styles.tableRow}
                 onClick={() => handleOnClick(item)}
                 style={getGridTemplateColumns()}
-                >
+            >
                 {
                     getRowCellElements(item)
                 }
