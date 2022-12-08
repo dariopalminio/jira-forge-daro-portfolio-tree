@@ -71,7 +71,7 @@ export const treeExample: IssueItemType[] = [
                       "16x16": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
                       "32x32": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png"
                   },
-                  "displayName": "Leo Messi",
+                  "displayName": "Leo Messi de Alessandro Batistusta Alarcón",
                   "active": true,
                   "timeZone": "America/Santiago",
                   "accountType": "atlassian"

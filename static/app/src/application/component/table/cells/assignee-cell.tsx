@@ -1,4 +1,5 @@
 import { IColHeader } from "../types";
+import styles from './assignee-cell.module.css';
 
 /**
 "fields": {
@@ -38,10 +39,44 @@ interface IPropsAssigneeCell {
     element: IColHeader;
 }
 const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
-    return (<div >
-        <img src={props?.item?.fields?.assignee?.avatarUrls['16x16']} alt="" height="16" width="16"/>
-        <label>{props?.item?.fields?.assignee?.displayName}</label>
-    </div>)
+
+    const getAvatarUrl = (): string | undefined => {
+        try {
+            const url = props?.item?.fields?.assignee?.avatarUrls['16x16'];
+            if (url === undefined || url === null || typeof url !== 'string') {
+                return undefined;
+            }
+            return url;
+        } catch (error) {
+            return undefined;
+        }
+    }
+
+    const getDisplayName = (): string | undefined => {
+        try {
+            const displayName = props?.item?.fields?.assignee?.displayName;
+            if (displayName === undefined || displayName === null || typeof displayName !== 'string') {
+                return undefined;
+            }
+            return displayName;
+        } catch (error) {
+            return undefined;
+        }
+    }
+
+    return (
+        <div >
+            {
+                getAvatarUrl() &&
+                <img src={getAvatarUrl()}
+                    alt="assignee Avatar Urls" height="16" width="16" />
+            }
+            {
+                getDisplayName() &&
+                <label className={styles.assigneeLabel}>{getDisplayName()}</label>
+            }
+        </div>
+    )
 }
 
 export default AssigneeCell;
