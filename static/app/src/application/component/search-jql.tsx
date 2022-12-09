@@ -1,47 +1,53 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useJiraHook from "../../domain/hook/jira-hook";
-import { togglesTreeExample, treeExample } from "../../domain/model/issue-item.type";
 import Button from "../common/button/button";
 import TextField from "../common/text-field/text-field";
 import { IssueItemType, Tree, TreeToggleType } from "./tree";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../common/splitable-container"
 import { TableSelectable } from "./table";
 
-
-const TableHeadersDefault = [
-    {
-        "prop": "assignee",
-        "label": "assignee"
-    }, 
-    {
-        "prop": "status",
-        "label": "status"
-    },
-    {
-        "prop": "startdate",
-        "label": "startdate"
-    }, 
-    {
-        "prop": "duedate",
-        "label": "duedate"
-    },
-];
-
 const SearchJql: React.FC = () => {
-    const jqlDefault: string = "project=TKP and issuetype = Epic order by created DESC";
-    const { searchJql } = useJiraHook();
+    const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
+    const { searchJql, getTreeToggles } = useJiraHook();
     const [total, setTotal] = useState('none');
-    const [value, setValue] = useState<string>(jqlDefault);
+    const [dataTree, setDataTree] = useState<IssueItemType[]>([]);
+    const [jql, setJql] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
-    const [toggles, setToggle] = useState<TreeToggleType>(togglesTreeExample);
+    const [toggles, setToggles] = useState<TreeToggleType>({});
     const idSpliter = "Daro";
 
-    const getDatas = async () => {
+    const TableHeadersDefault = [
+        {
+            "prop": "assignee",
+            "label": t("assignee"),
+            "width": "100px"
+        }, 
+        {
+            "prop": "status",
+            "label": t("status"),
+            "width": "100px"
+        },
+        {
+            "prop": "startdate",
+            "label": t("startdate"),
+            "width": "190px"
+        }, 
+        {
+            "prop": "duedate",
+            "label": t("duedate"),
+            "width": "190px"
+        },
+    ];
+    
+    const searchData = async () => {
         try {
-            const data = await searchJql(value);
+            const data = await searchJql(jql);
             if (data.total) setTotal(data.total)
+            const treeToggles = getTreeToggles(data.issues);
+            setToggles(treeToggles);
+            setDataTree(data.issues);
             console.log('SearchJql data:', data);
         } catch (error) {
             console.log(error);
@@ -52,12 +58,12 @@ const SearchJql: React.FC = () => {
         //getDatas()
     }, []);
 
-    const handleOnClick = () => {
-        getDatas()
+    const handleSearch = () => {
+        searchData()
     }
 
     const handleChange = async (val: string) => {
-        setValue(val);
+        setJql(val);
         if (val === '') {
             setIsValid(false)
         } else {
@@ -73,7 +79,7 @@ const SearchJql: React.FC = () => {
     const handlerToggleChange = (newToggles: TreeToggleType) => {
         console.log("toggles:", toggles);
         console.log("newToggles:", newToggles);
-        setToggle(newToggles)
+        setToggles(newToggles)
     }
 
     return (
@@ -82,15 +88,15 @@ const SearchJql: React.FC = () => {
             <div id="actionPanel" style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                 <div style={{ float: 'left', width: '90%', alignItems: 'center' }}>
                     <TextField
-                        id="standard-basic-1"
+                        id="jql-textfield"
                         placeholder="Here text..."
                         onChange={(e) => handleChange(e.target.value)}
-                        value={value}
+                        value={jql}
                         {...(!isValid && { error: true, helperText: 'input error' })}
                     />
                 </div>
                 <div style={{ marginLeft: '10px', marginTop: '0px' }}>
-                    <Button onClick={() => handleOnClick()} style={{ float: 'right' }}>Search</Button>
+                    <Button onClick={() => handleSearch()} style={{ float: 'right' }}>Search</Button>
                 </div>
             </div>
 
@@ -100,8 +106,8 @@ const SearchJql: React.FC = () => {
                 <SplitableContainer id={idSpliter}>
                     <SplitLeft id={idSpliter}>
                         <Tree
-                            title={"work.breakdown"}
-                            tree={treeExample}
+                            title={t("work.breakdown")}
+                            tree={dataTree}
                             toggles={toggles}
                             togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                             onClick={(item) => handleClick(item)} />
@@ -111,7 +117,7 @@ const SearchJql: React.FC = () => {
 
                         <TableSelectable
                             headers={TableHeadersDefault}
-                            tree={treeExample}
+                            tree={dataTree}
                             toggles={toggles}
                             togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                             onClick={(item: any) => alert(item.key)} />

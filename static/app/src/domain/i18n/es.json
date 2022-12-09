@@ -1,5 +1,10 @@
 {
     "portfolio": "Partafolio",
     "configure": "Configuración",
-    "permission": "Permisos de acceso"
+    "permission": "Permisos de acceso",
+    "work.breakdown": "Desglose de ítems",
+    "assignee": "Asignado a", 
+    "status": "Estado",
+    "startdate": "Fecha inicio", 
+    "duedate": "Fecha fin"
 }

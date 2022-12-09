@@ -31,7 +31,7 @@ const TableSelectable: React.FC<IProps> = (props: IProps) => {
     const getHeaderCellElements = (): React.ReactNode => {
         return props.headers?.map((element: IColHeader, index: number) => {
             return (
-                <div key={index}>
+                <div key={index} style={{width: element.width}}>
                     {element.label}
                 </div>
             )

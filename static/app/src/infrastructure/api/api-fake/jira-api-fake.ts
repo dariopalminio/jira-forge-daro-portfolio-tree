@@ -11,60 +11,60 @@ export default function JiraApiFakeImpl(): IJiraApi {
 
 
     async function getCurrentUser(): Promise<any> {
-            const data: any = {
-                "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
-                "accountId": "636915272f8b3c8f116ac78d",
-                "emailAddress": "dario.palminio@agilistik.cl",
-                "avatarUrls": {
-                    "48x48": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
-                    "24x24": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
-                    "16x16": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
-                    "32x32": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png"
-                },
-                "displayName": "Daro Palmi",
-                "active": true,
-                "timeZone": "America/Santiago",
-                "locale": "es_ES",
-                "groups": {
-                    "size": 4,
-                    "items": [
-                        {
-                            "name": "Managers",
-                            "groupId": "c0249fc5-3323-4023-98da-179d17b911b4",
-                            "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=c0249fc5-3323-4023-98da-179d17b911b4"
-                        },
-                        {
-                            "name": "MyTeamA",
-                            "groupId": "f9c706f6-e7aa-478a-a77b-ff7d313261f2",
-                            "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=f9c706f6-e7aa-478a-a77b-ff7d313261f2"
-                        },
-                        {
-                            "name": "site-admins",
-                            "groupId": "a0053b33-6d1b-4996-8e65-25543ef55e15",
-                            "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=a0053b33-6d1b-4996-8e65-25543ef55e15"
-                        },
-                        {
-                            "name": "Team Group",
-                            "groupId": "4def5ed6-f96d-4f42-8aaf-0994a716df1a",
-                            "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=4def5ed6-f96d-4f42-8aaf-0994a716df1a"
-                        }
-                    ]
-                },
-                "applicationRoles": {
-                    "size": 1,
-                    "items": [
-                        {
-                            "key": "jira-software",
-                            "name": "Jira Software"
-                        }
-                    ]
-                },
-                "expand": "groups,applicationRoles"
-            };
-            return data;
+        const data: any = {
+            "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
+            "accountId": "636915272f8b3c8f116ac78d",
+            "emailAddress": "dario.palminio@agilistik.cl",
+            "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png"
+            },
+            "displayName": "Daro Palmi",
+            "active": true,
+            "timeZone": "America/Santiago",
+            "locale": "es_ES",
+            "groups": {
+                "size": 4,
+                "items": [
+                    {
+                        "name": "Managers",
+                        "groupId": "c0249fc5-3323-4023-98da-179d17b911b4",
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=c0249fc5-3323-4023-98da-179d17b911b4"
+                    },
+                    {
+                        "name": "MyTeamA",
+                        "groupId": "f9c706f6-e7aa-478a-a77b-ff7d313261f2",
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=f9c706f6-e7aa-478a-a77b-ff7d313261f2"
+                    },
+                    {
+                        "name": "site-admins",
+                        "groupId": "a0053b33-6d1b-4996-8e65-25543ef55e15",
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=a0053b33-6d1b-4996-8e65-25543ef55e15"
+                    },
+                    {
+                        "name": "Team Group",
+                        "groupId": "4def5ed6-f96d-4f42-8aaf-0994a716df1a",
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/group?groupId=4def5ed6-f96d-4f42-8aaf-0994a716df1a"
+                    }
+                ]
+            },
+            "applicationRoles": {
+                "size": 1,
+                "items": [
+                    {
+                        "key": "jira-software",
+                        "name": "Jira Software"
+                    }
+                ]
+            },
+            "expand": "groups,applicationRoles"
+        };
+        return data;
     };
 
-    async function searchJql(jql: string) : Promise<any> {
+    async function searchJql(jql: string): Promise<any> {
 
         return {
             "expand": "schema,names",
@@ -79,8 +79,18 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "key": "POR-4",
                     "fields": {
                         "summary": "Agile Dev Prod",
-                        "created": "2022-11-28T17:39:22.333-0300",
+                        "issuetype": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
+                            "id": "10005",
+                            "description": "Portfolio",
+                            "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
+                            "name": "Portfolio",
+                            "subtask": false,
+                            "avatarId": 10551,
+                            "hierarchyLevel": 0
+                        },
                         "duedate": null,
+                        "created": "2022-11-28T17:39:22.333-0300",
                         "issuelinks": [
                             {
                                 "id": "10107",
@@ -132,7 +142,6 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             }
                         ],
                         "assignee": null,
-                        "customfield_10015": "2022-11-29",
                         "status": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/status/10020",
                             "description": "",
@@ -146,7 +155,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "colorName": "blue-gray",
                                 "name": "To Do"
                             }
-                        }
+                        },
+                        "customfield_10015": "2022-11-29"
                     }
                 },
                 {
@@ -156,6 +166,16 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "key": "POR-3",
                     "fields": {
                         "summary": "Shop Project",
+                        "issuetype": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
+                            "id": "10005",
+                            "description": "Portfolio",
+                            "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
+                            "name": "Portfolio",
+                            "subtask": false,
+                            "avatarId": 10551,
+                            "hierarchyLevel": 0
+                        },
                         "duedate": "2022-12-31",
                         "created": "2022-11-18T11:59:32.924-0300",
                         "issuelinks": [
@@ -377,6 +397,16 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "key": "POR-2",
                     "fields": {
                         "summary": "Jira Consulting",
+                        "issuetype": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
+                            "id": "10005",
+                            "description": "Portfolio",
+                            "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
+                            "name": "Portfolio",
+                            "subtask": false,
+                            "avatarId": 10551,
+                            "hierarchyLevel": 0
+                        },
                         "duedate": null,
                         "created": "2022-11-15T19:40:15.333-0300",
                         "issuelinks": [
@@ -708,6 +738,16 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "key": "POR-1",
                     "fields": {
                         "summary": "Proyecto ejemplo",
+                        "issuetype": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
+                            "id": "10005",
+                            "description": "Portfolio",
+                            "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
+                            "name": "Portfolio",
+                            "subtask": false,
+                            "avatarId": 10551,
+                            "hierarchyLevel": 0
+                        },
                         "duedate": "2022-12-31",
                         "created": "2022-11-14T10:30:59.174-0300",
                         "issuelinks": [],
@@ -726,7 +766,6 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "timeZone": "America/Santiago",
                             "accountType": "atlassian"
                         },
-                        "customfield_10015": "2022-11-07",
                         "status": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/status/10029",
                             "description": "",
@@ -740,31 +779,37 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "colorName": "yellow",
                                 "name": "In Progress"
                             }
-                        }
+                        },
+                        "customfield_10015": "2022-11-07"
                     }
                 }
             ],
             "names": {
                 "summary": "Summary",
-                "created": "Created",
+                "issuetype": "Issue Type",
                 "duedate": "Due date",
+                "created": "Created",
                 "issuelinks": "Linked Issues",
                 "assignee": "Assignee",
-                "customfield_10015": "Start date",
-                "status": "Status"
+                "status": "Status",
+                "customfield_10015": "Start date"
             },
             "schema": {
                 "summary": {
                     "type": "string",
                     "system": "summary"
                 },
-                "created": {
-                    "type": "datetime",
-                    "system": "created"
+                "issuetype": {
+                    "type": "issuetype",
+                    "system": "issuetype"
                 },
                 "duedate": {
                     "type": "date",
                     "system": "duedate"
+                },
+                "created": {
+                    "type": "datetime",
+                    "system": "created"
                 },
                 "issuelinks": {
                     "type": "array",
@@ -775,22 +820,21 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "type": "user",
                     "system": "assignee"
                 },
+                "status": {
+                    "type": "status",
+                    "system": "status"
+                },
                 "customfield_10015": {
                     "type": "date",
                     "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
                     "customId": 10015
-                },
-                "status": {
-                    "type": "status",
-                    "system": "status"
                 }
             }
-        }
-    };
+        };
+    }
 
-
-    return {
-        searchJql,
-        getCurrentUser
+        return {
+            searchJql,
+            getCurrentUser
+        };
     };
-};

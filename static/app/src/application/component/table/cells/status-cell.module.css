@@ -1,0 +1,13 @@
+.statusWrapper { 
+    background: "yellow";
+    border: 0px;
+    border-radius: 3px;
+}
+
+.statusLabel { 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    z-index: 12;
+}

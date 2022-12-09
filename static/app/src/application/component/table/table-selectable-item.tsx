@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import { TreeToggleType } from '../tree';
 import AssigneeCell from './cells/assignee-cell';
+import StatusCell from './cells/status-cell';
 import styles from './table-selectable.module.css';
 //className={styles.inputTextField}
 import { IColHeader } from "./types";
@@ -27,26 +28,25 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
         return toggles[item.key];
     }
 
-    const getCellElement = (item: any, element: IColHeader, index: number): React.ReactNode => {
-        switch (element.prop) {
+    const getCellElement = (item: any, colHeader: IColHeader, index: number): React.ReactNode => {
+        switch (colHeader.prop) {
             case 'assignee': {
                 return (
-                    <AssigneeCell key={index} item={item} element={element} />
+                    <AssigneeCell key={index} item={item} colHeader={colHeader} />
                 )
             }
             case 'status': {
-                return (<div key={index}>
-                    status
-                </div>)
+                return (
+                <StatusCell key={index} item={item} colHeader={colHeader} />)
             }
             case 'startdate': {
-                return (<div key={index}>
-                    startdate
+                return (<div key={index} style={{width: colHeader.width}}>
+                    {item?.fields?.customfield_10015}
                 </div>)
             }
             case 'duedate': {
-                return (<div key={index}>
-                    duedate
+                return (<div key={index} style={{width: colHeader.width}}>
+                    {item?.fields?.duedate}
                 </div>)
             }
             default: {

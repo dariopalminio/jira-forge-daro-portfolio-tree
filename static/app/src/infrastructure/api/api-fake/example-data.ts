@@ -1,36 +1,4 @@
-
-  
-  /*
-"key": "POR-4",
-"fields": {
-  "summary": "",
-  "assignee":"Daro Palmi",
-  "status": "",
-  "customfield_10015": "2022-11-28",
-  "duedate":"2022-12-31",
-  issuetype: {
-    "name": "Epic",
-    "iconUrl": "url..."
-    "issuelinks": [
-      {
-        "type": {
-                            "name": "Initiative",
-                            "outward": "includes",
-                        },
-        "outwardIssue": {
-          "key": "AP-1",
-          "self": "https://daropalmi.atlassian.net/rest/api/3/issue/10001",
-        }
-      }
-    ]
-  }
-},
-"hasChildren":
-"childrens": {}
-
-*/
-
-import { IssueItemType, TreeToggleType } from "../../application/component/tree";
+import { IssueItemType, TreeToggleType } from "../../../application/component/tree";
 
 export const togglesTreeExample: TreeToggleType = {};
 togglesTreeExample['k-1'] = false;
@@ -59,8 +27,23 @@ export const treeExample: IssueItemType[] = [
                   "hierarchyLevel": 0
               },
               "created": "2022-11-14T10:30:59.174-0300",
+              "customfield_10015": "2022-11-14T10:30:59.174-0300",
               "duedate": "2022-12-31",
               "issuelinks": [],
+              "status": {
+                "self": "https://daropalmi.atlassian.net/rest/api/3/status/10029",
+                "description": "",
+                "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
+                "name": "IMPLEMENTING",
+                "id": "10029",
+                "statusCategory": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                }
+            },
               "assignee": {
                   "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
                   "accountId": "636915272f8b3c8f116ac78d",
@@ -97,8 +80,23 @@ export const treeExample: IssueItemType[] = [
                     "hierarchyLevel": 0
                 },
                 "created": "2022-11-14T10:30:59.174-0300",
+                "customfield_10015": "2022-11-28",
                 "duedate": "2022-12-31",
                 "issuelinks": [],
+                "status": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/status/10029",
+                    "description": "",
+                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
+                    "name": "IMPLEMENTING",
+                    "id": "10029",
+                    "statusCategory": {
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                },
                 "assignee": {
                     "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
                     "accountId": "636915272f8b3c8f116ac78d",
@@ -133,8 +131,23 @@ export const treeExample: IssueItemType[] = [
                     "hierarchyLevel": 0
                 },
                 "created": "2022-11-14T10:30:59.174-0300",
+                "customfield_10015": "2022-11-28",
                 "duedate": "2022-12-31",
                 "issuelinks": [],
+                "status": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/status/10029",
+                    "description": "",
+                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
+                    "name": "RECORDING",
+                    "id": "10029",
+                    "statusCategory": {
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "Done"
+                    }
+                },
                 "assignee": {
                     "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
                     "accountId": "636915272f8b3c8f116ac78d",
@@ -170,8 +183,23 @@ export const treeExample: IssueItemType[] = [
                               "hierarchyLevel": 0
                           },
                           "created": "2022-11-14T10:30:59.174-0300",
+                          "customfield_10015": "2022-11-28",
                           "duedate": "2022-12-31",
                           "issuelinks": [],
+                          "status": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/status/10002",
+                            "description": "",
+                            "iconUrl": "https://daropalmi.atlassian.net/",
+                            "name": "Backlog",
+                            "id": "10002",
+                            "statusCategory": {
+                                "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/2",
+                                "id": 2,
+                                "key": "new",
+                                "colorName": "blue-gray",
+                                "name": "To Do"
+                            }
+                        },
                           "assignee": {
                               "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
                               "accountId": "636915272f8b3c8f116ac78d",
@@ -206,8 +234,23 @@ export const treeExample: IssueItemType[] = [
                             "hierarchyLevel": 0
                         },
                         "created": "2022-11-14T10:30:59.174-0300",
+                        "customfield_10015": "2022-11-28",
                         "duedate": "2022-12-31",
                         "issuelinks": [],
+                        "status": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/status/10029",
+                            "description": "",
+                            "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
+                            "name": "IMPLEMENTING",
+                            "id": "10029",
+                            "statusCategory": {
+                                "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
+                                "id": 4,
+                                "key": "indeterminate",
+                                "colorName": "yellow",
+                                "name": "In Progress"
+                            }
+                        },
                         "assignee": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
                             "accountId": "636915272f8b3c8f116ac78d",
@@ -242,8 +285,23 @@ export const treeExample: IssueItemType[] = [
                               "hierarchyLevel": 0
                           },
                           "created": "2022-11-14T10:30:59.174-0300",
+                          "customfield_10015": "2022-11-28",
                           "duedate": "2022-12-31",
                           "issuelinks": [],
+                          "status": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/status/10002",
+                            "description": "",
+                            "iconUrl": "https://daropalmi.atlassian.net/",
+                            "name": "Backlog",
+                            "id": "10002",
+                            "statusCategory": {
+                                "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/2",
+                                "id": 2,
+                                "key": "new",
+                                "colorName": "blue-gray",
+                                "name": "To Do"
+                            }
+                        },
                           "assignee": {
                               "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
                               "accountId": "636915272f8b3c8f116ac78d",

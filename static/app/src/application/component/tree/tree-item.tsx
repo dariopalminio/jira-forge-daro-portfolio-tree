@@ -56,7 +56,7 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                 <a className={styles.anchorLink} href="#"
                     onClick={(e) => handleOnClickAnchorLink(e)}>
                     <img className={styles.treeItemImg}
-                        src={treeItem.iconUrl} alt="" />
+                        src={treeItem.iconUrl} alt="" height="16" width="16"/>
                     <div className={styles.treeItemTextLine} >
                         <span className={styles.textKey}>
                             {treeItem.key}

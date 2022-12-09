@@ -36,7 +36,7 @@ import styles from './assignee-cell.module.css';
 
 interface IPropsAssigneeCell {
     item: any;
-    element: IColHeader;
+    colHeader: IColHeader;
 }
 const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
 
@@ -65,7 +65,7 @@ const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) =
     }
 
     return (
-        <div >
+        <div style={{width: props.colHeader.width}}>
             {
                 getAvatarUrl() &&
                 <img src={getAvatarUrl()}

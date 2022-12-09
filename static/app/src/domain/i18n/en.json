@@ -1,6 +1,11 @@
 {
     "portfolio": "Portfolio",
     "configure": "Configure",
-    "permission": "Permission"
+    "permission": "Permission",
+    "work.breakdown": "Work Breakdown",
+    "assignee": "Assignee", 
+    "status": "Status",
+    "startdate": "Startdate", 
+    "duedate": "Duedate"
     
 }
