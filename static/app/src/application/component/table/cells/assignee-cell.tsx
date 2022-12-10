@@ -1,5 +1,6 @@
 import { IColHeader } from "../types";
 import styles from './assignee-cell.module.css';
+import imgError from "./item-no-image.png"
 
 /**
 "fields": {
@@ -44,10 +45,11 @@ const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) =
         try {
             const url = props?.item?.fields?.assignee?.avatarUrls['16x16'];
             if (url === undefined || url === null || typeof url !== 'string') {
-                return undefined;
+                throw new Error(`Property named props.item.fields.assignee.avatarUrls['16x16'] not found`);
             }
             return url;
-        } catch (error) {
+        } catch (error: any) {
+            console.log(error.message);
             return undefined;
         }
     }
@@ -65,10 +67,14 @@ const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) =
     }
 
     return (
-        <div style={{width: props.colHeader.width}}>
+        <div style={{ width: props.colHeader.width }}>
             {
                 getAvatarUrl() &&
-                <img src={getAvatarUrl()} height="16" width="16" />
+                <img src={getAvatarUrl()}
+                    onError={(e) => {
+                        e.currentTarget.src = imgError
+                    }}
+                    height="16" width="16" />
             }
             {
                 getDisplayName() &&

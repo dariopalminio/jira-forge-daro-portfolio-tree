@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IssueItemType, TreeToggleType } from '../../../domain/model/tree-types';
 import styles from './tree-item.module.css';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
-import imgError from "./no-image.png"
+import imgError from "./item-no-image.png"
 //className={styles.inputTextField}
 
 
