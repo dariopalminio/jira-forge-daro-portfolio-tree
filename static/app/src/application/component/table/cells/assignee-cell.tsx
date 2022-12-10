@@ -68,8 +68,7 @@ const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) =
         <div style={{width: props.colHeader.width}}>
             {
                 getAvatarUrl() &&
-                <img src={getAvatarUrl()}
-                    alt="assignee Avatar Urls" height="16" width="16" />
+                <img src={getAvatarUrl()} height="16" width="16" />
             }
             {
                 getDisplayName() &&

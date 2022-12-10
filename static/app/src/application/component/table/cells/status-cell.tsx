@@ -104,7 +104,7 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
                     return 'LightGray';
                 }
                 case 'In Progress': {
-                    return 'LightBlue';
+                    return '#a4d0f8';
                 }
                 case 'Done': {
                     return 'LightGreen';

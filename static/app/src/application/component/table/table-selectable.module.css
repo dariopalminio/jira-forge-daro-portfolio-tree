@@ -1,5 +1,5 @@
 .tableContainer {
-    background-color: white;
+    background-color: #deecff;
     width: 600px;
     font-size: 12px;
 }
@@ -23,6 +23,7 @@
 
 .tableHeader .tableRow {
     padding: 0px;
+    background-color: white;
 }
 
 .tableHeader .tableRow div {

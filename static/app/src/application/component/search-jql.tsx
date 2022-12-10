@@ -17,6 +17,7 @@ const SearchJql: React.FC = () => {
     const { t } = useTranslation();
     const [toggles, setToggles] = useState<TreeToggleType>({});
     const idSpliter = "Daro";
+    const linksOutwards = ['includes'];
 
     const TableHeadersDefault = [
         {
@@ -43,17 +44,15 @@ const SearchJql: React.FC = () => {
 
     const searchData = async () => {
         try {
+            //load first level, generally are Initiatives
             const data = await searchJql(jql);
             const treeToggles = getTreeTogglesFrom(data.issues);
             setToggles(treeToggles);
             setDataTree(data.issues);
-            console.log('SearchJql data:', data);
-            const newDataTree:IssueItemType[] = await getChildren(data.issues);
-            console.log('************************newDataTree:',newDataTree);
-            const t = getTreeTogglesFrom(newDataTree);
-            console.log("new Toggles:",t);
-            console.log("End new Toggles");
-            setToggles(t);
+            //load childs of second level, generally are EPICs
+            const newDataTree:IssueItemType[] = await getChildren(data.issues, linksOutwards);
+            const newTreeToggles = getTreeTogglesFrom(newDataTree);
+            setToggles(newTreeToggles);
             setDataTree(newDataTree);
         } catch (error) {
             console.log(error);
@@ -109,12 +108,14 @@ const SearchJql: React.FC = () => {
 
                 <SplitableContainer id={idSpliter}>
                     <SplitLeft id={idSpliter}>
+                        <div style={{width: "5000px"}}>
                         <Tree
                             title={t("work.breakdown")}
                             tree={dataTree}
                             toggles={toggles}
                             togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                             onClick={(item) => handleClick(item)} />
+                            </div>
                     </SplitLeft>
                     <SplitBar id={idSpliter}></SplitBar>
                     <SplitRight id={idSpliter}>
