@@ -5,4 +5,5 @@ export interface IJiraApi {
 
   searchJql: (jql: string) => Promise<any>;
   getCurrentUser: () => Promise<any>;
+  getIssueBySelf: (issueUrl: string) => Promise<any>;
 };

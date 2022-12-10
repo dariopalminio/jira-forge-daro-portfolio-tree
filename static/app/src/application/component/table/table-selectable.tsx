@@ -1,7 +1,7 @@
 import { IColHeader } from "./types";
 import styles from './table-selectable.module.css';
 import TableSelectableItem from "./table-selectable-item";
-import { TreeToggleType } from "../tree";
+import { TreeToggleType } from "../../../domain/model/tree-types";
 
 
 interface IProps {

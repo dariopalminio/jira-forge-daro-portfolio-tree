@@ -22,7 +22,7 @@ export default function JiraApiImpl(): IJiraApi {
         }
     };
 
-    async function searchJql(jql: string) : Promise<any> {
+    async function searchJql(jql: string): Promise<any> {
         try {
             const body = {
                 "expand": [
@@ -61,9 +61,28 @@ export default function JiraApiImpl(): IJiraApi {
         }
     };
 
+    /**
+     * Get Issue using Self url
+     * @param issueUrl url string such as "https://daropalmi.atlassian.net/rest/api/3/issue/10053"
+     * @returns 
+     */
+    async function getIssueBySelf(issueUrl: string): Promise<any> {
+        try {
+            const searchTerm = '/rest/';
+            const indexOfFirst = issueUrl.indexOf(searchTerm);
+            const path = issueUrl.substring(indexOfFirst, issueUrl.length);
+            const response = await requestJira(path);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
 
     return {
         searchJql,
-        getCurrentUser
+        getCurrentUser,
+        getIssueBySelf
     };
 };

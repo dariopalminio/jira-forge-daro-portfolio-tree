@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
-import { TreeToggleType } from '../tree';
+import { TreeToggleType } from '../../../domain/model/tree-types';
 import AssigneeCell from './cells/assignee-cell';
 import StatusCell from './cells/status-cell';
 import styles from './table-selectable.module.css';

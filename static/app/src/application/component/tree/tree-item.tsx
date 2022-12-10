@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IssueItemType, TreeToggleType } from './types';
+import { IssueItemType, TreeToggleType } from '../../../domain/model/tree-types';
 import styles from './tree-item.module.css';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 //className={styles.inputTextField}
@@ -40,8 +40,8 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
     }
 
     return (
-        <ul className={styles.treeItemContainer}>
-            <li className={styles.treeItem}
+        <span className={styles.treeItemContainer}>
+            <span className={styles.treeItem}
                 style={{ marginLeft: getPaddingLeft() }}>
                 {treeItem?.hasChildren ? (
                     <div className={styles.toggleSelector}
@@ -56,17 +56,18 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                 <a className={styles.anchorLink} href="#"
                     onClick={(e) => handleOnClickAnchorLink(e)}>
                     <img className={styles.treeItemImg}
-                        src={treeItem.iconUrl} alt="" height="16" width="16"/>
-                    <div className={styles.treeItemTextLine} >
+                        src={treeItem.iconUrl} alt="" height="16" width="16" />
+                    <span className={styles.treeItemTextLine} >
                         <span className={styles.textKey}>
                             {treeItem.key}
                         </span>
                         &nbsp;
                         <span className={styles.textSummary}>
                             {treeItem.summary}
-                        </span> </div>
+                        </span>
+                    </span>
                 </a>
-            </li>
+            </span>
             {isOpen() &&
                 treeItem?.childrens?.map(
                     (item, index) => {
@@ -82,7 +83,7 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                     }
                 )
             }
-        </ul>
+        </span>
     )
 }
 

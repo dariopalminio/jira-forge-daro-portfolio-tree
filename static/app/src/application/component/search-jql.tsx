@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import useJiraHook from "../../domain/hook/jira-hook";
 import Button from "../common/button/button";
 import TextField from "../common/text-field/text-field";
-import { IssueItemType, Tree, TreeToggleType } from "./tree";
+import { Tree } from "./tree";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../common/splitable-container"
 import { TableSelectable } from "./table";
+import { IssueItemType, TreeToggleType } from "../../domain/model/tree-types";
 
 const SearchJql: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
-    const { searchJql, getTreeToggles } = useJiraHook();
-    const [total, setTotal] = useState('none');
+    const { searchJql, getTreeTogglesFrom, getChildren } = useJiraHook();
     const [dataTree, setDataTree] = useState<IssueItemType[]>([]);
     const [jql, setJql] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
@@ -23,7 +23,7 @@ const SearchJql: React.FC = () => {
             "prop": "assignee",
             "label": t("assignee"),
             "width": "100px"
-        }, 
+        },
         {
             "prop": "status",
             "label": t("status"),
@@ -33,22 +33,28 @@ const SearchJql: React.FC = () => {
             "prop": "startdate",
             "label": t("startdate"),
             "width": "190px"
-        }, 
+        },
         {
             "prop": "duedate",
             "label": t("duedate"),
             "width": "190px"
         },
     ];
-    
+
     const searchData = async () => {
         try {
             const data = await searchJql(jql);
-            if (data.total) setTotal(data.total)
-            const treeToggles = getTreeToggles(data.issues);
+            const treeToggles = getTreeTogglesFrom(data.issues);
             setToggles(treeToggles);
             setDataTree(data.issues);
             console.log('SearchJql data:', data);
+            const newDataTree:IssueItemType[] = await getChildren(data.issues);
+            console.log('************************newDataTree:',newDataTree);
+            const t = getTreeTogglesFrom(newDataTree);
+            console.log("new Toggles:",t);
+            console.log("End new Toggles");
+            setToggles(t);
+            setDataTree(newDataTree);
         } catch (error) {
             console.log(error);
         }
@@ -84,7 +90,6 @@ const SearchJql: React.FC = () => {
 
     return (
         <>
-
             <div id="actionPanel" style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                 <div style={{ float: 'left', width: '90%', alignItems: 'center' }}>
                     <TextField
@@ -101,7 +106,6 @@ const SearchJql: React.FC = () => {
             </div>
 
             <div id="contentPanel">
-                <p>Results Total (issues count): {total}</p>
 
                 <SplitableContainer id={idSpliter}>
                     <SplitLeft id={idSpliter}>

@@ -1,6 +1,10 @@
+
+
 .treeContainer {
-    width:5000px;
-    padding: 0px;
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .treeContainer ul ul:not(:first-child), ol ul:not(:first-child), ul ol:not(:first-child), ol ol:not(:first-child) {
@@ -15,8 +19,8 @@
 }
 
 .treeItem {
-    color: black;
     display: block;
+    color: black;
     padding-top: 0px;
     padding-right: 0px;
     padding-bottom: 0px;
@@ -65,13 +69,15 @@
 .textSummary {
     margin-top: 0px;
     margin-bottom: 0px;
-    color: blue;
+    color: black;
+    text-overflow: ellipsis;
+    max-width: 12px;
 }
 
 .textKey {
     margin-top: 0px;
     margin-bottom: 0px;
-    color: black;
+    color: blue;
 }
 
 .treeItemImg {

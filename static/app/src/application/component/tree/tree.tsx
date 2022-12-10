@@ -1,5 +1,5 @@
 import React from 'react'
-import { IssueItemType, TreeToggleType } from './types';
+import { IssueItemType, TreeToggleType } from '../../../domain/model/tree-types';
 import TreeItem from './tree-item';
 import styles from './tree-item.module.css';
 

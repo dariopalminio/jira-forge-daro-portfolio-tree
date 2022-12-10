@@ -3,8 +3,8 @@ import JiraApiImpl from '../../infrastructure/api/jira-api.impl';
 import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
-import { IssueItemType, TreeToggleType } from '../../application/component/tree';
 import { togglesTreeExample } from '../../infrastructure/api/api-fake/example-data';
+import { IssueItemType, TreeToggleType } from '../model/tree-types';
 
 /**
  * Custom hook
@@ -27,22 +27,19 @@ export default function useJiraHook() {
         }
     };
 
-    const searchJql = async (jql: string) => {
+    /**
+     * Searcj JQL in Jira to retrieve issues from portfolio.
+     * Return first level of a tree structure.
+     */
+    const searchJql = async (jql: string): Promise<any> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
-        //const jql: string = "project=TKP and issuetype = Epic order by created DESC";
+
         try {
             const data: any = await jiraApi.searchJql(jql);
-            const issues: any[] = data.issues;
+            const issues: IssueItemType[] = data.issues;
             let tree: IssueItemType[] = [];
             tree = issues?.map((item, index) => {
-                let issue: IssueItemType = {
-                    key: item.key,
-                    summary: item.fields.summary,
-                    iconUrl: item.fields.issuetype.iconUrl,
-                    fields: item.fields,
-                    hasChildren: false,
-                    childrens: []
-                }
+                let issue: IssueItemType = convertToIssueItemType(item);
                 return issue;
             })
 
@@ -53,19 +50,67 @@ export default function useJiraHook() {
         }
     };
 
-    const getTreeToggles = (issuesTree: IssueItemType[]): TreeToggleType => {
-        let toggles: TreeToggleType = {}; //export type TreeToggleType = { [key: string]: boolean };
+    const convertToIssueItemType = (item: any): IssueItemType => {
+        const issue: IssueItemType = {
+            key: item.key,
+            summary: item.fields.summary,
+            iconUrl: item.fields.issuetype.iconUrl,
+            fields: item.fields,
+            hasChildren: false,
+            childrens: []
+        }
+        return issue;
+    };
+
+    /**
+     * Get Tree Toggle
+     * Each issue has a boolean value to indicate if it is open 
+     * (showing its children) or not.
+     */
+    const getTreeTogglesFrom = (issuesTree: IssueItemType[]): TreeToggleType => {
+        let toggles: TreeToggleType = {}; //dictionary = { [key: string]: boolean };
 
         for (var i = 0; i < issuesTree.length; i++) {
             //togglesTreeExample['k-1'] = false;
             toggles[`${issuesTree[i].key}`] = false;
+            if (issuesTree[i].hasChildren){
+                for (var j = 0; j < issuesTree[i].childrens.length; j++) {
+                    toggles[`${issuesTree[i].childrens[j].key}`] = false;
+                }
+            }
         }
 
-        console.log('************toggles calculated:', toggles);
-
-        //return togglesTreeExample;
         return toggles;
     };
+
+    /**
+     * Get initiative's children 
+     * fields.issuelinks[i].type.outward=includes
+     * fields.issuelinks[i].outwardIssue=issue
+     * fields.issuelinks[i].outwardIssue.self=url issue
+     */
+    const getChildren = async (issuesTree: IssueItemType[]): Promise<IssueItemType[]> => {
+        
+        let tree: IssueItemType[] = [...issuesTree];
+        console.log("getChildren----------------------------------->issuesTree:", issuesTree);
+        console.log("tree.length:", tree.length);
+        for (var i = 0; i < tree.length; i++) {
+            const links: any[] = tree[i].fields?.issuelinks;
+            console.log("links.length:", links.length);
+            for (var j = 0; j < links.length; j++) {
+                console.log("links[j].type?.outward:",links[j].type?.outward);
+                if (links[j].type?.outward === 'includes') {
+                    const issueUrl:string = links[j].outwardIssue?.self;
+                    const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
+                    const issue: IssueItemType = convertToIssueItemType(issueChild);
+                    tree[i].childrens.push(issue);
+                    tree[i].hasChildren=true;
+                }
+            }
+        }
+        return [...tree];
+    };
+
 
 
     return {
@@ -75,6 +120,7 @@ export default function useJiraHook() {
         isSuccess: state.isSuccess,
         getCurrentUser,
         searchJql,
-        getTreeToggles
+        getTreeTogglesFrom,
+        getChildren
     };
 };

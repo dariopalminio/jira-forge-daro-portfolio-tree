@@ -98,8 +98,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -185,8 +185,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -233,8 +233,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -281,8 +281,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -329,8 +329,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -416,8 +416,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -464,8 +464,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -512,8 +512,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -560,8 +560,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -608,8 +608,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -656,8 +656,8 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "type": {
                                     "id": "10006",
                                     "name": "Project",
-                                    "inward": "is in project",
-                                    "outward": "project includes",
+                                    "inward": "is included by",
+                                    "outward": "includes",
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
                                 },
                                 "outwardIssue": {
@@ -831,10 +831,357 @@ export default function JiraApiFakeImpl(): IJiraApi {
                 }
             }
         };
-    }
+    };
 
+    async function getIssueBySelf(issueUrl: string): Promise<any> {
+        const num = Math.floor(Math.random() * 1000);
+        const strNum: string = num.toString();
         return {
-            searchJql,
-            getCurrentUser
+            "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations,customfield_10010.requestTypePractice,customfield_10043.properties,customfield_10044.properties,customfield_10045.properties",
+            "id": `${strNum}`,
+            "self": "https://daropalmi.atlassian.net/rest/api/3/issue/10053",
+            "key": `EPIC-${strNum}`,
+            "fields": {
+                "statuscategorychangedate": "2022-11-18T12:01:16.443-0300",
+                "issuetype": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10000",
+                    "id": "10000",
+                    "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+                    "name": "Epic",
+                    "subtask": false,
+                    "hierarchyLevel": 1
+                },
+                "parent": {
+                    "id": "10051",
+                    "key": "POR-3",
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/issue/10051",
+                    "fields": {
+                        "summary": "Shop Project",
+                        "status": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/status/10021",
+                            "description": "",
+                            "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
+                            "name": "SELECTED",
+                            "id": "10021",
+                            "statusCategory": {
+                                "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
+                                "id": 4,
+                                "key": "indeterminate",
+                                "colorName": "yellow",
+                                "name": "In Progress"
+                            }
+                        },
+                        "priority": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/priority/3",
+                            "iconUrl": "https://daropalmi.atlassian.net/images/icons/priorities/medium.svg",
+                            "name": "Medium",
+                            "id": "3"
+                        },
+                        "issuetype": {
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
+                            "id": "10005",
+                            "description": "Portfolio",
+                            "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
+                            "name": "Portfolio",
+                            "subtask": false,
+                            "avatarId": 10551,
+                            "hierarchyLevel": 0
+                        }
+                    }
+                },
+                "timespent": null,
+                "project": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/project/10003",
+                    "id": "10003",
+                    "key": "SHOP",
+                    "name": "Shop",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://daropalmi.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10418",
+                        "24x24": "https://daropalmi.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10418?size=small",
+                        "16x16": "https://daropalmi.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10418?size=xsmall",
+                        "32x32": "https://daropalmi.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10418?size=medium"
+                    }
+                },
+                "customfield_10031": null,
+                "fixVersions": [
+                    {
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/version/10001",
+                        "id": "10001",
+                        "description": "",
+                        "name": "Release MVP v1.0.0",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2022-11-30"
+                    }
+                ],
+                "aggregatetimespent": null,
+                "customfield_10035": [],
+                "resolution": null,
+                "customfield_10036": null,
+                "customfield_10037": null,
+                "customfield_10027": null,
+                "customfield_10028": null,
+                "customfield_10029": null,
+                "resolutiondate": null,
+                "workratio": -1,
+                "watches": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/issue/SHOP-2/watchers",
+                    "watchCount": 1,
+                    "isWatching": true
+                },
+                "lastViewed": "2022-11-25T10:47:06.289-0300",
+                "issuerestriction": {
+                    "issuerestrictions": {},
+                    "shouldDisplay": false
+                },
+                "created": "2022-11-18T12:01:16.136-0300",
+                "customfield_10020": null,
+                "customfield_10021": null,
+                "customfield_10022": null,
+                "customfield_10023": null,
+                "priority": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/priority/3",
+                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/priorities/medium.svg",
+                    "name": "Medium",
+                    "id": "3"
+                },
+                "customfield_10024": null,
+                "customfield_10025": null,
+                "customfield_10026": null,
+                "labels": [
+                    "Retail"
+                ],
+                "customfield_10016": null,
+                "customfield_10017": "purple",
+                "customfield_10018": {
+                    "hasEpicLinkFieldDependency": false,
+                    "showField": true,
+                    "data": {
+                        "id": 10051,
+                        "key": "POR-3",
+                        "keyNum": 3,
+                        "summary": "Shop Project",
+                        "projectId": 10001,
+                        "issueType": {
+                            "id": "10005",
+                            "iconUrl": "/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium"
+                        }
+                    }
+                },
+                "customfield_10019": "0|i000av:",
+                "aggregatetimeoriginalestimate": null,
+                "timeestimate": null,
+                "versions": [],
+                "issuelinks": [
+                    {
+                        "id": "10077",
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/issueLink/10077",
+                        "type": {
+                            "id": "10006",
+                            "name": "Project",
+                            "inward": "is included by",
+                            "outward": "includes",
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/issueLinkType/10006"
+                        },
+                        "inwardIssue": {
+                            "id": "10051",
+                            "key": "POR-3",
+                            "self": "https://daropalmi.atlassian.net/rest/api/3/issue/10051",
+                            "fields": {
+                                "summary": "Shop Project",
+                                "status": {
+                                    "self": "https://daropalmi.atlassian.net/rest/api/3/status/10021",
+                                    "description": "",
+                                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
+                                    "name": "SELECTED",
+                                    "id": "10021",
+                                    "statusCategory": {
+                                        "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
+                                        "id": 4,
+                                        "key": "indeterminate",
+                                        "colorName": "yellow",
+                                        "name": "In Progress"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://daropalmi.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/priorities/medium.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
+                                    "id": "10005",
+                                    "description": "Portfolio",
+                                    "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
+                                    "name": "Portfolio",
+                                    "subtask": false,
+                                    "avatarId": 10551,
+                                    "hierarchyLevel": 0
+                                }
+                            }
+                        }
+                    }
+                ],
+                "assignee": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                    "accountId": "6357e13c13f37118d72646f3",
+                    "avatarUrls": {
+                        "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                        "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                        "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                        "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                    },
+                    "displayName": "Dario Palminio",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "updated": "2022-11-28T17:54:39.315-0300",
+                "status": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/status/1",
+                    "description": "The issue is open and ready for the assignee to start work on it.",
+                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/open.png",
+                    "name": "Open",
+                    "id": "1",
+                    "statusCategory": {
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "blue-gray",
+                        "name": "To Do"
+                    }
+                },
+                "components": [
+                    {
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/component/10001",
+                        "id": "10001",
+                        "name": "Shop API (Back-end)",
+                        "description": "Shop API (Back-end)"
+                    },
+                    {
+                        "self": "https://daropalmi.atlassian.net/rest/api/3/component/10000",
+                        "id": "10000",
+                        "name": "Shop Web Site (Front-end)",
+                        "description": "Shop Web Site (Front-end)"
+                    }
+                ],
+                "customfield_10050": null,
+                "timeoriginalestimate": null,
+                "description": null,
+                "customfield_10010": null,
+                "customfield_10011": "Catalog",
+                "customfield_10012": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/customFieldOption/10016",
+                    "value": "To Do",
+                    "id": "10016"
+                },
+                "customfield_10013": "ghx-label-7",
+                "customfield_10014": null,
+                "customfield_10015": "2022-12-01",
+                "timetracking": {},
+                "customfield_10005": null,
+                "customfield_10049": null,
+                "customfield_10006": null,
+                "customfield_10007": null,
+                "security": null,
+                "customfield_10008": null,
+                "customfield_10009": null,
+                "attachment": [],
+                "aggregatetimeestimate": null,
+                "summary": `Example-${strNum}`,
+                "creator": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
+                    "accountId": "636915272f8b3c8f116ac78d",
+                    "emailAddress": "dario.palminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                        "24x24": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                        "16x16": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                        "32x32": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png"
+                    },
+                    "displayName": "Daro Palmi",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "subtasks": [],
+                "customfield_10040": null,
+                "customfield_10041": null,
+                "customfield_10042": null,
+                "customfield_10043": null,
+                "reporter": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
+                    "accountId": "636915272f8b3c8f116ac78d",
+                    "emailAddress": "dario.palminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                        "24x24": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                        "16x16": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png",
+                        "32x32": "https://secure.gravatar.com/avatar/4c36a83de2784e01d99138459099e319?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDP-1.png"
+                    },
+                    "displayName": "Daro Palmi",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "customfield_10044": null,
+                "aggregateprogress": {
+                    "progress": 0,
+                    "total": 0
+                },
+                "customfield_10001": {
+                    "id": "4",
+                    "title": "Avengers",
+                    "isShared": true,
+                    "name": "Avengers"
+                },
+                "customfield_10045": {
+                    "id": 1,
+                    "value": "Auto bottom up"
+                },
+                "customfield_10002": null,
+                "customfield_10046": null,
+                "customfield_10003": null,
+                "customfield_10047": null,
+                "customfield_10004": null,
+                "customfield_10048": "2022-12-01",
+                "customfield_10038": null,
+                "customfield_10039": null,
+                "environment": null,
+                "duedate": "2022-12-15",
+                "progress": {
+                    "progress": 0,
+                    "total": 0
+                },
+                "comment": {
+                    "comments": [],
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/issue/10053/comment",
+                    "maxResults": 0,
+                    "total": 0,
+                    "startAt": 0
+                },
+                "votes": {
+                    "self": "https://daropalmi.atlassian.net/rest/api/3/issue/SHOP-2/votes",
+                    "votes": 0,
+                    "hasVoted": false
+                },
+                "worklog": {
+                    "startAt": 0,
+                    "maxResults": 20,
+                    "total": 0,
+                    "worklogs": []
+                }
+            }
         };
     };
+
+    return {
+        searchJql,
+        getCurrentUser,
+        getIssueBySelf
+    };
+};
