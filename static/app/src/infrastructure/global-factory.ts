@@ -14,8 +14,8 @@ export default function GlobalFactory() {
     const container: Map<string, any> = new Map();
 
   
-    //container.set('jiraApi', JiraApiImpl());
-    container.set('jiraApi', JiraApiFakeImpl());
+    container.set('jiraApi', JiraApiImpl());
+    //container.set('jiraApi', JiraApiFakeImpl());
  
 
     //Get instance for key name

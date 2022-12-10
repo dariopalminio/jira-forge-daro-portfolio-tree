@@ -18,3 +18,17 @@ permissions:
     - read:jira-user
     - storage:app
     - read:jira-work
+  content:
+    styles:
+      - 'unsafe-inline'
+    scripts:
+      - 'unsafe-inline'
+      - 'unsafe-hashes'
+  external:
+    images:
+      - '*'
+    fetch:
+      client:
+        - '*'
+      backend:
+        - '*'

@@ -36,6 +36,7 @@ export default function useJiraHook() {
 
         try {
             const data: any = await jiraApi.searchJql(jql);
+            console.log('searchJql.data:', data);
             const issues: IssueItemType[] = data.issues;
             let tree: IssueItemType[] = [];
             tree = issues?.map((item, index) => {
@@ -53,9 +54,9 @@ export default function useJiraHook() {
     const convertToIssueItemType = (item: any): IssueItemType => {
         const issue: IssueItemType = {
             key: item.key,
-            summary: item.fields.summary,
-            iconUrl: item.fields.issuetype.iconUrl,
-            fields: item.fields,
+            summary: item?.fields?.summary? item.fields.summary : '',
+            iconUrl: item?.fields?.issuetype?.iconUrl? item.fields.issuetype.iconUrl : '',
+            fields: item?.fields? item.fields : {},
             hasChildren: false,
             childrens: []
         }
