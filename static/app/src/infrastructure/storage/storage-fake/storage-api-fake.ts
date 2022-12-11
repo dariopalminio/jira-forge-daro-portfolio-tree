@@ -5,7 +5,7 @@ export default function StorageApiFake(): IStorageApi {
 
     async function getConfigStorage(key: string): Promise<any> {
         return {
-            date: '2022-11-07',
+            updatedAt: '2022-11-07',
             linksOutwards: ['includes']
           }
     };

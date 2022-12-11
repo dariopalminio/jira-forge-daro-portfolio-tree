@@ -30,7 +30,7 @@ export default function useStorageHook() {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             const configData: ConfigStorageDataType = {
-                date: (new Date).toString(),
+                updatedAt: (new Date).toString(),
                 linksOutwards: ['includes']
             };
             const data: any = await storageApi.setConfigStorage('CONFIG', configData);
