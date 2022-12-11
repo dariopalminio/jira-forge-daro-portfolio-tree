@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
 import StorageApiImpl from '../../infrastructure/storage/storage-api.impl';
-import { ConfigStorageData } from '../model/config-storage-data';
+import { ConfigStorageDataType } from '../model/config-storage-data.type';
 import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookState, InitialState } from './hook.type';
-
+import * as GlobalConfig from '../../infrastructure/global.config';
 
 /**
  * Custom hook
@@ -13,8 +13,8 @@ import { IHookState, InitialState } from './hook.type';
 export default function useStorageHook() {
 
     const [state, setState] = useState<IHookState>(InitialState);
-    const storageApi: IStorageApi = StorageApiImpl();
-
+    //const storageApi: IStorageApi = StorageApiImpl();
+    const storageApi: IStorageApi = GlobalConfig.Factory.get('storageApi');
 
     const getConfigStorage = async () => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
@@ -29,8 +29,9 @@ export default function useStorageHook() {
     const setConfigStorage = async () => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            const configData: ConfigStorageData = {
-                date: (new Date).toString()
+            const configData: ConfigStorageDataType = {
+                date: (new Date).toString(),
+                linksOutwards: ['includes']
             };
             const data: any = await storageApi.setConfigStorage('CONFIG', configData);
             return data;

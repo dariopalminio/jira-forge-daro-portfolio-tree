@@ -92,13 +92,14 @@ export default function useJiraHook() {
      */
     const getChildren = async (issuesTree: IssueItemType[], linksOutwards: string[]): Promise<IssueItemType[]> => {
         let tree: IssueItemType[] = [...issuesTree];
+        const outwards = linksOutwards? linksOutwards : ['includes'];
         for (var i = 0; i < tree.length; i++) {
             const links: any[] = tree[i].fields?.issuelinks;
             for (var j = 0; j < links.length; j++) {
                 const outwardTag = links[j].type?.outward;
                 if ( outwardTag 
                         && (typeof outwardTag === 'string') 
-                        && linksOutwards.includes(outwardTag) ) {
+                        && outwards.includes(outwardTag) ) {
                     const issueUrl:string = links[j].outwardIssue?.self;
                     const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
                     const issue: IssueItemType = convertToIssueItemType(issueChild);

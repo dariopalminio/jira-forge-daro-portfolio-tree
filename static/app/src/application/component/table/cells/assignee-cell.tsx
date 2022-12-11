@@ -1,6 +1,6 @@
 import { IColHeader } from "../types";
 import styles from './assignee-cell.module.css';
-import imgError from "./item-no-image.png"
+import imgError from "./user-no-image.png"
 
 /**
 "fields": {
@@ -48,8 +48,8 @@ const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) =
                 throw new Error(`Property named props.item.fields.assignee.avatarUrls['16x16'] not found`);
             }
             return url;
-        } catch (error: any) {
-            console.log(error.message);
+        } catch (error) {
+            console.log(error);
             return undefined;
         }
     }

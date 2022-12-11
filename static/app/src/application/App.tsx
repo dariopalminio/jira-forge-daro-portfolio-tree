@@ -7,6 +7,7 @@ import useJiraHook from '../domain/hook/jira-hook';
 import { supportedLngs } from '../domain/i18n/supported-lngs';
 import Tabs from './common/tab-panel/tabs';
 import { TabsType } from './common/tab-panel/types';
+import PortfolioContextProvider from './portfolio.provider';
 
 
 
@@ -62,15 +63,15 @@ function App() {
 
     return (
         <div className={styles.app}>
-
-            <div id="TabPanel" className={styles.panelContainer}>
-                <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
-                <div id="Panel">
-                    {tabSelected === 'tab-1' && <SearchJql />}
-                    {tabSelected === 'tab-2' && <div>{t('permission')}: all users</div>}
+            <PortfolioContextProvider>
+                <div id="TabPanel" className={styles.panelContainer}>
+                    <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
+                    <div id="Panel">
+                        {tabSelected === 'tab-1' && <SearchJql />}
+                        {tabSelected === 'tab-2' && <ConfigStore />}
+                    </div>
                 </div>
-            </div>
-
+            </PortfolioContextProvider>
             <br />
         </div>
     );

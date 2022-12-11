@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useJiraHook from "../../domain/hook/jira-hook";
 import Button from "../common/button/button";
@@ -7,17 +7,16 @@ import { Tree } from "./tree";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../common/splitable-container"
 import { TableSelectable } from "./table";
 import { IssueItemType, TreeToggleType } from "../../domain/model/tree-types";
+import PortfolioContext, { IPortfolioContext } from "../../domain/context/portfolio-context";
 
 const SearchJql: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
     const { searchJql, getTreeTogglesFrom, getChildren } = useJiraHook();
-    const [dataTree, setDataTree] = useState<IssueItemType[]>([]);
+    const { dataTree, setDataTree, toggles, setToggles, configData } = useContext(PortfolioContext);
     const [jql, setJql] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
-    const [toggles, setToggles] = useState<TreeToggleType>({});
     const idSpliter = "Daro";
-    const linksOutwards = ['includes'];
 
     const TableHeadersDefault = [
         {
@@ -50,7 +49,7 @@ const SearchJql: React.FC = () => {
             setToggles(treeToggles);
             setDataTree(data.issues);
             //load childs of second level, generally are EPICs
-            const newDataTree:IssueItemType[] = await getChildren(data.issues, linksOutwards);
+            const newDataTree:IssueItemType[] = await getChildren(data.issues, configData.linksOutwards);
             const newTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);

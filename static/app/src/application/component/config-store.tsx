@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import PortfolioContext from "../../domain/context/portfolio-context";
 import useStorageHook from "../../domain/hook/storage-hook";
 
 
 const ConfigStore: React.FC = () => {
-    const [configData, setConfigData] = useState(null);
+    //const [configData, setConfigData] = useState(null);
+    const { configData, setConfigData } = useContext(PortfolioContext);
     const { getConfigStorage,
         setConfigStorage } = useStorageHook();
     const { t } = useTranslation();
@@ -35,7 +37,6 @@ const ConfigStore: React.FC = () => {
 
     return (
         <div>
-            <h2>{t('test')} 4: Config Data</h2>
             <p>data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
         </div>
     );
