@@ -49,6 +49,11 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
                     {item?.fields?.duedate}
                 </div>)
             }
+            case 'project': {
+                return (<div key={index} style={{width: colHeader.width}}>
+                    {item?.fields?.project?.name}
+                </div>)
+            }
             default: {
                 return (<div key={index}>
                     default

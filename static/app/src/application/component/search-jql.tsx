@@ -20,6 +20,11 @@ const SearchJql: React.FC = () => {
 
     const TableHeadersDefault = [
         {
+            "prop": "project",
+            "label": t("project"),
+            "width": "150px"
+        },
+        {
             "prop": "assignee",
             "label": t("assignee"),
             "width": "100px"
@@ -32,12 +37,12 @@ const SearchJql: React.FC = () => {
         {
             "prop": "startdate",
             "label": t("startdate"),
-            "width": "190px"
+            "width": "100px"
         },
         {
             "prop": "duedate",
             "label": t("duedate"),
-            "width": "190px"
+            "width": "100px"
         },
     ];
 
@@ -106,6 +111,7 @@ const SearchJql: React.FC = () => {
                 <SplitableContainer id={idSpliter}>
                     <SplitLeft id={idSpliter}>
                         <div style={{width: "5000px"}}>
+                        <div style={{height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px"}}>Lista en Árbol</div>
                         <Tree
                             title={t("work.breakdown")}
                             tree={dataTree}
@@ -116,7 +122,7 @@ const SearchJql: React.FC = () => {
                     </SplitLeft>
                     <SplitBar id={idSpliter}></SplitBar>
                     <SplitRight id={idSpliter}>
-
+                    <div style={{height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px"}}>Tabla de campos</div>
                         <TableSelectable
                             headers={TableHeadersDefault}
                             tree={dataTree}

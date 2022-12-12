@@ -5,9 +5,11 @@ This is a Jira Forge sample application (Custom UI) that can be used as a base t
 Custom UI for more flexibility with developer-defined JavaScript, CSS, and HTML in a secured iframe hosted by Atlassian. In this case the stack is React 16 and Typescript.
 
 Reference: 
+https://developer.atlassian.com/cloud/jira/platform/forge/
 https://developer.atlassian.com/platform/forge/custom-ui/
 https://atlaskit.atlassian.com/
 https://developer.atlassian.com/platform/marketplace/listing-forge-apps/
+Scopes: https://developer.atlassian.com/cloud/jira/platform/scopes-for-oauth-2-3LO-and-forge-apps/
 
 See [developer.atlassian.com/platform/forge/](https://developer.atlassian.com/platform/forge) for documentation and tutorials explaining Forge.
 

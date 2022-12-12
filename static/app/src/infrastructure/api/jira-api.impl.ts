@@ -42,7 +42,8 @@ export default function JiraApiImpl(): IJiraApi {
                     "duedate",
                     "created",
                     "customfield_10015",
-                    "issuetype"
+                    "issuetype",
+                    "project"
                 ],
                 "startAt": 0
             };

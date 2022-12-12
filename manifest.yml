@@ -15,10 +15,24 @@ app:
   id: ari:cloud:ecosystem::app/b25ec481-1c6e-43f4-bdb3-646803b6fea8
 permissions:
   scopes:
+    - read:issue-link:jira
+    - read:issue-link-type:jira
+    - read:issue-type:jira
+    - read:issue-type.property:jira
+    - read:issue-field-values:jira
+    - read:issue-status:jira
+    - read:label:jira
+    - read:user:jira
+    - read:avatar:jira
+    - read:project:jira
+    - read:project-type:jira
+    - read:project-category:jira
+    - read:project.property:jira
+    - read:project.avatar:jira
     - read:jira-user
     - storage:app
     - read:jira-work
-    - read:issue-link-type:jira
+    - read:connect-jira
   content:
     styles:
       - 'unsafe-inline'
@@ -28,6 +42,7 @@ permissions:
   external:
     images:
       - '*'
+      - '*.atlassian.net/secure/*'
     fetch:
       client:
         - '*'

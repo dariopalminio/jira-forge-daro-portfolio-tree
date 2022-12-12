@@ -9,5 +9,6 @@
     "duedate": "Duedate",
     "issue.link.types.msg.active": "To detect links from parent initiatives to their child items, make sure to have issue linking currently On.",
     "issue.link.types.outwards": "Outwards",
-    "issue.link.types.outwards.msg.": "Children of parent initiatives will be detected by the outwards link type that you select from the available list."
+    "issue.link.types.outwards.msg.": "Children of parent initiatives will be detected by the outwards link type that you select from the available list.",
+    "project": "Project"
 }

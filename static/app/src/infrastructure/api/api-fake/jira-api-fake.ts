@@ -91,6 +91,20 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         },
                         "duedate": null,
                         "created": "2022-11-28T17:39:22.333-0300",
+                        "project": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
+                            "id": "10001",
+                            "key": "PORF",
+                            "name": "Portfolio",
+                            "projectTypeKey": "software",
+                            "simplified": false,
+                            "avatarUrls": {
+                                "48x48": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416",
+                                "24x24": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=small",
+                                "16x16": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=xsmall",
+                                "32x32": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=medium"
+                            }
+                        },
                         "issuelinks": [
                             {
                                 "id": "10107",
@@ -178,6 +192,20 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         },
                         "duedate": "2022-12-31",
                         "created": "2022-11-18T11:59:32.924-0300",
+                        "project": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
+                            "id": "10001",
+                            "key": "PORF",
+                            "name": "Portfolio",
+                            "projectTypeKey": "software",
+                            "simplified": false,
+                            "avatarUrls": {
+                                "48x48": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416",
+                                "24x24": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=small",
+                                "16x16": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=xsmall",
+                                "32x32": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=medium"
+                            }
+                        },
                         "issuelinks": [
                             {
                                 "id": "10076",
@@ -409,6 +437,20 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         },
                         "duedate": null,
                         "created": "2022-11-15T19:40:15.333-0300",
+                        "project": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
+                            "id": "10001",
+                            "key": "PORF",
+                            "name": "Portfolio",
+                            "projectTypeKey": "software",
+                            "simplified": false,
+                            "avatarUrls": {
+                                "48x48": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416",
+                                "24x24": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=small",
+                                "16x16": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=xsmall",
+                                "32x32": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=medium"
+                            }
+                        },
                         "issuelinks": [
                             {
                                 "id": "10102",
@@ -750,6 +792,20 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         },
                         "duedate": "2022-12-31",
                         "created": "2022-11-14T10:30:59.174-0300",
+                        "project": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
+                            "id": "10001",
+                            "key": "PORF",
+                            "name": "Portfolio",
+                            "projectTypeKey": "software",
+                            "simplified": false,
+                            "avatarUrls": {
+                                "48x48": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416",
+                                "24x24": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=small",
+                                "16x16": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=xsmall",
+                                "32x32": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=medium"
+                            }
+                        },
                         "issuelinks": [],
                         "assignee": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
