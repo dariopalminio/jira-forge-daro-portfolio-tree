@@ -81,8 +81,6 @@ const SearchJql: React.FC = () => {
     }
 
     const handlerToggleChange = (newToggles: TreeToggleType) => {
-        console.log("toggles:", toggles);
-        console.log("newToggles:", newToggles);
         setToggles(newToggles)
     }
 

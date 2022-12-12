@@ -1,7 +1,8 @@
 import { IJiraApi } from "../domain/outgoing/jira-api.interface";
 import JiraApiFakeImpl from "./api/api-fake/jira-api-fake";
 import JiraApiImpl from "./api/jira-api.impl";
-import StorageApiFake from "./storage/storage-fake/storage-api-fake";
+import StorageApiFake from "./api/api-fake/storage-fake/storage-api-fake";
+import StorageApiImpl from "./api/storage-api.impl";
 
 
 /**
@@ -14,10 +15,10 @@ export default function GlobalFactory() {
 
     const container: Map<string, any> = new Map();
 
-  
-    //container.set('jiraApi', JiraApiImpl());
-    container.set('jiraApi', JiraApiFakeImpl());
-    container.set('storageApi', StorageApiFake());
+    container.set('storageApi', StorageApiImpl());
+    container.set('jiraApi', JiraApiImpl());
+    //container.set('jiraApi', JiraApiFakeImpl());
+    //container.set('storageApi', StorageApiFake());
     
 
     //Get instance for key name

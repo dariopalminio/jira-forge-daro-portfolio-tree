@@ -36,7 +36,7 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
     }
 
     const isOpen = (): boolean => {
-        console.log(`toggles[${treeItem.key}]: `, toggles[treeItem.key]);
+        //console.log(`toggles[${treeItem.key}]: `, toggles[treeItem.key]);
         return toggles[treeItem.key];
     }
 

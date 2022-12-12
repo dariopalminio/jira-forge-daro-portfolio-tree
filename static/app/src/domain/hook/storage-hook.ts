@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import StorageApiImpl from '../../infrastructure/storage/storage-api.impl';
+import StorageApiImpl from '../../infrastructure/api/storage-api.impl';
 import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data.type';
 import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookState, InitialState } from './hook.type';

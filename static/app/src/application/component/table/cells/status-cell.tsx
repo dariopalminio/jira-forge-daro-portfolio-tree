@@ -43,6 +43,7 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
     const getStatusNameText = (): string => {
         try {
             const name = props?.item?.fields?.status?.name;
+            console.log(`status?.name ${props?.item?.key}:`,name);
             if (name === undefined || name === null || typeof name !== 'string') {
                 return '';
             }
@@ -52,9 +53,10 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
         }
     }
 
-    const getStatusName = (): string | undefined => {
+    const getStatusKey = (): string | undefined => {
         try {
-            const statusName = props?.item?.fields?.status?.statusCategory?.name;
+            const statusName = props?.item?.fields?.status?.statusCategory?.key;
+            console.log('statusCategory-->statusName:',statusName);
             if (statusName === undefined || statusName === null || typeof statusName !== 'string') {
                 return undefined;
             }
@@ -64,26 +66,44 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
         }
     }
 
+    /**
+     * 
+    statusCategory: 
+        colorName: "green"
+        id: 3
+        key: "done"
+        name: "Listo"
+    statusCategory: 
+        colorName: "blue-gray"
+        id: 2
+        key: "new"
+        name: "Por hacer"
+    statusCategory: 
+        colorName: "yellow"
+        id: 4
+        key: "indeterminate"
+        name: "En curso"
+     */
     const getColor = (): string => {
         try {
-            const statusName = getStatusName();
+            const statusName = getStatusKey();
 
             if (statusName === undefined) {
                 return 'grey';
             }
 
             switch (statusName) {
-                case 'To Do': {
-                    return '#3D3D3D';
+                case 'new': {
+                    return 'black';
                 }
-                case 'In Progress': {
-                    return 'DarkBlue';
+                case 'indeterminate': {
+                    return 'black';
                 }
-                case 'Done': {
-                    return 'DarkGreen';
+                case 'done': {
+                    return 'black';
                 }
                 default: {
-                    return 'grey';
+                    return 'black';
                 }
             }
         } catch (error) {
@@ -93,24 +113,24 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
 
     const getBckgroundColor = (): string => {
         try {
-            const statusName = getStatusName();
+            const statusName = getStatusKey();
 
             if (statusName === undefined) {
                 return 'LightGray';
             }
 
             switch (statusName) {
-                case 'To Do': {
+                case 'new': {
                     return 'LightGray';
                 }
-                case 'In Progress': {
+                case 'indeterminate': {
                     return '#a4d0f8';
                 }
-                case 'Done': {
+                case 'done': {
                     return 'LightGreen';
                 }
                 default: {
-                    return 'grey';
+                    return 'LightGreen';
                 }
             }
         } catch (error) {

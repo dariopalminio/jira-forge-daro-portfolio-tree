@@ -24,7 +24,7 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
     }
 
     const isOpen = (): boolean => {
-        console.log(`toggles[${item.key}]: `, toggles[item.key]);
+        //console.log(`toggles[${item.key}]: `, toggles[item.key]);
         return toggles[item.key];
     }
 
