@@ -54,9 +54,9 @@ export default function useJiraHook() {
     const convertToIssueItemType = (item: any): IssueItemType => {
         const issue: IssueItemType = {
             key: item.key,
-            summary: item?.fields?.summary? item.fields.summary : '',
-            iconUrl: item?.fields?.issuetype?.iconUrl? item.fields.issuetype.iconUrl : '',
-            fields: item?.fields? item.fields : {},
+            summary: item?.fields?.summary ? item.fields.summary : '',
+            iconUrl: item?.fields?.issuetype?.iconUrl ? item.fields.issuetype.iconUrl : '',
+            fields: item?.fields ? item.fields : {},
             hasChildren: false,
             childrens: []
         }
@@ -74,7 +74,7 @@ export default function useJiraHook() {
         for (var i = 0; i < issuesTree.length; i++) {
             //togglesTreeExample['k-1'] = false;
             toggles[`${issuesTree[i].key}`] = false;
-            if (issuesTree[i].hasChildren){
+            if (issuesTree[i].hasChildren) {
                 for (var j = 0; j < issuesTree[i].childrens.length; j++) {
                     toggles[`${issuesTree[i].childrens[j].key}`] = false;
                 }
@@ -92,26 +92,49 @@ export default function useJiraHook() {
      */
     const getChildren = async (issuesTree: IssueItemType[], linksOutwards: string[]): Promise<IssueItemType[]> => {
         let tree: IssueItemType[] = [...issuesTree];
-        const outwards = linksOutwards? linksOutwards : ['includes'];
+        let outwards: string[] =[];
+        if (linksOutwards && Array.isArray(linksOutwards) && linksOutwards.length > 0){
+            outwards = linksOutwards;
+        }
         for (var i = 0; i < tree.length; i++) {
             const links: any[] = tree[i].fields?.issuelinks;
             for (var j = 0; j < links.length; j++) {
                 const outwardTag = links[j].type?.outward;
-                if ( outwardTag 
-                        && (typeof outwardTag === 'string') 
-                        && outwards.includes(outwardTag) ) {
-                    const issueUrl:string = links[j].outwardIssue?.self;
+                if (outwardTag
+                    && (typeof outwardTag === 'string')
+                    && outwards.includes(outwardTag)) {
+                    const issueUrl: string = links[j].outwardIssue?.self;
                     const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
                     const issue: IssueItemType = convertToIssueItemType(issueChild);
                     tree[i].childrens.push(issue);
-                    tree[i].hasChildren=true;
+                    tree[i].hasChildren = true;
                 }
             }
         }
         return [...tree];
     };
 
-
+    const getOutwardsFromJira = async (): Promise<string[]> => {
+        const excludedOutwards = ['blocks', 'causes', 'clones', 'duplicates'];
+        try {
+            let outward: string[] = [];
+            const data: any = await jiraApi.getIssueLinkTypes();
+            const issueLinkTypes: any = data.issueLinkTypes;
+            for (var i = 0; i < issueLinkTypes.length; i++) {
+                if (issueLinkTypes[i].outward
+                    && (typeof issueLinkTypes[i].outward === 'string')
+                    && issueLinkTypes[i].outward !== '') {
+                    if (!excludedOutwards.includes(issueLinkTypes[i].outward)) {
+                        outward.push(issueLinkTypes[i].outward);
+                    }
+                }
+            }
+            return outward;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
 
     return {
         isProcessing: state.isProcessing,
@@ -121,6 +144,7 @@ export default function useJiraHook() {
         getCurrentUser,
         searchJql,
         getTreeTogglesFrom,
-        getChildren
+        getChildren,
+        getOutwardsFromJira
     };
 };

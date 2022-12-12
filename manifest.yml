@@ -18,6 +18,7 @@ permissions:
     - read:jira-user
     - storage:app
     - read:jira-work
+    - read:issue-link-type:jira
   content:
     styles:
       - 'unsafe-inline'

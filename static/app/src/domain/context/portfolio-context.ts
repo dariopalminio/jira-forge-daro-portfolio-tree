@@ -11,6 +11,8 @@ export interface IPortfolioContext {
     setToggles: (newToggles: TreeToggleType) => void;
     configData: ConfigStorageDataType;
     setConfigData: (newConfigData: ConfigStorageDataType) => void;
+    configHasChanges: boolean;
+    setConfigHasChanges: (configHasChanges: boolean) => void;
 };
 
 export const PortfolioContextDefaultValues: IPortfolioContext = {
@@ -19,7 +21,9 @@ export const PortfolioContextDefaultValues: IPortfolioContext = {
     toggles: {},
     setToggles: (newToggles: TreeToggleType) => { },
     configData: ConfigStorageDataDefault,
-    setConfigData: (newConfigData: ConfigStorageDataType) => { }
+    setConfigData: (newConfigData: ConfigStorageDataType) => { },
+    configHasChanges: false,
+    setConfigHasChanges: (configHasChanges: boolean) => {}
 };
 
 const PortfolioContext = createContext<IPortfolioContext>(PortfolioContextDefaultValues);

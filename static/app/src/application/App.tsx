@@ -5,9 +5,8 @@ import { useTranslation } from "react-i18next";
 import SearchJql from './component/search-jql';
 import useJiraHook from '../domain/hook/jira-hook';
 import { supportedLngs } from '../domain/i18n/supported-lngs';
-import Tabs from './common/tab-panel/tabs';
-import { TabsType } from './common/tab-panel/types';
 import PortfolioContextProvider from './portfolio.provider';
+import PortfolioPanel from './component/portfolio-panel';
 
 
 
@@ -15,18 +14,6 @@ function App() {
     const { getCurrentUser } = useJiraHook();
     const [currentUser, setCurrentUser] = useState<any>({});
     const { t, i18n } = useTranslation();
-    const [tabSelected, setTabSelected] = useState<string>('tab-1');
-
-    const tabs: TabsType = [
-        {
-            id: 'tab-1',
-            text: t('portfolio')
-        },
-        {
-            id: 'tab-2',
-            text: t('configure')
-        }
-    ];
 
     /**
      * Change the language to display in the browser based on the language of the current user
@@ -64,13 +51,7 @@ function App() {
     return (
         <div className={styles.app}>
             <PortfolioContextProvider>
-                <div id="TabPanel" className={styles.panelContainer}>
-                    <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
-                    <div id="Panel">
-                        {tabSelected === 'tab-1' && <SearchJql />}
-                        {tabSelected === 'tab-2' && <ConfigStore />}
-                    </div>
-                </div>
+                <PortfolioPanel />
             </PortfolioContextProvider>
             <br />
         </div>

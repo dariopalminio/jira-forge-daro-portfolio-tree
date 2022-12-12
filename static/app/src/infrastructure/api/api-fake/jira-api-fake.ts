@@ -1179,9 +1179,60 @@ export default function JiraApiFakeImpl(): IJiraApi {
         };
     };
 
+
+    async function getIssueLinkTypes(): Promise<any> {
+        return {
+            "issueLinkTypes": [
+                {
+                    "id": "10000",
+                    "name": "Blocks",
+                    "inward": "is blocked by",
+                    "outward": "blocks",
+                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10000"
+                },
+                {
+                    "id": "10001",
+                    "name": "Cloners",
+                    "inward": "is cloned by",
+                    "outward": "clones",
+                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10001"
+                },
+                {
+                    "id": "10002",
+                    "name": "Duplicate",
+                    "inward": "is duplicated by",
+                    "outward": "duplicates",
+                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10002"
+                },
+                {
+                    "id": "10007",
+                    "name": "Initiative",
+                    "inward": "is included by",
+                    "outward": "includes",
+                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10007"
+                },
+                {
+                    "id": "10006",
+                    "name": "Problem/Incident",
+                    "inward": "is caused by",
+                    "outward": "causes",
+                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10006"
+                },
+                {
+                    "id": "10003",
+                    "name": "Relates",
+                    "inward": "relates to",
+                    "outward": "relates to",
+                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10003"
+                }
+            ]
+        }
+    }
+
     return {
         searchJql,
         getCurrentUser,
-        getIssueBySelf
+        getIssueBySelf,
+        getIssueLinkTypes
     };
 };

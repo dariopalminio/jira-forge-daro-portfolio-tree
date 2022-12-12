@@ -5,8 +5,8 @@ export type ConfigStorageDataType = {
 };
 
 export const ConfigStorageDataDefault: ConfigStorageDataType = {
-  updatedAt: '2022-11-07',
-  linksOutwards: ['includes']
+  updatedAt: '',
+  linksOutwards: []
 }
 
 /*

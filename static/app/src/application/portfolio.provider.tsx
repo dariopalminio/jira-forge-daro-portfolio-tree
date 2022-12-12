@@ -10,6 +10,7 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
     const [dataTree, setDataTree] = useState<IssueItemType[]>([]);
     const [toggles, setToggles] = useState<TreeToggleType>({});
     const [configData, setConfigData] = useState<ConfigStorageDataType>(ConfigStorageDataDefault);
+    const [configHasChanges, setConfigHasChanges] = useState<boolean>(false);
 
   useEffect(() => {
 
@@ -23,7 +24,9 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
         toggles, 
         setToggles,
         configData, 
-        setConfigData
+        setConfigData,
+        configHasChanges, 
+        setConfigHasChanges
       }}
     >
       {children}

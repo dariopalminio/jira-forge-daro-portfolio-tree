@@ -1,7 +1,7 @@
 .containerSplit {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 500px;
 }
 
 .internalSplitBar {
@@ -9,7 +9,7 @@
     border-right: 1px solid #32a1ce;
     border-left: 1px solid #BCBCBC;
     width: 1px;
-    height: 400px;
+    height: 100%;
     cursor: col-resize;
 }
 
