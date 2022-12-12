@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PortfolioContext from "../../domain/context/portfolio-context";
-import useJiraHook from "../../domain/hook/jira-hook";
-import useStorageHook from "../../domain/hook/storage-hook";
-import { ConfigStorageDataType } from "../../domain/model/config-storage-data.type";
-import Button from "../common/button/button";
-import Checkbox, { CheckboxType } from "../common/checkbox/checkbox";
-import CheckboxGroup from "../common/checkbox/checkbox-group";
+import PortfolioContext from "../../../domain/context/portfolio-context";
+import useJiraHook from "../../../domain/hook/jira-hook";
+import useStorageHook from "../../../domain/hook/storage-hook";
+import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
+import Button from "../../common/button/button";
+import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
+import CheckboxGroup from "../../common/checkbox/checkbox-group";
 
 const ConfigStore: React.FC = () => {
     //const [configData, setConfigData] = useState(null);
@@ -16,7 +16,7 @@ const ConfigStore: React.FC = () => {
     const { t } = useTranslation();
     const { getOutwardsFromJira } = useJiraHook();
     const [outwardsCheckboxes, setOutwardsCheckboxes] = useState<CheckboxType[]>([]);
-  
+
 
     /**
      * Get Outwards Ckecboxes
@@ -72,7 +72,7 @@ const ConfigStore: React.FC = () => {
     }
 
     const handleSave = async () => {
-        const configDataEdited = {...configData,  updatedAt: (new Date).toString()};
+        const configDataEdited = { ...configData, updatedAt: (new Date).toString() };
         const infoResponse: ConfigStorageDataType = await setConfigStorage(configDataEdited);
         setConfigData(infoResponse);
         setConfigHasChanges(false);
@@ -80,10 +80,12 @@ const ConfigStore: React.FC = () => {
 
     return (
         <div>
-            <p style={{fontSize: "11px", color: "grey"}}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
+            <p style={{ fontSize: "11px", color: "grey" }}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
 
             <form>
-                <p style={{fontSize: "11px", color: "grey"}}>{t("issue.link.types.msg.active")} {t("issue.link.types.outwards.msg.")}</p>
+                <p style={{ fontSize: "11px", color: "grey" }}>
+                    {t("issue.link.types.msg.active")} {t("issue.link.types.outwards.msg.")}
+                </p>
 
                 <div>
                     <label>{t("issue.link.types.outwards")}:</label>
@@ -95,7 +97,7 @@ const ConfigStore: React.FC = () => {
             </form>
             {configHasChanges && (
                 <div style={{ marginLeft: '10px', marginTop: '0px' }}>
-                    <Button onClick={() => handleSave()} style={{ float: 'right' }}>Save</Button>
+                    <Button onClick={() => handleSave()} style={{ float: 'right' }}>{t('save')}</Button>
                 </div>
             )}
 

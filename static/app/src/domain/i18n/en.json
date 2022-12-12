@@ -14,5 +14,7 @@
     "tree.list.title": "Tree list",
     "table.fields.title": "Table fields",
     "collapse.all": "Collapse all",
-    "expand.all": "Expand all"
+    "expand.all": "Expand all",
+    "search": "Search",
+    "save": "Save"
 }

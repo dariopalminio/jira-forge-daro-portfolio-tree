@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import Tabs from '../common/tab-panel/tabs';
 import { TabsType } from '../common/tab-panel/types';
 import styles from './portfolio-panel.module.css';
-import SearchJql from "./search-jql";
-import ConfigStore from "./config-store";
+import SearchView from "./vew/search-vew";
+import ConfigStore from "./config/config-store";
 import PortfolioContext from "../../domain/context/portfolio-context";
 import useStorageHook from "../../domain/hook/storage-hook";
 
@@ -50,7 +50,7 @@ const PortfolioPanel: React.FC<IProps> = (props: IProps) => {
         <div id="TabPanel" className={styles.panelContainer}>
             <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
             <div id="Panel" style={{height: "100%"}}>
-                {tabSelected === 'tab-1' && <SearchJql />}
+                {tabSelected === 'tab-1' && <SearchView />}
                 {tabSelected === 'tab-2' && <ConfigStore />}
             </div>
         </div>

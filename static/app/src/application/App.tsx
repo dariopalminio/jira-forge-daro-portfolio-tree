@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import ConfigStore from './component/config-store';
+import ConfigStore from './component/config/config-store';
 import styles from './App.module.css';
 import { useTranslation } from "react-i18next";
-import SearchJql from './component/search-jql';
+import SearchJql from './component/vew/search-vew';
 import useJiraHook from '../domain/hook/jira-hook';
 import { supportedLngs } from '../domain/i18n/supported-lngs';
 import PortfolioContextProvider from './portfolio.provider';

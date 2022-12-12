@@ -1,0 +1,18 @@
+
+
+.actionPanel { 
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.searchWrapper { 
+    width: 100%;
+}
+
+.jqlWrapper { 
+    float: left;
+    width: 90%;
+    align-items: center;
+}

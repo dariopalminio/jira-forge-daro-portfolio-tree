@@ -14,5 +14,7 @@
     "tree.list.title": "Lista en árbol",
     "table.fields.title": "Tabla de campos principales",
     "collapse.all": "Contraer todo",
-    "expand.all": "Expandir todo"
+    "expand.all": "Expandir todo",
+    "search": "Buscar",
+    "save": "Guardar"
 }
