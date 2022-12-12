@@ -54,7 +54,7 @@ const SearchJql: React.FC = () => {
             setToggles(treeToggles);
             setDataTree(data.issues);
             //load childs of second level, generally are EPICs
-            const newDataTree:IssueItemType[] = await getChildren(data.issues, configData.linksOutwards);
+            const newDataTree: IssueItemType[] = await getChildren(data.issues, configData.linksOutwards);
             const newTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
@@ -91,7 +91,7 @@ const SearchJql: React.FC = () => {
 
     return (
         <>
-            <div id="actionPanel" style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
+            <div id="actionPanel" style={{ display: 'flex', width: '100%', alignItems: 'center', marginBottom: "5px" }}>
                 <div style={{ float: 'left', width: '90%', alignItems: 'center' }}>
                     <TextField
                         id="jql-textfield"
@@ -108,21 +108,26 @@ const SearchJql: React.FC = () => {
 
             <div id="contentPanel">
 
-                <SplitableContainer id={idSpliter}>
+                <SplitableContainer id={idSpliter} style={{ height: 'calc(100vh - 150px)' }}>
                     <SplitLeft id={idSpliter}>
-                        <div style={{width: "5000px"}}>
-                        <div style={{height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px"}}>Lista en Árbol</div>
-                        <Tree
-                            title={t("work.breakdown")}
-                            tree={dataTree}
-                            toggles={toggles}
-                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                            onClick={(item) => handleClick(item)} />
+                        <div style={{ width: "5000px" }}>
+                            <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
+                                {t('tree.list.title')}
                             </div>
+                            <Tree
+                                collapseAllLabel={t("collapse.all")}
+                                expandAllLabel={t("expand.all")}
+                                tree={dataTree}
+                                toggles={toggles}
+                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                                onClick={(item) => handleClick(item)} />
+                        </div>
                     </SplitLeft>
                     <SplitBar id={idSpliter}></SplitBar>
                     <SplitRight id={idSpliter}>
-                    <div style={{height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px"}}>Tabla de campos</div>
+                        <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
+                            {t('table.fields.title')}
+                        </div>
                         <TableSelectable
                             headers={TableHeadersDefault}
                             tree={dataTree}

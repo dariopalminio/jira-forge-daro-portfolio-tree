@@ -1,7 +1,7 @@
 import { IJiraApi } from "../domain/outgoing/jira-api.interface";
 import JiraApiFakeImpl from "./api/api-fake/jira-api-fake";
 import JiraApiImpl from "./api/jira-api.impl";
-import StorageApiFake from "./api/api-fake/storage-fake/storage-api-fake";
+import StorageApiFake from "./api/api-fake/storage-api-fake";
 import StorageApiImpl from "./api/storage-api.impl";
 
 

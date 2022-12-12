@@ -1,4 +1,4 @@
-import { IStorageApi } from "../../../../domain/outgoing/storage-api.interface";
+import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
 
 export default function StorageApiFake(): IStorageApi {
 

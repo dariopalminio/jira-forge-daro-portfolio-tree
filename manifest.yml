@@ -42,7 +42,8 @@ permissions:
   external:
     images:
       - '*'
-      - '*.atlassian.net/secure/*'
+      - '*.atlassian.net/*'
+      - '*.atlassian.com/*'
     fetch:
       client:
         - '*'

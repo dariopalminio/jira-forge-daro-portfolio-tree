@@ -1,0 +1,40 @@
+.radioButtonWraper {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.radioButton input[type="radio"] {
+	display: none;
+}
+.radioButton label {
+	position: relative;
+	display: inline-block;
+	padding: 0px 0px 0px 20px;
+	cursor: pointer;
+	font-size: 12px;
+}
+.radioButton label::before {
+	position: absolute;
+	content: '';
+	top: 50%;
+	left: 0;
+	width: 8px;
+	height: 8px;
+	margin-top: -8px;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 100%;
+}
+.radioButton input[type="radio"]:checked + label::after {
+	position: absolute;
+	content: '';
+	top: 50%;
+	left: 2px;
+	width: 6px;
+	height: 6px;
+	margin-top: -6px;
+	background: #3498db;
+	border-radius: 100%;
+}
+
+

@@ -10,5 +10,9 @@
     "issue.link.types.msg.active": "Para detectar los enlaces desde iniciativas padres a sus ítems hijos, asegúrate de tener el enlazado de incidencias actualmente activado.",
     "issue.link.types.outwards": "Descripción exterior de tipo de enlace",
     "issue.link.types.outwards.msg.": "Se detectarán los hijos de las iniciativas padre mediante el tipo de enlace 'Descripción exterior' que usted tenga seleccionado de la lista disponible.",
-    "project": "Espacio de trabajo"
+    "project": "Espacio de trabajo",
+    "tree.list.title": "Lista en árbol",
+    "table.fields.title": "Tabla de campos principales",
+    "collapse.all": "Contraer todo",
+    "expand.all": "Expandir todo"
 }

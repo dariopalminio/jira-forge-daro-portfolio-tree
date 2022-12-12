@@ -11,11 +11,11 @@
     margin-top: 0px;
 }
 
-.treeHead {
-    height: 20px;
+.treeHeader {
     width: 100%;
-    color: #73A8FF;
-    font-size: 12px;
+    color: #6384b8;
+    box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.5);
+    height: 20px;
 }
 
 .treeItem {
