@@ -40,6 +40,11 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
         return toggles[treeItem.key];
     }
 
+    const getIssueTypeName = (): string => {
+        const name: string = treeItem?.fields?.issuetype?.name? treeItem.fields.issuetype.name + ':' : '';
+        return name;
+    }
+
     return (
         <span className={styles.treeItemContainer}>
             <span className={styles.treeItem}
@@ -63,8 +68,12 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                           }}
                           alt="" height="16" width="16" />
                     <span className={styles.treeItemTextLine} >
+                    <span className={styles.textKey}>
+                            {getIssueTypeName()}
+                        </span>
+                        &nbsp;
                         <span className={styles.textKey}>
-                            {treeItem.key}
+                            {`[${treeItem.key}]`}
                         </span>
                         &nbsp;
                         <span className={styles.textSummary}>

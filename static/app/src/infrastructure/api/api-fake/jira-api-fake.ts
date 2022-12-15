@@ -82,9 +82,9 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         "issuetype": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
                             "id": "10005",
-                            "description": "Portfolio",
+                            "description": "Initiative",
                             "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
-                            "name": "Portfolio",
+                            "name": "Initiative",
                             "subtask": false,
                             "avatarId": 10551,
                             "hierarchyLevel": 0
@@ -183,9 +183,9 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         "issuetype": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
                             "id": "10005",
-                            "description": "Portfolio",
+                            "description": "Initiative",
                             "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
-                            "name": "Portfolio",
+                            "name": "Initiative",
                             "subtask": false,
                             "avatarId": 10551,
                             "hierarchyLevel": 0
@@ -428,9 +428,9 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         "issuetype": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
                             "id": "10005",
-                            "description": "Portfolio",
+                            "description": "Initiative",
                             "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
-                            "name": "Portfolio",
+                            "name": "Initiative",
                             "subtask": false,
                             "avatarId": 10551,
                             "hierarchyLevel": 0
@@ -783,9 +783,9 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         "issuetype": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
                             "id": "10005",
-                            "description": "Portfolio",
+                            "description": "Initiative",
                             "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
-                            "name": "Portfolio",
+                            "name": "Initiative",
                             "subtask": false,
                             "avatarId": 10551,
                             "hierarchyLevel": 0
@@ -937,9 +937,9 @@ export default function JiraApiFakeImpl(): IJiraApi {
                         "issuetype": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
                             "id": "10005",
-                            "description": "Portfolio",
+                            "description": "Initiative",
                             "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
-                            "name": "Portfolio",
+                            "name": "Initiative",
                             "subtask": false,
                             "avatarId": 10551,
                             "hierarchyLevel": 0
@@ -1071,9 +1071,9 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "issuetype": {
                                     "self": "https://daropalmi.atlassian.net/rest/api/3/issuetype/10005",
                                     "id": "10005",
-                                    "description": "Portfolio",
+                                    "description": "Initiative",
                                     "iconUrl": "https://daropalmi.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10551?size=medium",
-                                    "name": "Portfolio",
+                                    "name": "Initiative",
                                     "subtask": false,
                                     "avatarId": 10551,
                                     "hierarchyLevel": 0
