@@ -6,6 +6,7 @@ export type IssueTreeNodeType = {
     key: string;
     summary: string;
     iconUrl: string;
+    path: string;
     fields: any;
     hasChildren: boolean;
     childrens: Array<IssueTreeNodeType>;
@@ -15,6 +16,7 @@ export type IssueTreeNodeType = {
     key: 'root',
     summary: 'root',
     iconUrl: '',
+    path: '',
     fields: {},
     hasChildren: false,
     childrens: []

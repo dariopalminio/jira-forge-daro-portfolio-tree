@@ -52,6 +52,7 @@ export default function useJiraHook() {
                 key: 'root',
                 summary: 'root node',
                 iconUrl: '',
+                path: '',
                 fields: { ...data, issues: [] },
                 hasChildren: (treeArray.length > 0),
                 childrens: treeArray
@@ -73,12 +74,26 @@ export default function useJiraHook() {
             key: issueItem.key,
             summary: issueItem?.fields?.summary ? issueItem.fields.summary : '',
             iconUrl: issueItem?.fields?.issuetype?.iconUrl ? issueItem.fields.issuetype.iconUrl : '',
-            fields: issueItem?.fields ? issueItem.fields : {},
+            path: getSelfLink(issueItem.self, issueItem.key),
+            fields: issueItem?.fields ? { ...issueItem.fields, self: issueItem.self } : {},
             hasChildren: false,
             childrens: []
         }
         return issueTreeNode;
     };
+
+    /**
+     * Get browseable link to issue
+     * @param url self link
+     * @param key issue key
+     * @returns string url
+     */
+    const getSelfLink = (url: string, key: string): string => {
+        let domain = (new URL(url));
+        let origin = domain.origin;
+        const urlResult = `${origin}/browse/${key}`;
+        return urlResult;
+    }
 
     /**
      * Get Tree Toggle
@@ -128,7 +143,7 @@ export default function useJiraHook() {
     const getChildTree = async (issuesTree: IssueTreeNodeType, outwards: string[], level: number): Promise<IssueTreeNodeType> => {
         console.log('* getChildTree:', level);
         const MAX_ALLOWED_LEVEL = 10;
-        if (issuesTree.hasChildren && level < MAX_ALLOWED_LEVEL){
+        if (issuesTree.hasChildren && level < MAX_ALLOWED_LEVEL) {
             let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
             for (var i = 0; i < childsArray.length; i++) {
                 const links: any[] = childsArray[i].fields?.issuelinks;
@@ -147,7 +162,7 @@ export default function useJiraHook() {
                 }
             }
             const newArray: IssueTreeNodeType[] = [...childsArray];
-            const finalArray: IssueTreeNodeType[] = []; 
+            const finalArray: IssueTreeNodeType[] = [];
             for (var i = 0; i < newArray.length; i++) {
                 finalArray.push(await getChildTree(newArray[i], outwards, level + 1));
             }

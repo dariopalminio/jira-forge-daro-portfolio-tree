@@ -14,6 +14,7 @@ export const treeExample: IssueTreeNodeType[] = [
       key: "k-1",
       summary: "item 1",
       iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+      path: 'https://daropalmi.atlassian.net/browse/k-1',
       hasChildren: false,
       fields: {
         "summary": "Proyecto ejemplo 2",
@@ -67,6 +68,7 @@ export const treeExample: IssueTreeNodeType[] = [
         key: "k-2",
         summary: "item 2",
         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+        path: 'https://daropalmi.atlassian.net/browse/k-2',
         hasChildren: true,
         fields: {
           "summary": "Proyecto ejemplo 2",
@@ -119,6 +121,7 @@ export const treeExample: IssueTreeNodeType[] = [
                 key: "k-21",
                 summary: "item 21",
                 iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+                path: 'https://daropalmi.atlassian.net/browse/k-21',
                 hasChildren: false,
                 fields: {"summary": "Proyecto ejemplo",
                 "issuetype": {
@@ -170,6 +173,7 @@ export const treeExample: IssueTreeNodeType[] = [
                   key: "k-22",
                   summary: "item 22",
                   iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+                  path: 'https://daropalmi.atlassian.net/browse/k-22',
                   hasChildren: true,
                   fields: {
                     "summary": "Proyecto ejemplo 2",
@@ -222,6 +226,7 @@ export const treeExample: IssueTreeNodeType[] = [
                         key: "k-221",
                         summary: "item 221",
                         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+                        path: 'https://daropalmi.atlassian.net/browse/k-221',
                         hasChildren: false,
                         fields: {"summary": "Proyecto ejemplo",
                         "issuetype": {
@@ -273,6 +278,7 @@ export const treeExample: IssueTreeNodeType[] = [
                           key: "k-222",
                           summary: "item 222",
                           iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+                          path: 'https://daropalmi.atlassian.net/browse/k-222',
                           hasChildren: false,
                           fields: {"summary": "Proyecto ejemplo",
                           "issuetype": {
@@ -328,6 +334,7 @@ export const treeExample: IssueTreeNodeType[] = [
         key: "k-3333",
         summary: "item 1",
         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
+        path: 'https://daropalmi.atlassian.net/browse/k-3333',
         hasChildren: false,
         fields: {
           "summary": "Proyecto ejemplo 333",

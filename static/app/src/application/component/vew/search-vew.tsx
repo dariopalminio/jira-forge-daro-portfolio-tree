@@ -9,6 +9,7 @@ import { TableSelectable } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
 import styles from './search-view.module.css';
+import { ModalDialog } from "../../common/dialog";
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
@@ -18,6 +19,7 @@ const SearchView: React.FC = () => {
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const idSpliter = "Daro";
+    const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
 
     const TableHeadersDefault = [
         {
@@ -84,11 +86,15 @@ const SearchView: React.FC = () => {
 
     const handleClick = (item: IssueTreeNodeType) => {
         //Here do navigate to path
-        alert(`Select item: ${item.summary}`);
+        setIssueToShow(item);
     }
 
     const handlerToggleChange = (newToggles: TreeToggleType) => {
         setToggles(newToggles)
+    }
+
+    const closeDialog = () => {
+        setIssueToShow(null);
     }
 
     return (
@@ -104,9 +110,9 @@ const SearchView: React.FC = () => {
                             {...(!isValid && { error: true, helperText: 'input error' })}
                         />
                     </div>
-                   
+
                     <Button onClick={() => handleSearch()} style={{ float: 'right' }}>{t('search')}</Button>
-                 
+
                 </div>
             </div>
 
@@ -142,9 +148,16 @@ const SearchView: React.FC = () => {
                     </SplitRight>
                 </SplitableContainer>
 
-
-
             </div>
+
+            <ModalDialog
+                isOpen={issueToShow !== null}
+                onClose={closeDialog}
+            >
+                <span>GO: <a href={issueToShow?.path} target="_blank">{issueToShow?.path}</a></span>
+                
+            </ModalDialog>
+
         </>
     );
 };
