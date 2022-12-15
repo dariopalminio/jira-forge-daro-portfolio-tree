@@ -13,7 +13,7 @@ import { ModalDialog } from "../../common/dialog";
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
-    const { searchJql, getTreeTogglesFrom, getChildren } = useJiraHook();
+    const { searchJql, getTreeTogglesFrom, addChildrenByLink } = useJiraHook();
     const { dataTree, setDataTree, toggles, setToggles, configData } = useContext(PortfolioContext);
     const [jql, setJql] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
@@ -58,7 +58,7 @@ const SearchView: React.FC = () => {
             setToggles(treeToggles);
             setDataTree(dataTree);
             //load childs of second level, generally are EPICs
-            const newDataTree: IssueTreeNodeType = await getChildren(dataTree, configData.linksOutwards);
+            const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards);
             const newTreeToggles = getTreeTogglesFrom(newDataTree?.childrens);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);

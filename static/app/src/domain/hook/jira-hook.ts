@@ -119,12 +119,13 @@ export default function useJiraHook() {
     /**
      * Get Children of each issue in tree by Links Hierarchy.
      */
-    const getChildren = async (issuesTree: IssueTreeNodeType, linksOutwards: string[]): Promise<IssueTreeNodeType> => {
+    const addChildrenByLink = async (issuesTree: IssueTreeNodeType, linksOutwards: string[]): Promise<IssueTreeNodeType> => {
         let outwards: string[] = [];
         if (linksOutwards && Array.isArray(linksOutwards) && linksOutwards.length > 0) {
             outwards = linksOutwards;
         }
-        return getChildTree(issuesTree, outwards, 0);
+        const MAX_ALLOWED_LEVEL = 10;
+        return getTreeWithChildrenByLink(issuesTree, outwards, 0, MAX_ALLOWED_LEVEL);
     };
 
     /**
@@ -140,10 +141,9 @@ export default function useJiraHook() {
      * @param level tree iteration level
      * @returns IssueTreeNodeType tree
      */
-    const getChildTree = async (issuesTree: IssueTreeNodeType, outwards: string[], level: number): Promise<IssueTreeNodeType> => {
+    const getTreeWithChildrenByLink = async (issuesTree: IssueTreeNodeType, outwards: string[], level: number, maxLevel: number): Promise<IssueTreeNodeType> => {
         console.log('* getChildTree:', level);
-        const MAX_ALLOWED_LEVEL = 10;
-        if (issuesTree.hasChildren && level < MAX_ALLOWED_LEVEL) {
+        if (issuesTree.hasChildren && level < maxLevel) {
             let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
             for (var i = 0; i < childsArray.length; i++) {
                 const links: any[] = childsArray[i].fields?.issuelinks;
@@ -164,7 +164,8 @@ export default function useJiraHook() {
             const newArray: IssueTreeNodeType[] = [...childsArray];
             const finalArray: IssueTreeNodeType[] = [];
             for (var i = 0; i < newArray.length; i++) {
-                finalArray.push(await getChildTree(newArray[i], outwards, level + 1));
+                const child = await getTreeWithChildrenByLink(newArray[i], outwards, level + 1, maxLevel);
+                finalArray.push(child);
             }
             return { ...issuesTree, childrens: finalArray };
         } else {
@@ -198,6 +199,19 @@ export default function useJiraHook() {
         }
     };
 
+    /**
+     * JQL to getChildrenByEpicLink:  "Epic Link" ='CHILD-KEY-1' order by created DESC
+     * @param issuesTree 
+     * @returns 
+     */
+    const addChildrenByEpicLink = async (issuesTree: IssueTreeNodeType): Promise<IssueTreeNodeType> => {
+        const MAX_ALLOWED_LEVEL = 10;
+
+        //TODO...
+
+        return issuesTree;
+    };
+
     return {
         isProcessing: state.isProcessing,
         hasError: state.hasError,
@@ -206,7 +220,7 @@ export default function useJiraHook() {
         getCurrentUser,
         searchJql,
         getTreeTogglesFrom,
-        getChildren,
+        addChildrenByLink,
         getOutwardsFromJira
     };
 };
