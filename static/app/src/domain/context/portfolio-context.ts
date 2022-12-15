@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data.type';
-import { IssueItemType, TreeToggleType } from '../model/tree-types';
+import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
 
 //const [toggles, setToggles] = useState<TreeToggleType>({});
 //const [configData, setConfigData] = useState(null);
 export interface IPortfolioContext {
-    dataTree:  IssueItemType[];
-    setDataTree: (newDataTree: IssueItemType[]) => void;
+    dataTree:  IssueTreeNodeType ;
+    setDataTree: (newDataTree: IssueTreeNodeType) => void;
     toggles: TreeToggleType;
     setToggles: (newToggles: TreeToggleType) => void;
     configData: ConfigStorageDataType;
@@ -16,8 +16,8 @@ export interface IPortfolioContext {
 };
 
 export const PortfolioContextDefaultValues: IPortfolioContext = {
-    dataTree: [],
-    setDataTree: (newDataTree: IssueItemType[]) => { },
+    dataTree: issueItemDefault,
+    setDataTree: (newDataTree: IssueTreeNodeType) => { },
     toggles: {},
     setToggles: (newToggles: TreeToggleType) => { },
     configData: ConfigStorageDataDefault,

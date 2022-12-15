@@ -1,4 +1,4 @@
-import { IssueItemType, TreeToggleType } from "../../../domain/model/tree-types";
+import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 
 
 export const togglesTreeExample: TreeToggleType = {};
@@ -9,7 +9,7 @@ togglesTreeExample['k-22'] = false;
 togglesTreeExample['k-221'] = false;
 togglesTreeExample['k-222'] = false;
 
-export const treeExample: IssueItemType[] = [
+export const treeExample: IssueTreeNodeType[] = [
     {
       key: "k-1",
       summary: "item 1",

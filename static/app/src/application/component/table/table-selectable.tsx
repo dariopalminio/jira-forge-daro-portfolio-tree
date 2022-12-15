@@ -1,12 +1,12 @@
 import { IColHeader } from "./types";
 import styles from './table-selectable.module.css';
 import TableSelectableItem from "./table-selectable-item";
-import { TreeToggleType } from "../../../domain/model/tree-types";
+import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 
 
 interface IProps {
     headers: IColHeader[];
-    tree: any[]; //object where each 'Key' name is same to headers 'prop' value indicated by IColHeader
+    tree: IssueTreeNodeType; //object where each 'Key' name is same to headers 'prop' value indicated by IColHeader
     onClick: (item: any) => void;
     togglesChange: (newToggles: TreeToggleType) => void;
     toggles: TreeToggleType;
@@ -55,7 +55,7 @@ const TableSelectable: React.FC<IProps> = (props: IProps) => {
             </div>
             <div className={styles.tableBody}>
                 {
-                    props.tree?.map(
+                    props.tree?.childrens?.map(
                         (item: any, index: number) => {
                             return (
                                 <TableSelectableItem 

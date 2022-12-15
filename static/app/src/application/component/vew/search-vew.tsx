@@ -6,7 +6,7 @@ import TextField from "../../common/text-field/text-field";
 import { Tree } from "../tree";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../common/splitable-container"
 import { TableSelectable } from "../table";
-import { IssueItemType, TreeToggleType } from "../../../domain/model/tree-types";
+import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
 import styles from './search-view.module.css';
 
@@ -50,13 +50,14 @@ const SearchView: React.FC = () => {
     const searchData = async () => {
         try {
             //load first level, generally are Initiatives
-            const data = await searchJql(jql);
-            const treeToggles = getTreeTogglesFrom(data.issues);
+            const dataTree: IssueTreeNodeType | undefined = await searchJql(jql);
+            if (dataTree === undefined) throw new Error('Search JQL not found data!')
+            const treeToggles = getTreeTogglesFrom(dataTree?.childrens);
             setToggles(treeToggles);
-            setDataTree(data.issues);
+            setDataTree(dataTree);
             //load childs of second level, generally are EPICs
-            const newDataTree: IssueItemType[] = await getChildren(data.issues, configData.linksOutwards);
-            const newTreeToggles = getTreeTogglesFrom(newDataTree);
+            const newDataTree: IssueTreeNodeType = await getChildren(dataTree, configData.linksOutwards);
+            const newTreeToggles = getTreeTogglesFrom(newDataTree?.childrens);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
         } catch (error) {
@@ -81,7 +82,7 @@ const SearchView: React.FC = () => {
         }
     };
 
-    const handleClick = (item: IssueItemType) => {
+    const handleClick = (item: IssueTreeNodeType) => {
         //Here do navigate to path
         alert(`Select item: ${item.summary}`);
     }

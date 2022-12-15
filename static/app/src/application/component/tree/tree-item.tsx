@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IssueItemType, TreeToggleType } from '../../../domain/model/tree-types';
+import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-types';
 import styles from './tree-item.module.css';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import imgError from "./item-no-image.png"
@@ -8,8 +8,8 @@ import imgError from "./item-no-image.png"
 
 interface IProps {
     level: number;
-    onClick: (item: IssueItemType) => void;
-    treeItem: IssueItemType;
+    onClick: (item: IssueTreeNodeType) => void;
+    treeItem: IssueTreeNodeType;
     togglesChange: (newToggles: TreeToggleType) => void;
     toggles: TreeToggleType;
 }
@@ -21,7 +21,7 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
         togglesChange(newToggles);
     }
 
-    const handleOnClick = (item: IssueItemType) => {
+    const handleOnClick = (item: IssueTreeNodeType) => {
         onClick(item);
     }
 

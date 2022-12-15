@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import PortfolioContext from "../domain/context/portfolio-context";
 import { ConfigStorageDataDefault, ConfigStorageDataType } from "../domain/model/config-storage-data.type";
-import { IssueItemType, TreeToggleType } from "../domain/model/tree-types";
+import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from "../domain/model/tree-types";
 
 interface Props {children?: React.ReactNode}
 
 
 const PortfolioContextProvider: FC<Props> = ({ children }) => {
-    const [dataTree, setDataTree] = useState<IssueItemType[]>([]);
+    const [dataTree, setDataTree] = useState<IssueTreeNodeType>(issueItemDefault);
     const [toggles, setToggles] = useState<TreeToggleType>({});
     const [configData, setConfigData] = useState<ConfigStorageDataType>(ConfigStorageDataDefault);
     const [configHasChanges, setConfigHasChanges] = useState<boolean>(false);

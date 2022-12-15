@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IssueItemType, TreeToggleType } from '../../../domain/model/tree-types';
+import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-types';
 import Checkbox from '../../common/checkbox/checkbox';
 import RadioButton from '../../common/radio/radio-button';
 import RadioButtonGroup from '../../common/radio/radio-button-group';
@@ -9,8 +9,8 @@ import styles from './tree-item.module.css';
 interface Props {
     expandAllLabel: string;
     collapseAllLabel: string;
-    onClick: (item: IssueItemType) => void;
-    tree: IssueItemType[];
+    onClick: (item: IssueTreeNodeType) => void;
+    tree: IssueTreeNodeType;
     togglesChange: (newToggles: TreeToggleType) => void;
     toggles: TreeToggleType;
 }
@@ -18,7 +18,7 @@ interface Props {
 const Tree: React.FC<Props> = ({ expandAllLabel, collapseAllLabel, tree, onClick, toggles, togglesChange }) => {
 
 
-    const handleOnClickLink = (item: IssueItemType) => {
+    const handleOnClickLink = (item: IssueTreeNodeType) => {
         onClick(item);
     }
 
@@ -47,7 +47,7 @@ const Tree: React.FC<Props> = ({ expandAllLabel, collapseAllLabel, tree, onClick
                     <RadioButton id={'collaps'} label={collapseAllLabel} groupName={'tree'} onClick={() => collapse()} />
                 </RadioButtonGroup>
             </div>
-            {tree?.map((item, index) => {
+            {tree?.childrens?.map((item, index) => {
                 return (
                     <TreeItem
                         key={index}

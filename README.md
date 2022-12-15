@@ -10,6 +10,7 @@ https://developer.atlassian.com/platform/forge/custom-ui/
 https://atlaskit.atlassian.com/
 https://developer.atlassian.com/platform/marketplace/listing-forge-apps/
 Scopes: https://developer.atlassian.com/cloud/jira/platform/scopes-for-oauth-2-3LO-and-forge-apps/
+API: https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/?&_ga=2.261586701.101080104.1670700371-1687144727.1666646856#api/2/version-getVersion
 
 See [developer.atlassian.com/platform/forge/](https://developer.atlassian.com/platform/forge) for documentation and tutorials explaining Forge.
 
