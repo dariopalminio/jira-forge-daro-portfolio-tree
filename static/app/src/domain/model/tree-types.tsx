@@ -4,6 +4,7 @@
  */
 export type IssueTreeNodeType = {
     key: string;
+    level: number;
     summary: string;
     iconUrl: string;
     path: string;
@@ -14,6 +15,7 @@ export type IssueTreeNodeType = {
 
   export const issueItemDefault: IssueTreeNodeType = {
     key: 'root',
+    level: 1,
     summary: 'root',
     iconUrl: '',
     path: '',

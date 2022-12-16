@@ -12,6 +12,7 @@ togglesTreeExample['k-222'] = false;
 export const treeExample: IssueTreeNodeType[] = [
     {
       key: "k-1",
+      level: 1,
       summary: "item 1",
       iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
       path: 'https://daropalmi.atlassian.net/browse/k-1',
@@ -66,6 +67,7 @@ export const treeExample: IssueTreeNodeType[] = [
     },
     {
         key: "k-2",
+        level: 1,
         summary: "item 2",
         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
         path: 'https://daropalmi.atlassian.net/browse/k-2',
@@ -119,6 +121,7 @@ export const treeExample: IssueTreeNodeType[] = [
         childrens: [
             {
                 key: "k-21",
+                level: 2,
                 summary: "item 21",
                 iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                 path: 'https://daropalmi.atlassian.net/browse/k-21',
@@ -171,6 +174,7 @@ export const treeExample: IssueTreeNodeType[] = [
               },
               {
                   key: "k-22",
+                  level: 2,
                   summary: "item 22",
                   iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                   path: 'https://daropalmi.atlassian.net/browse/k-22',
@@ -224,6 +228,7 @@ export const treeExample: IssueTreeNodeType[] = [
                   childrens: [
                     {
                         key: "k-221",
+                        level: 3,
                         summary: "item 221",
                         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                         path: 'https://daropalmi.atlassian.net/browse/k-221',
@@ -276,6 +281,7 @@ export const treeExample: IssueTreeNodeType[] = [
                       },
                       {
                           key: "k-222",
+                          level: 3,
                           summary: "item 222",
                           iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
                           path: 'https://daropalmi.atlassian.net/browse/k-222',
@@ -332,6 +338,7 @@ export const treeExample: IssueTreeNodeType[] = [
       },
       {
         key: "k-3333",
+        level: 1,
         summary: "item 1",
         iconUrl: "https://daropalmi.atlassian.net/images/icons/issuetypes/epic.svg",
         path: 'https://daropalmi.atlassian.net/browse/k-3333',

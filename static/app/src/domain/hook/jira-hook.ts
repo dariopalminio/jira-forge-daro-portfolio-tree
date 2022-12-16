@@ -44,12 +44,13 @@ export default function useJiraHook() {
             let treeArray: IssueTreeNodeType[] = [];
             const issues: IssueTreeNodeType[] = data?.issues;
             treeArray = issues?.map((item, index) => {
-                let issue: IssueTreeNodeType = convertToIssueTreeNodeType(item);
+                let issue: IssueTreeNodeType = convertToIssueTreeNodeType(item, 1);
                 return issue;
             })
 
             const tree: IssueTreeNodeType = {
                 key: 'root',
+                level: 0,
                 summary: 'root node',
                 iconUrl: '',
                 path: '',
@@ -69,9 +70,10 @@ export default function useJiraHook() {
      * @param issueItem jira issue 
      * @returns IssueTreeNodeType
      */
-    const convertToIssueTreeNodeType = (issueItem: any): IssueTreeNodeType => {
+    const convertToIssueTreeNodeType = (issueItem: any, level: number): IssueTreeNodeType => {
         const issueTreeNode: IssueTreeNodeType = {
             key: issueItem.key,
+            level: level,
             summary: issueItem?.fields?.summary ? issueItem.fields.summary : '',
             iconUrl: issueItem?.fields?.issuetype?.iconUrl ? issueItem.fields.issuetype.iconUrl : '',
             path: getSelfLink(issueItem.self, issueItem.key),
@@ -125,7 +127,7 @@ export default function useJiraHook() {
             outwards = linksOutwards;
         }
         const MAX_ALLOWED_LEVEL = 10;
-        return await getTreeWithChildrenByLink(issuesTree, outwards, 0, MAX_ALLOWED_LEVEL);
+        return await getTreeWithChildrenByLink(issuesTree, outwards, 1, MAX_ALLOWED_LEVEL);
     };
 
     /**
@@ -155,7 +157,7 @@ export default function useJiraHook() {
                         && links[j].outwardIssue) {
                         const issueUrl: string = links[j].outwardIssue?.self;
                         const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
-                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(issueChild);
+                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(issueChild, level + 1);
                         childsArray[i].childrens.push(issue);
                         childsArray[i].hasChildren = true;
                     }
@@ -216,15 +218,14 @@ export default function useJiraHook() {
             for (var i = 0; i < childsArray.length; i++) {
                 if (childsArray[i]?.fields?.issuetype?.name === 'Epic') {
                     const data: any = await jiraApi.getIssuesByEpikLink(childsArray[i].key);
-                    if (data?.issues && Array.isArray(data?.issues) && (data?.issues?.length > 0)) { 
+                    if (data?.issues && Array.isArray(data?.issues) && (data?.issues?.length > 0)) {
                         for (var j = 0; j < data?.issues?.length; j++) {
-                            const issue: IssueTreeNodeType = convertToIssueTreeNodeType(data?.issues[j]);
+                            const issue: IssueTreeNodeType = convertToIssueTreeNodeType(data?.issues[j], level + 2);
                             childsArray[i].childrens.push(issue);
                             childsArray[i].hasChildren = true;
                         }
                     }
                 }
-
             }
             const newArray: IssueTreeNodeType[] = [...childsArray];
             const finalArray: IssueTreeNodeType[] = [];

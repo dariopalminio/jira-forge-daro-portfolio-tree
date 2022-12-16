@@ -43,8 +43,16 @@ const TableSelectable: React.FC<IProps> = (props: IProps) => {
         return {gridTemplateColumns: `repeat(${cols}, 1fr)`};
     }
 
+    const getTableWidth = ()=> {
+        let width: number = 0;
+        for (var i = 0; i < props.headers.length; i++) {
+            width = width + props.headers[i].width;
+        }
+        return width;
+    }
+
     return (
-        <div className={styles.tableContainer}>
+        <div className={styles.tableContainer} style={{width: `${getTableWidth()}px`}}>
             <div className={styles.tableHeader}>
                 <div className={styles.tableRow} 
                 style={getGridTemplateColumns()}>

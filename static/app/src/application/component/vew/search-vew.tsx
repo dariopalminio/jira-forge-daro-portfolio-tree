@@ -23,29 +23,39 @@ const SearchView: React.FC = () => {
 
     const TableHeadersDefault = [
         {
-            "prop": "project",
-            "label": t("project"),
-            "width": "150px"
+            "prop": "key",
+            "label": t("key"),
+            "width": 150
         },
         {
-            "prop": "assignee",
-            "label": t("assignee"),
-            "width": "100px"
+            "prop": "summary",
+            "label": t("summary"),
+            "width": 160
         },
         {
             "prop": "status",
             "label": t("status"),
-            "width": "100px"
+            "width": 100
+        },
+        {
+            "prop": "project",
+            "label": t("project"),
+            "width": 150
+        },
+        {
+            "prop": "assignee",
+            "label": t("assignee"),
+            "width": 110
         },
         {
             "prop": "startdate",
             "label": t("startdate"),
-            "width": "100px"
+            "width": 100
         },
         {
             "prop": "duedate",
             "label": t("duedate"),
-            "width": "100px"
+            "width": 100
         },
     ];
 

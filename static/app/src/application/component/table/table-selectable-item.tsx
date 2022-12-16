@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import { TreeToggleType } from '../../../domain/model/tree-types';
 import AssigneeCell from './cells/assignee-cell';
+import KeyCell from './cells/key-cell';
 import StatusCell from './cells/status-cell';
 import styles from './table-selectable.module.css';
 //className={styles.inputTextField}
@@ -28,35 +29,58 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
         return toggles[item.key];
     }
 
+    const getFieldValue = (prop: string) => {
+        try {
+            const value = item[`${prop}`];
+            if (value && value !== undefined && value !== null) {
+                return value;
+            }
+            throw new Error(`The field named ${prop} could not be read`);
+        } catch (error) {
+            console.log(error);
+            return 'not found';
+        }
+    }
+
     const getCellElement = (item: any, colHeader: IColHeader, index: number): React.ReactNode => {
         switch (colHeader.prop) {
+            case 'key': {
+                return (
+                    <KeyCell key={index} item={item} colHeader={colHeader} toggles={toggles} togglesChange={togglesChange}/>)
+            }
             case 'assignee': {
                 return (
                     <AssigneeCell key={index} item={item} colHeader={colHeader} />
                 )
             }
+            case 'summary': {
+                return (
+                <div key={index} style={{ width: colHeader.width }}>
+                    <label className={styles.textOverflow}>{getFieldValue('summary')}</label>
+                </div>)
+            }
             case 'status': {
                 return (
-                <StatusCell key={index} item={item} colHeader={colHeader} />)
+                    <StatusCell key={index} item={item} colHeader={colHeader} />)
             }
             case 'startdate': {
-                return (<div key={index} style={{width: colHeader.width}}>
+                return (<div key={index} style={{ width: colHeader.width }}>
                     {item?.fields?.customfield_10015}
                 </div>)
             }
             case 'duedate': {
-                return (<div key={index} style={{width: colHeader.width}}>
+                return (<div key={index} style={{ width: colHeader.width }}>
                     {item?.fields?.duedate}
                 </div>)
             }
             case 'project': {
-                return (<div key={index} style={{width: colHeader.width}}>
+                return (<div key={index} style={{ width: colHeader.width }}>
                     {item?.fields?.project?.name}
                 </div>)
             }
             default: {
-                return (<div key={index}>
-                    default
+                return (<div key={index} style={{ width: colHeader.width }}>
+                    {getFieldValue(colHeader.prop)}
                 </div>)
             }
         }
@@ -78,7 +102,6 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
     return (
         <>
             <div className={styles.tableRow}
-                onClick={() => handleOnClick(item)}
                 style={getGridTemplateColumns()}
             >
                 {

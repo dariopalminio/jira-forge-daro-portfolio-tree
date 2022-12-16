@@ -1,0 +1,11 @@
+
+
+.toggleSelector {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.toggleSelector:hover {
+    background: #DEEBFF;
+    border-radius: 3px;
+}

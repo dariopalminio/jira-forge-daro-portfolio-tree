@@ -58,7 +58,6 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                     </div>
                 ) : <label style={{ marginLeft: "15px" }} />
                 }
-
                 <a className={styles.anchorLink} href="#"
                     onClick={(e) => handleOnClickAnchorLink(e)}>
                     <img className={styles.treeItemImg}

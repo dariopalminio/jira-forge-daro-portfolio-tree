@@ -16,5 +16,6 @@
     "collapse.all": "Contraer todo",
     "expand.all": "Expandir todo",
     "search": "Buscar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "key": "Id"
 }
