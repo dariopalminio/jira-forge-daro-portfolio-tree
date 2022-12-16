@@ -1285,10 +1285,304 @@ export default function JiraApiFakeImpl(): IJiraApi {
         }
     }
 
+    async function getIssuesByEpikLink(epicKey: string): Promise<any> {
+        const num = Math.floor(Math.random() * 1000);
+        const strNum: string = num.toString();
+        if(num%2==0){
+           return {
+                "expand": "schema,names",
+                "startAt": 0,
+                "maxResults": 15,
+                "total": 3,
+                "issues": [],
+                "names": {
+                },
+                "schema": {
+                }
+            }
+        }
+        return {
+            "expand": "schema,names",
+            "startAt": 0,
+            "maxResults": 15,
+            "total": 3,
+            "issues": [
+                {
+                    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                    "id": `${strNum}`,
+                    "self": `https://dariopalminio.atlassian.net/rest/api/3/issue/${strNum}`,
+                    "key": `TKP-${strNum}`,
+                    "fields": {
+                        "summary": "Tarea ejemplo 1",
+                        "issuetype": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/issuetype/10002",
+                            "id": "10002",
+                            "description": "Un trabajo pequeño e independiente.",
+                            "iconUrl": "https://dariopalminio.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                            "name": "Tarea",
+                            "subtask": false,
+                            "avatarId": 10318,
+                            "hierarchyLevel": 0
+                        },
+                        "duedate": null,
+                        "created": "2022-12-15T19:39:59.482-0300",
+                        "project": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10000",
+                            "id": "10000",
+                            "key": "TKP",
+                            "name": "Test Kanban Project",
+                            "projectTypeKey": "software",
+                            "simplified": false,
+                            "avatarUrls": {
+                                "48x48": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407",
+                                "24x24": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=small",
+                                "16x16": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=xsmall",
+                                "32x32": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=medium"
+                            },
+                            "projectCategory": {
+                                "self": "https://dariopalminio.atlassian.net/rest/api/3/projectCategory/10000",
+                                "id": "10000",
+                                "description": "Paortafolio",
+                                "name": "Portfolio"
+                            }
+                        },
+                        "issuelinks": [],
+                        "assignee": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/user?accountId=6059177c2f7d9000707f1a60",
+                            "accountId": "6059177c2f7d9000707f1a60",
+                            "emailAddress": "dariopalminio@gmail.com",
+                            "avatarUrls": {
+                                "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/48",
+                                "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/24",
+                                "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/16",
+                                "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/32"
+                            },
+                            "displayName": "Dario Andres Palminio Choy",
+                            "active": true,
+                            "timeZone": "America/Santiago",
+                            "accountType": "atlassian"
+                        },
+                        "status": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/status/10000",
+                            "description": "",
+                            "iconUrl": "https://dariopalminio.atlassian.net/",
+                            "name": "Backlog",
+                            "id": "10000",
+                            "statusCategory": {
+                                "self": "https://dariopalminio.atlassian.net/rest/api/3/statuscategory/2",
+                                "id": 2,
+                                "key": "new",
+                                "colorName": "blue-gray",
+                                "name": "Por hacer"
+                            }
+                        },
+                        "customfield_10015": null
+                    }
+                },
+                {
+                    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                    "id": `${strNum+1}`,
+                    "self": `https://dariopalminio.atlassian.net/rest/api/3/issue/${strNum+1}`,
+                    "key": `TKP-${strNum+1}`,
+                    "fields": {
+                        "summary": "Historia de usuario ejemplo 2",
+                        "issuetype": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/issuetype/10001",
+                            "id": "10001",
+                            "description": "Una función o funcionalidad expresada como objetivo del usuario.",
+                            "iconUrl": "https://dariopalminio.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                            "name": "Historia",
+                            "subtask": false,
+                            "avatarId": 10315,
+                            "hierarchyLevel": 0
+                        },
+                        "created": "2022-12-15T19:39:44.037-0300",
+                        "duedate": null,
+                        "project": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10000",
+                            "id": "10000",
+                            "key": "TKP",
+                            "name": "Test Kanban Project",
+                            "projectTypeKey": "software",
+                            "simplified": false,
+                            "avatarUrls": {
+                                "48x48": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407",
+                                "24x24": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=small",
+                                "16x16": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=xsmall",
+                                "32x32": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=medium"
+                            },
+                            "projectCategory": {
+                                "self": "https://dariopalminio.atlassian.net/rest/api/3/projectCategory/10000",
+                                "id": "10000",
+                                "description": "Paortafolio",
+                                "name": "Portfolio"
+                            }
+                        },
+                        "issuelinks": [],
+                        "assignee": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/user?accountId=6059177c2f7d9000707f1a60",
+                            "accountId": "6059177c2f7d9000707f1a60",
+                            "emailAddress": "dariopalminio@gmail.com",
+                            "avatarUrls": {
+                                "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/48",
+                                "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/24",
+                                "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/16",
+                                "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/32"
+                            },
+                            "displayName": "Dario Andres Palminio Choy",
+                            "active": true,
+                            "timeZone": "America/Santiago",
+                            "accountType": "atlassian"
+                        },
+                        "status": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/status/3",
+                            "description": "El responsable está trabajando actualmente en esta incidencia.",
+                            "iconUrl": "https://dariopalminio.atlassian.net/images/icons/statuses/inprogress.png",
+                            "name": "En curso",
+                            "id": "3",
+                            "statusCategory": {
+                                "self": "https://dariopalminio.atlassian.net/rest/api/3/statuscategory/4",
+                                "id": 4,
+                                "key": "indeterminate",
+                                "colorName": "yellow",
+                                "name": "En curso"
+                            }
+                        },
+                        "customfield_10015": null
+                    }
+                },
+                {
+                    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                    "id": `${strNum+2}`,
+                    "self": `https://dariopalminio.atlassian.net/rest/api/3/issue/${strNum+2}`,
+                    "key": `TKP-${strNum+2}`,
+                    "fields": {
+                        "summary": "Historia de usuario ejemplo 1",
+                        "issuetype": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/issuetype/10001",
+                            "id": "10001",
+                            "description": "Una función o funcionalidad expresada como objetivo del usuario.",
+                            "iconUrl": "https://dariopalminio.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                            "name": "Historia",
+                            "subtask": false,
+                            "avatarId": 10315,
+                            "hierarchyLevel": 0
+                        },
+                        "duedate": null,
+                        "created": "2022-12-15T19:39:33.255-0300",
+                        "project": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10000",
+                            "id": "10000",
+                            "key": "TKP",
+                            "name": "Test Kanban Project",
+                            "projectTypeKey": "software",
+                            "simplified": false,
+                            "avatarUrls": {
+                                "48x48": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407",
+                                "24x24": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=small",
+                                "16x16": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=xsmall",
+                                "32x32": "https://dariopalminio.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10407?size=medium"
+                            },
+                            "projectCategory": {
+                                "self": "https://dariopalminio.atlassian.net/rest/api/3/projectCategory/10000",
+                                "id": "10000",
+                                "description": "Paortafolio",
+                                "name": "Portfolio"
+                            }
+                        },
+                        "issuelinks": [],
+                        "assignee": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/user?accountId=6059177c2f7d9000707f1a60",
+                            "accountId": "6059177c2f7d9000707f1a60",
+                            "emailAddress": "dariopalminio@gmail.com",
+                            "avatarUrls": {
+                                "48x48": "https://avatar1-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/48",
+                                "24x24": "https://avatar1-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/24",
+                                "16x16": "https://avatar1-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/16",
+                                "32x32": "https://avatar1-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/32"
+                            },
+                            "displayName": "Dario Palminio",
+                            "active": true,
+                            "timeZone": "America/Santiago",
+                            "accountType": "atlassian"
+                        },
+                        "customfield_10015": null,
+                        "status": {
+                            "self": "https://dariopalminio.atlassian.net/rest/api/3/status/10000",
+                            "description": "",
+                            "iconUrl": "https://dariopalminio.atlassian.net/",
+                            "name": "Backlog",
+                            "id": "10000",
+                            "statusCategory": {
+                                "self": "https://dariopalminio.atlassian.net/rest/api/3/statuscategory/2",
+                                "id": 2,
+                                "key": "new",
+                                "colorName": "blue-gray",
+                                "name": "Por hacer"
+                            }
+                        }
+                    }
+                }
+            ],
+            "names": {
+                "summary": "Resumen",
+                "issuetype": "Tipo de Incidencia",
+                "duedate": "Fecha de vencimiento",
+                "created": "Creada",
+                "project": "Proyecto",
+                "issuelinks": "Incidencias Enlazadas",
+                "assignee": "Responsable",
+                "status": "Estado",
+                "customfield_10015": "Start date"
+            },
+            "schema": {
+                "summary": {
+                    "type": "string",
+                    "system": "summary"
+                },
+                "issuetype": {
+                    "type": "issuetype",
+                    "system": "issuetype"
+                },
+                "duedate": {
+                    "type": "date",
+                    "system": "duedate"
+                },
+                "created": {
+                    "type": "datetime",
+                    "system": "created"
+                },
+                "project": {
+                    "type": "project",
+                    "system": "project"
+                },
+                "issuelinks": {
+                    "type": "array",
+                    "items": "issuelinks",
+                    "system": "issuelinks"
+                },
+                "assignee": {
+                    "type": "user",
+                    "system": "assignee"
+                },
+                "status": {
+                    "type": "status",
+                    "system": "status"
+                },
+                "customfield_10015": {
+                    "type": "date",
+                    "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
+                    "customId": 10015
+                }
+            }
+        }
+    };
+
     return {
         searchJql,
         getCurrentUser,
         getIssueBySelf,
-        getIssueLinkTypes
+        getIssueLinkTypes,
+        getIssuesByEpikLink
     };
 };

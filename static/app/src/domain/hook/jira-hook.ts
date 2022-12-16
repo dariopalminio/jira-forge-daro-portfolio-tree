@@ -125,7 +125,7 @@ export default function useJiraHook() {
             outwards = linksOutwards;
         }
         const MAX_ALLOWED_LEVEL = 10;
-        return getTreeWithChildrenByLink(issuesTree, outwards, 0, MAX_ALLOWED_LEVEL);
+        return await getTreeWithChildrenByLink(issuesTree, outwards, 0, MAX_ALLOWED_LEVEL);
     };
 
     /**
@@ -206,10 +206,36 @@ export default function useJiraHook() {
      */
     const addChildrenByEpicLink = async (issuesTree: IssueTreeNodeType): Promise<IssueTreeNodeType> => {
         const MAX_ALLOWED_LEVEL = 10;
+        return await getTreeChildrenByEpicLink(issuesTree, 0, MAX_ALLOWED_LEVEL);
+    };
 
-        //TODO...
+    const getTreeChildrenByEpicLink = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number): Promise<IssueTreeNodeType> => {
+        console.log('* getChildTree:', level);
+        if (issuesTree.hasChildren && level < maxLevel) {
+            let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
+            for (var i = 0; i < childsArray.length; i++) {
+                if (childsArray[i]?.fields?.issuetype?.name === 'Epic') {
+                    const data: any = await jiraApi.getIssuesByEpikLink(childsArray[i].key);
+                    if (data?.issues && Array.isArray(data?.issues) && (data?.issues?.length > 0)) { 
+                        for (var j = 0; j < data?.issues?.length; j++) {
+                            const issue: IssueTreeNodeType = convertToIssueTreeNodeType(data?.issues[j]);
+                            childsArray[i].childrens.push(issue);
+                            childsArray[i].hasChildren = true;
+                        }
+                    }
+                }
 
-        return issuesTree;
+            }
+            const newArray: IssueTreeNodeType[] = [...childsArray];
+            const finalArray: IssueTreeNodeType[] = [];
+            for (var i = 0; i < newArray.length; i++) {
+                const issue = await getTreeChildrenByEpicLink(newArray[i], level + 1, maxLevel);
+                finalArray.push(issue);
+            }
+            return { ...issuesTree, childrens: finalArray };
+        } else {
+            return issuesTree;
+        }
     };
 
     return {
@@ -221,6 +247,7 @@ export default function useJiraHook() {
         searchJql,
         getTreeTogglesFrom,
         addChildrenByLink,
-        getOutwardsFromJira
+        getOutwardsFromJira,
+        addChildrenByEpicLink
     };
 };

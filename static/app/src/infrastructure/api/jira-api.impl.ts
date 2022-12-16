@@ -101,10 +101,16 @@ export default function JiraApiImpl(): IJiraApi {
         }
     };
 
+    async function getIssuesByEpikLink(epicKey: string): Promise<any> {
+        //TODO...
+        return {};
+    }
+
     return {
         searchJql,
         getCurrentUser,
         getIssueBySelf,
-        getIssueLinkTypes
+        getIssueLinkTypes,
+        getIssuesByEpikLink
     };
 };
