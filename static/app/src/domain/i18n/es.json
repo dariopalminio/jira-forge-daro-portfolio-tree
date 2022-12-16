@@ -17,5 +17,6 @@
     "expand.all": "Expandir todo",
     "search": "Buscar",
     "save": "Guardar",
-    "key": "Id"
+    "key": "Id",
+    "summary": "Detalle resumen"
 }
