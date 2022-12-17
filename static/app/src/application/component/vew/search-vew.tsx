@@ -10,6 +10,9 @@ import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-ty
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
 import styles from './search-view.module.css';
 import { ModalDialog } from "../../common/dialog";
+import { getQuarters } from "../../../domain/helper/quarter.helper";
+import TimeLine from "../roadmap/timeline";
+import Roadmaps from "../roadmap/roadmaps";
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
@@ -150,15 +153,10 @@ const SearchView: React.FC = () => {
                     </SplitLeft>
                     <SplitBar id={idSpliter}></SplitBar>
                     <SplitRight id={idSpliter}>
-                        <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                            {t('table.fields.title')}
-                        </div>
-                        <TableSelectable
-                            headers={TableHeadersDefault}
-                            tree={dataTree}
-                            toggles={toggles}
-                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                            onClick={(item: any) => alert(item.key)} />
+
+                        <Roadmaps>
+                        
+                        </Roadmaps>
 
                     </SplitRight>
                 </SplitableContainer>
@@ -170,7 +168,7 @@ const SearchView: React.FC = () => {
                 onClose={closeDialog}
             >
                 <span>GO: <a href={issueToShow?.path} target="_blank">{issueToShow?.path}</a></span>
-                
+
             </ModalDialog>
 
         </>
@@ -178,3 +176,16 @@ const SearchView: React.FC = () => {
 };
 
 export default SearchView;
+
+/**
+TABLE:
+        <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
+                            {t('table.fields.title')}
+        </div>
+        <TableSelectable
+                            headers={TableHeadersDefault}
+                            tree={dataTree}
+                            toggles={toggles}
+                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                            onClick={(item: any) => alert(item.key)} />
+ */

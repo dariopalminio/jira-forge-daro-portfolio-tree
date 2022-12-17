@@ -1,0 +1,87 @@
+
+.roadmapsContainer {
+    background-color: white;
+    width: 5000px;
+    margin: auto;
+  }
+  
+  .timeline {
+    display: flex;
+   background: #F0F5F5;
+    color: #4D4D4D;
+    height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.5);
+  }
+  
+  .quarterTimeBlock {
+    display: inline-block;
+    background: #F0F5F5;
+    height: inherit;
+    border-left: 1px solid grey;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    width: 182px;
+  }
+  
+  .monthTimeBlock {
+    display: inline-block;
+    background: #F0F5F5;
+    height: inherit;
+    border-left: 1px solid grey;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    width: 60px;
+  }
+  
+  .monthText {
+    display: inline-block;
+    height: inherit;
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .quarterText {
+    display: inline-block;
+    height: inherit;
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .schedule {
+    width: inherit;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    /* touch-action: none; */
+  }
+  
+  .bar {
+    position: absolute;
+    left: 60px;
+    top: 50px;
+    background-color: #00B6FF;
+    color: white;
+    font-size: 12px;
+    line-height: 20px;
+    padding-left: 10px;
+    border-radius: 3px;
+    width: 182px;
+  }
+  .column {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    color: white;
+    font-size: 12px;
+    height: 200px;
+    width: 182px;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+  }
+  
