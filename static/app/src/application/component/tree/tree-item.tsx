@@ -46,7 +46,7 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
     }
 
     return (
-        <span className={styles.treeItemContainer}>
+        <span className={styles.treeItemContainer} style={{height: '20px'}}>
             <span className={styles.treeItem}
                 style={{ marginLeft: getPaddingLeft() }}>
                 {treeItem?.hasChildren ? (

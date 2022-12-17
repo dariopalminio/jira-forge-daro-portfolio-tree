@@ -10,9 +10,10 @@ import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-ty
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
 import styles from './search-view.module.css';
 import { ModalDialog } from "../../common/dialog";
-import { getQuarters } from "../../../domain/helper/quarter.helper";
+import { getFirstDateFromQuarters, getLastDateFromQuarters, getQuarters, getQuartersCount, QuartersType } from "../../../domain/helper/quarter.helper";
 import TimeLine from "../roadmap/timeline";
 import Roadmaps from "../roadmap/roadmaps";
+import { getDaysBetweenTwoDates } from "../../../domain/helper/date.helper";
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
@@ -115,6 +116,19 @@ const SearchView: React.FC = () => {
         setIssueToShow(null);
     }
 
+    const getQuartersData = (): QuartersType => {
+        const quarters: QuartersType = getQuarters(new Date('2022-07-28'), new Date('2023-04-20'));
+        const first = getFirstDateFromQuarters(quarters);
+        const last = getLastDateFromQuarters(quarters);
+        console.log('**************************************quarters:', quarters);
+        console.log('Mas chica fecha:', first);
+        console.log('Mas grande fecha:', last);
+        console.log('días entre fechas:', getDaysBetweenTwoDates(first, last));
+        console.log('Cantidad de quarters:', getQuartersCount(quarters));
+        const quarterCount: number = getQuartersCount(quarters);
+        return quarters;
+    }
+    
     return (
         <>
             <div id="actionPanel" className={styles.actionPanel}>
@@ -154,7 +168,13 @@ const SearchView: React.FC = () => {
                     <SplitBar id={idSpliter}></SplitBar>
                     <SplitRight id={idSpliter}>
 
-                        <Roadmaps>
+                        <Roadmaps
+                         timelineData={getQuartersData()}
+                         tree={dataTree}
+                         toggles={toggles}
+                         togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                         onClick={(item) => handleClick(item)}
+                        >
                         
                         </Roadmaps>
 

@@ -6,6 +6,7 @@ import styles from './roadmap.module.css';
 interface IProps {
     children?: React.ReactNode;
     quarters: QuartersType;
+    monthWidth: number;
 }
 
 /**
@@ -24,7 +25,7 @@ const TimeLine: React.FC<IProps> = (props: IProps) => {
             <div className={styles.timeline}>
                 {quartes?.map((item, index) => {
                     return (
-                        <div className={styles.quarterTimeBlock}>
+                        <div className={styles.quarterTimeBlock} style={{width: `${((props.monthWidth * 3)-1)}px`}} >
                             <span className={styles.quarterText}>{item}</span>
                         </div>
                     );
@@ -46,7 +47,7 @@ const TimeLine: React.FC<IProps> = (props: IProps) => {
             <div className={styles.timeline}>
                 {months?.map((item, index) => {
                     return (
-                        <div className={styles.monthTimeBlock}>
+                        <div className={styles.monthTimeBlock} style={{width: `${props.monthWidth}`}}>
                             <span className={styles.monthText}>{item}</span>
                         </div>
                     );

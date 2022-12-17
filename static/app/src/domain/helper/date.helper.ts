@@ -15,7 +15,7 @@ export const convertAnyToDate = (d: any): Date => {
     throw new Error('Could not convert data to date');
 };
 
-const formatTo = (date: Date, lang: string, sep: string = '/') => {
+export const formatTo = (date: Date, lang: string, sep: string = '/') => {
     let d = new Date();
     if (!(date instanceof Date) || (typeof date === "string")) { //typeof: object
         d = new Date(date);
@@ -33,7 +33,7 @@ const formatTo = (date: Date, lang: string, sep: string = '/') => {
     return d.getFullYear() + sep + (d.getMonth() + 1) + sep + d.getDate();
 }
 
-function getMonthDifference(startDate: Date, endDate: Date) {
+export function getMonthDifference(startDate: Date, endDate: Date) {
     const difference = (
         endDate.getMonth() -
         startDate.getMonth() +
@@ -57,7 +57,7 @@ function getMonthDifference(startDate: Date, endDate: Date) {
  * { year: 2023, month: 2 },
  * { year: 2023, month: 3 } ]
  */
-const getMonthsBetweenTwoDates = (fromDate: Date, toDate: Date) => {
+export const getMonthsBetweenTwoDates = (fromDate: Date, toDate: Date) => {
     const fromYear = fromDate.getFullYear();
     const fromMonth = fromDate.getMonth();
     const toYear = toDate.getFullYear();
@@ -77,3 +77,11 @@ const getMonthsBetweenTwoDates = (fromDate: Date, toDate: Date) => {
 }
 
 
+export const getDaysBetweenTwoDates = (fromDate: Date, toDate: Date) => {
+    let difference = toDate.getTime() - fromDate.getTime();
+    //the difference result is in milliseconds and we must convert this result to days
+    //The formula for converting milliseconds into the days is:
+    //(1000 milliseconds * (60 seconds * 60 minutes) * 24 hours)
+    let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+    return totalDays;
+}
