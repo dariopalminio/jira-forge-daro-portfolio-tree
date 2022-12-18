@@ -6,7 +6,7 @@ import RadioButtonGroup from '../../common/radio/radio-button-group';
 import TreeItem from './tree-item';
 import styles from './tree-item.module.css';
 
-interface Props {
+interface IProps {
     expandAllLabel: string;
     collapseAllLabel: string;
     onClick: (item: IssueTreeNodeType) => void;
@@ -15,7 +15,7 @@ interface Props {
     toggles: TreeToggleType;
 }
 
-const Tree: React.FC<Props> = ({ expandAllLabel, collapseAllLabel, tree, onClick, toggles, togglesChange }) => {
+const Tree: React.FC<IProps> = ({ expandAllLabel, collapseAllLabel, tree, onClick, toggles, togglesChange }) => {
 
 
     const handleOnClickLink = (item: IssueTreeNodeType) => {

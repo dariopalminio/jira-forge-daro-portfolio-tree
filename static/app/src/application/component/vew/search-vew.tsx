@@ -5,7 +5,7 @@ import Button from "../../common/button/button";
 import TextField from "../../common/text-field/text-field";
 import { Tree } from "../tree";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../common/splitable-container"
-import { TableSelectable } from "../table";
+import { IColHeader, TableSelectable } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
 import styles from './search-view.module.css';
@@ -16,6 +16,9 @@ import Roadmaps from "../roadmap/roadmaps";
 import { getDaysBetweenTwoDates } from "../../../domain/helper/date.helper";
 import { TabsType } from "../../common/tab-panel/types";
 import Tabs from "../../common/tab-panel/tabs";
+import RoadmapViewPanel from "./roadmaps-view-panel";
+import TableViewPanel from "./table-view-panel";
+import TreeViewPanel from "./tree-view-panel";
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
@@ -28,7 +31,8 @@ const SearchView: React.FC = () => {
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
     const [tabSelected, setTabSelected] = useState<string>('tree');
 
-    const TableHeadersDefault = [
+
+    const TableHeadersDefault: IColHeader[] = [
         {
             "prop": "key",
             "label": t("key"),
@@ -165,84 +169,21 @@ const SearchView: React.FC = () => {
 
 
                 {tabSelected === 'tree' && (
-                    <div style={{ width: "5000px" }}>
-                        <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                            {t('tree.list.title')}
-                        </div>
-                        <Tree
-                            collapseAllLabel={t("collapse.all")}
-                            expandAllLabel={t("expand.all")}
-                            tree={dataTree}
-                            toggles={toggles}
-                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                            onClick={(item) => handleClick(item)} />
-                    </div>
+                    <TreeViewPanel headers={TableHeadersDefault}
+                        onClick={(item: any) => alert(item.key)} />
                 )}
 
                 {tabSelected === 'table' && (
-                    <SplitableContainer id={idSpliter} style={{ height: 'calc(100vh - 200px)' }}>
-                        <SplitLeft id={idSpliter}>
-                            <div style={{ width: "5000px" }}>
-                                <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                                    {t('tree.list.title')}
-                                </div>
-                                <Tree
-                                    collapseAllLabel={t("collapse.all")}
-                                    expandAllLabel={t("expand.all")}
-                                    tree={dataTree}
-                                    toggles={toggles}
-                                    togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                                    onClick={(item) => handleClick(item)} />
-                            </div>
-                        </SplitLeft>
-                        <SplitBar id={idSpliter}></SplitBar>
-                        <SplitRight id={idSpliter}>
-
-                            <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                                {t('table.fields.title')}
-                            </div>
-                            <TableSelectable
-                                headers={TableHeadersDefault}
-                                tree={dataTree}
-                                toggles={toggles}
-                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                                onClick={(item: any) => alert(item.key)} />
-
-                        </SplitRight>
-                    </SplitableContainer>
+                    <TableViewPanel headers={TableHeadersDefault}
+                        onClick={(item: any) => alert(item.key)} />
 
                 )}
 
-
-                {tabSelected === 'roadmaps' && (
-                    <SplitableContainer id={idSpliter} style={{ height: 'calc(100vh - 200px)' }}>
-                        <SplitLeft id={idSpliter}>
-                            <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                                {t('table.fields.title')}
-                            </div>
-                            <TableSelectable
-                                headers={TableHeadersDefault}
-                                tree={dataTree}
-                                toggles={toggles}
-                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                                onClick={(item: any) => alert(item.key)} />
-                        </SplitLeft>
-                        <SplitBar id={idSpliter}></SplitBar>
-                        <SplitRight id={idSpliter}>
-
-                            <Roadmaps
-                                timelineData={getQuartersData()}
-                                tree={dataTree}
-                                toggles={toggles}
-                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                                onClick={(item) => handleClick(item)}
-                            >
-
-                            </Roadmaps>
-
-                        </SplitRight>
-                    </SplitableContainer>
-                )
+                {tabSelected === 'roadmaps' &&
+                    (
+                        <RoadmapViewPanel headers={TableHeadersDefault}
+                            onClick={(item: any) => alert(item.key)} />
+                    )
                 }
 
             </div>
