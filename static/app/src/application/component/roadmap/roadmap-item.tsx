@@ -3,8 +3,11 @@ import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-ty
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 //className={styles.inputTextField}
 import styles from './roadmap.module.css';
+import { QuartersType } from '../../../domain/helper/quarter.helper';
+import { getDaysBetweenTwoDates } from '../../../domain/helper/date.helper';
 
 interface IProps {
+    timelineData: QuartersType;
     onClick: (item: IssueTreeNodeType) => void;
     treeItem: IssueTreeNodeType;
     togglesChange: (newToggles: TreeToggleType) => void;
@@ -23,15 +26,39 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
     }
 
 
+    const getMarginLeft = () => {
+        const startdate: string = props.treeItem?.fields?.customfield_10015;
+        if (!startdate || startdate === undefined  || startdate ==='') {
+            return 0;
+        }
+        const days: number = getDaysBetweenTwoDates(props.timelineData.firstDate, new Date(startdate));
+        console.log('***DAYS>:', days);
+        return days * 2;
+    }
+
+    const getBarWidth = () => {
+        const startdate: string = props.treeItem?.fields?.customfield_10015;
+        if (!startdate || startdate === undefined  || startdate ==='') {
+            return 0;
+        }
+        const duedate = props.treeItem?.fields?.duedate;
+        if (!duedate || duedate === undefined  || duedate ==='') {
+            return 0;
+        }
+        const days: number = getDaysBetweenTwoDates(new Date(startdate), new Date(duedate));
+        console.log('***DAYS>:', days);
+        return days * 2;
+    }
+
     const isOpen = (): boolean => {
-        //console.log(`toggles[${treeItem.key}]: `, toggles[treeItem.key]);
         return props.toggles[props.treeItem.key];
     }
 
     return (
         <>
-            <div className={styles.bar} style={{height: '20px'}}>
-                <div className={styles.internalBar}>
+            <div className={styles.bar} style={{ height: '20px' }}>
+                <div className={styles.internalBar}
+                    style={{ marginLeft: `${getMarginLeft()}px`, width: `${getBarWidth()}px` }}>
                     {props.treeItem.key}
                 </div>
             </div>
@@ -39,12 +66,13 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
                 props.treeItem?.childrens?.map(
                     (item, index) => {
                         return (
-                            <RoadmapItem 
-                            key={index} 
-                            toggles={props.toggles}
-                            togglesChange={props.togglesChange}
-                            treeItem={item} 
-                            onClick={(item) => handleOnClick(item)} />
+                            <RoadmapItem
+                                timelineData={props.timelineData}
+                                key={index}
+                                toggles={props.toggles}
+                                togglesChange={props.togglesChange}
+                                treeItem={item}
+                                onClick={(item) => handleOnClick(item)} />
                         );
                     }
                 )

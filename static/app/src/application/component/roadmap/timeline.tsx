@@ -1,5 +1,5 @@
 import React from "react";
-import { getQuarters, QuartersType } from "../../../domain/helper/quarter.helper";
+import { QuartersDictionaryType, QuartersType } from "../../../domain/helper/quarter.helper";
 import styles from './roadmap.module.css';
 
 
@@ -16,51 +16,53 @@ const TimeLine: React.FC<IProps> = (props: IProps) => {
 
 
     const getQuarters = (): React.ReactNode => {
-        const quartes = [];
-        for (const [key, value] of Object.entries(props.quarters)) {
-            quartes.push(key);
+        const quartesReactNode = [];
+        for (const [key, value] of Object.entries(props.quarters.data)) {
+            let qdays: number = 0;
+            for (let i = 0; i < value.length; i++) {
+                qdays += value[i].days;
+            }
+            quartesReactNode.push(
+                <div className={styles.quarterTimeBlock} 
+                    style={{ width: `${((qdays * 2) -1)}px` }} >
+                    <span className={styles.quarterText}>{key}</span>
+                </div>
+            );
         }
 
         return (
-            <div className={styles.timeline}>
-                {quartes?.map((item, index) => {
-                    return (
-                        <div className={styles.quarterTimeBlock} style={{width: `${((props.monthWidth * 3)-1)}px`}} >
-                            <span className={styles.quarterText}>{item}</span>
-                        </div>
-                    );
-                })}
-            </div>
+            quartesReactNode
         )
 
     }
 
     const getMonths = (): React.ReactNode => {
-        const months = [];
-        for (const [key, value] of Object.entries(props.quarters)) {
+        const monthsReactNode = [];
+        for (const [key, value] of Object.entries(props.quarters.data)) {
             for (let i = 0; i < value.length; i++) {
-                months.push(value[i].month);
+                monthsReactNode.push(
+                    <div className={styles.monthTimeBlock} 
+                        style={{ width: `${(value[i].days * 2)-1}px` }}>
+                        <span className={styles.monthText}>{value[i].month}</span>
+                    </div>
+                );
+
             }
         }
 
         return (
-            <div className={styles.timeline}>
-                {months?.map((item, index) => {
-                    return (
-                        <div className={styles.monthTimeBlock} style={{width: `${props.monthWidth}`}}>
-                            <span className={styles.monthText}>{item}</span>
-                        </div>
-                    );
-                })}
-            </div>
-        )
-
+            monthsReactNode
+        );
     }
 
     return (
         <>
-            {getQuarters()}
-            {getMonths()}
+            <div className={styles.timeline}>
+                {getQuarters()}
+            </div>
+            <div className={styles.timeline}>
+                {getMonths()}
+            </div>
         </>
     );
 };

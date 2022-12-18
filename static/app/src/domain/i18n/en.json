@@ -18,5 +18,9 @@
     "search": "Search",
     "save": "Save",
     "key": "Key",
-    "summary": "Summary"
+    "summary": "Summary",
+    "table": "Table",
+    "tree": "Tree",
+    "roadmaps": "Roadmaps"
+
 }

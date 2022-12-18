@@ -10,10 +10,12 @@ import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-ty
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
 import styles from './search-view.module.css';
 import { ModalDialog } from "../../common/dialog";
-import { getFirstDateFromQuarters, getLastDateFromQuarters, getQuarters, getQuartersCount, QuartersType } from "../../../domain/helper/quarter.helper";
+import { getQuarters, QuartersType } from "../../../domain/helper/quarter.helper";
 import TimeLine from "../roadmap/timeline";
 import Roadmaps from "../roadmap/roadmaps";
 import { getDaysBetweenTwoDates } from "../../../domain/helper/date.helper";
+import { TabsType } from "../../common/tab-panel/types";
+import Tabs from "../../common/tab-panel/tabs";
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
@@ -24,6 +26,7 @@ const SearchView: React.FC = () => {
     const { t } = useTranslation();
     const idSpliter = "Daro";
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
+    const [tabSelected, setTabSelected] = useState<string>('tree');
 
     const TableHeadersDefault = [
         {
@@ -61,6 +64,22 @@ const SearchView: React.FC = () => {
             "label": t("duedate"),
             "width": 100
         },
+    ];
+
+    const tabs: TabsType = [
+        {
+            id: 'tree',
+            text: t('tree')
+        },
+        {
+            id: 'table',
+            text: t('table')
+        }
+        ,
+        {
+            id: 'roadmaps',
+            text: t('roadmaps')
+        }
     ];
 
     const searchData = async () => {
@@ -118,19 +137,11 @@ const SearchView: React.FC = () => {
 
     const getQuartersData = (): QuartersType => {
         const quarters: QuartersType = getQuarters(new Date('2022-07-28'), new Date('2023-04-20'));
-        const first = getFirstDateFromQuarters(quarters);
-        const last = getLastDateFromQuarters(quarters);
-        console.log('**************************************quarters:', quarters);
-        console.log('Mas chica fecha:', first);
-        console.log('Mas grande fecha:', last);
-        console.log('días entre fechas:', getDaysBetweenTwoDates(first, last));
-        console.log('Cantidad de quarters:', getQuartersCount(quarters));
-        const quarterCount: number = getQuartersCount(quarters);
         return quarters;
     }
-    
+
     return (
-        <>
+        <div id="TabPanel" className={styles.panelContainer}>
             <div id="actionPanel" className={styles.actionPanel}>
                 <div className={styles.searchWrapper}>
                     <div className={styles.jqlWrapper}>
@@ -148,11 +159,113 @@ const SearchView: React.FC = () => {
                 </div>
             </div>
 
-            <div id="contentPanel">
+            <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
 
-                <SplitableContainer id={idSpliter} style={{ height: 'calc(100vh - 150px)' }}>
-                    <SplitLeft id={idSpliter}>
-                        <div style={{ width: "5000px" }}>
+            <div id="contentPanel" style={{ height: "100%" }}>
+
+
+                {tabSelected === 'tree' && (
+                    <div style={{ width: "5000px" }}>
+                        <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
+                            {t('tree.list.title')}
+                        </div>
+                        <Tree
+                            collapseAllLabel={t("collapse.all")}
+                            expandAllLabel={t("expand.all")}
+                            tree={dataTree}
+                            toggles={toggles}
+                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                            onClick={(item) => handleClick(item)} />
+                    </div>
+                )}
+
+                {tabSelected === 'table' && (
+                    <SplitableContainer id={idSpliter} style={{ height: 'calc(100vh - 200px)' }}>
+                        <SplitLeft id={idSpliter}>
+                            <div style={{ width: "5000px" }}>
+                                <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
+                                    {t('tree.list.title')}
+                                </div>
+                                <Tree
+                                    collapseAllLabel={t("collapse.all")}
+                                    expandAllLabel={t("expand.all")}
+                                    tree={dataTree}
+                                    toggles={toggles}
+                                    togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                                    onClick={(item) => handleClick(item)} />
+                            </div>
+                        </SplitLeft>
+                        <SplitBar id={idSpliter}></SplitBar>
+                        <SplitRight id={idSpliter}>
+
+                            <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
+                                {t('table.fields.title')}
+                            </div>
+                            <TableSelectable
+                                headers={TableHeadersDefault}
+                                tree={dataTree}
+                                toggles={toggles}
+                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                                onClick={(item: any) => alert(item.key)} />
+
+                        </SplitRight>
+                    </SplitableContainer>
+
+                )}
+
+
+                {tabSelected === 'roadmaps' && (
+                    <SplitableContainer id={idSpliter} style={{ height: 'calc(100vh - 200px)' }}>
+                        <SplitLeft id={idSpliter}>
+                            <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
+                                {t('table.fields.title')}
+                            </div>
+                            <TableSelectable
+                                headers={TableHeadersDefault}
+                                tree={dataTree}
+                                toggles={toggles}
+                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                                onClick={(item: any) => alert(item.key)} />
+                        </SplitLeft>
+                        <SplitBar id={idSpliter}></SplitBar>
+                        <SplitRight id={idSpliter}>
+
+                            <Roadmaps
+                                timelineData={getQuartersData()}
+                                tree={dataTree}
+                                toggles={toggles}
+                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                                onClick={(item) => handleClick(item)}
+                            >
+
+                            </Roadmaps>
+
+                        </SplitRight>
+                    </SplitableContainer>
+                )
+                }
+
+            </div>
+
+
+            <ModalDialog
+                isOpen={issueToShow !== null}
+                onClose={closeDialog}
+            >
+                <span>GO: <a href={issueToShow?.path} target="_blank">{issueToShow?.path}</a></span>
+
+            </ModalDialog>
+
+        </div>
+
+    );
+};
+
+export default SearchView;
+
+/**
+TREE:
+                         <div style={{ width: "5000px" }}>
                             <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
                                 {t('tree.list.title')}
                             </div>
@@ -164,40 +277,7 @@ const SearchView: React.FC = () => {
                                 togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                                 onClick={(item) => handleClick(item)} />
                         </div>
-                    </SplitLeft>
-                    <SplitBar id={idSpliter}></SplitBar>
-                    <SplitRight id={idSpliter}>
 
-                        <Roadmaps
-                         timelineData={getQuartersData()}
-                         tree={dataTree}
-                         toggles={toggles}
-                         togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                         onClick={(item) => handleClick(item)}
-                        >
-                        
-                        </Roadmaps>
-
-                    </SplitRight>
-                </SplitableContainer>
-
-            </div>
-
-            <ModalDialog
-                isOpen={issueToShow !== null}
-                onClose={closeDialog}
-            >
-                <span>GO: <a href={issueToShow?.path} target="_blank">{issueToShow?.path}</a></span>
-
-            </ModalDialog>
-
-        </>
-    );
-};
-
-export default SearchView;
-
-/**
 TABLE:
         <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
                             {t('table.fields.title')}

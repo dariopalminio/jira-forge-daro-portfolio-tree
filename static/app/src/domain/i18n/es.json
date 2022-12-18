@@ -18,5 +18,8 @@
     "search": "Buscar",
     "save": "Guardar",
     "key": "Id",
-    "summary": "Detalle resumen"
+    "summary": "Detalle resumen",
+    "table": "Vista de Tabla",
+    "tree": "Desglose",
+    "roadmaps": "Hojas de ruta"
 }

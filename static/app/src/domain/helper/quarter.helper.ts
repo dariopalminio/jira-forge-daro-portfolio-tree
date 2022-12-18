@@ -2,46 +2,55 @@
 const quarterGeneric: string[] = ['Q1', 'Q1', 'Q1', 'Q2', 'Q2', 'Q2', 'Q3', 'Q3', 'Q3', 'Q4', 'Q4', 'Q4'];
 
 
-export type QuarterItemType = { quarter: string,  months: Array<MonthItemType>};
-export type MonthItemType = { year: number, month: number };
-export type QuartersType = { [key: string]: Array<MonthItemType> };
+export type QuarterItemType = { quarter: string, months: Array<MonthItemType> };
+export type MonthItemType = {
+    year: number;
+    month: number;
+    days: number;
+};
+export type QuartersDictionaryType = { [key: string]: Array<MonthItemType> };
+export type QuartersType = {
+    firstDate: Date;
+    lastDate: Date;
+    data: QuartersDictionaryType
+};
 
-const getQuarterObject = (q: string, y: number): QuarterItemType | undefined=> {
+const getQuarterObject = (q: string, y: number): QuarterItemType | undefined => {
     switch (q) {
         case 'Q1': {
             return {
                 quarter: y + ' Q1',
                 months:
-                    [{ year: y, month: 1 },
-                    { year: y, month: 2 },
-                    { year: y, month: 3 }]
+                    [{ year: y, month: 1, days:31 },
+                    { year: y, month: 2, days:28 },
+                    { year: y, month: 3, days:31 }]
             }
         }
         case 'Q2': {
             return {
                 quarter: y + ' Q2',
                 months:
-                    [{ year: y, month: 4 },
-                    { year: y, month: 5 },
-                    { year: y, month: 6 }]
+                    [{ year: y, month: 4, days:30 },
+                    { year: y, month: 5, days:31 },
+                    { year: y, month: 6, days:31 }]
             }
         }
         case 'Q3': {
             return {
                 quarter: y + ' Q3',
                 months:
-                    [{ year: y, month: 7 },
-                    { year: y, month: 8 },
-                    { year: y, month: 9 }]
+                    [{ year: y, month: 7, days:31 },
+                    { year: y, month: 8, days:31 },
+                    { year: y, month: 9, days:30 }]
             }
         }
         case 'Q4': {
             return {
                 quarter: y + ' Q4',
                 months:
-                    [{ year: y, month: 10 },
-                    { year: y, month: 11 },
-                    { year: y, month: 12 }]
+                    [{ year: y, month: 10, days:31 },
+                    { year: y, month: 11, days:30 },
+                    { year: y, month: 12, days:31 }]
             }
         }
         default:
@@ -118,12 +127,12 @@ result:{
 }
 
  */
-export const getQuarters = (fromDate: Date, toDate: Date): QuartersType => {
+export const getQuartersDictionary = (fromDate: Date, toDate: Date): QuartersDictionaryType => {
     const fromYear = fromDate.getFullYear();
     const fromMonth = fromDate.getMonth();
     const toYear = toDate.getFullYear();
     const toMonth = toDate.getMonth();
-    let quarters: QuartersType = {};
+    let quarters: QuartersDictionaryType = {};
     for (let year = fromYear; year <= toYear; year++) {
         let monthNum = year === fromYear ? fromMonth : 0;
         const monthLimit = year === toYear ? toMonth : 11;
@@ -138,6 +147,19 @@ export const getQuarters = (fromDate: Date, toDate: Date): QuartersType => {
         }
     }
     return quarters;
+}
+
+export const getQuarters = (fromDate: Date, toDate: Date): QuartersType => {
+
+    const quarters: QuartersDictionaryType = getQuartersDictionary(fromDate, toDate);
+
+    const quartersData: QuartersType = {
+        firstDate: getFirstDateFromQuarters(quarters),
+        lastDate: getLastDateFromQuarters(quarters),
+        data: quarters
+    }
+
+    return quartersData;
 }
 
 /**
@@ -157,39 +179,39 @@ for (const [key, value] of Object.entries(sample)) {
 
  */
 
-export const getQuartersCount = (quarters: QuartersType) => {
-    if (!quarters || quarters === undefined || quarters === null || !Object.entries(quarters)){
+export const getQuartersCount = (quarters: QuartersDictionaryType) => {
+    if (!quarters || quarters === undefined || quarters === null || !Object.entries(quarters)) {
         return 0;
     }
-      return Object.entries(quarters).length;
+    return Object.entries(quarters).length;
 };
 
-export const getFirstDateFromQuarters = (quarters: QuartersType): Date => {
+export const getFirstDateFromQuarters = (quarters: QuartersDictionaryType): Date => {
     let firstDate = new Date();
     for (const [key, value] of Object.entries(quarters)) {
         for (let i = 0; i < value.length; i++) {
             const month = value[i].month;
             const year = value[i].year;
-            var day = new Date(year, month-1, 1);
-            if (day.getTime() <= firstDate.getTime()){
+            var day = new Date(year, month - 1, 1);
+            if (day.getTime() <= firstDate.getTime()) {
                 firstDate = day;
             }
         }
-      }
-      return firstDate;
+    }
+    return firstDate;
 };
 
-export const getLastDateFromQuarters = (quarters: QuartersType): Date => {
+export const getLastDateFromQuarters = (quarters: QuartersDictionaryType): Date => {
     let firstDate = new Date();
     for (const [key, value] of Object.entries(quarters)) {
         for (let i = 0; i < value.length; i++) {
             const month = value[i].month;
             const year = value[i].year;
-            var day = new Date(year, month-1, 1);
-            if (day.getTime() >= firstDate.getTime()){
+            var day = new Date(year, month - 1, 1);
+            if (day.getTime() >= firstDate.getTime()) {
                 firstDate = day;
             }
         }
-      }
-      return firstDate;
+    }
+    return firstDate;
 };

@@ -77,11 +77,11 @@ export const getMonthsBetweenTwoDates = (fromDate: Date, toDate: Date) => {
 }
 
 
-export const getDaysBetweenTwoDates = (fromDate: Date, toDate: Date) => {
-    let difference = toDate.getTime() - fromDate.getTime();
+export const getDaysBetweenTwoDates = (fromDate: Date, toDate: Date): number => {
+    const difference = toDate.getTime() - fromDate.getTime();
     //the difference result is in milliseconds and we must convert this result to days
     //The formula for converting milliseconds into the days is:
     //(1000 milliseconds * (60 seconds * 60 minutes) * 24 hours)
-    let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+    const totalDays: number = Math.ceil(difference / (1000 * 3600 * 24));
     return totalDays;
 }

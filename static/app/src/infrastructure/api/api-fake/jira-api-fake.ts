@@ -190,7 +190,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "avatarId": 10551,
                             "hierarchyLevel": 0
                         },
-                        "duedate": "2022-12-31",
+                        "duedate": "2023-02-28",
                         "created": "2022-11-18T11:59:32.924-0300",
                         "project": {
                             "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
@@ -790,7 +790,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "avatarId": 10551,
                             "hierarchyLevel": 0
                         },
-                        "duedate": "2022-12-31",
+                        "duedate": "2023-03-15",
                         "created": "2022-11-14T10:30:59.174-0300",
                         "project": {
                             "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
@@ -1208,7 +1208,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                 "customfield_10038": null,
                 "customfield_10039": null,
                 "environment": null,
-                "duedate": "2022-12-15",
+                "duedate": "2023-01-25",
                 "progress": {
                     "progress": 0,
                     "total": 0

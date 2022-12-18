@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { getDaysBetweenTwoDates } from "../../../domain/helper/date.helper";
-import { getFirstDateFromQuarters, getLastDateFromQuarters, getQuarters, getQuartersCount, QuartersType } from "../../../domain/helper/quarter.helper";
+import { QuartersDictionaryType, QuartersType } from "../../../domain/helper/quarter.helper";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 import RoadmapItem from "./roadmap-item";
 import styles from './roadmap.module.css';
@@ -27,23 +26,23 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
         props.onClick(item);
     }
 
-
     const getScheduleColumns = (): React.ReactNode => {
-        const quartes = [];
-        for (const [key, value] of Object.entries(props.timelineData)) {
-            quartes.push(key);
-        }
-
-        return (
-            <>
-                {quartes?.map((item, index) => {
-                    return (
-                        <div className={styles.column} 
-                        style={{left: `${(((monthWidth) * 3))*index}px`, width: `${((monthWidth * 3)-1)}px`}} 
+        const quartesReactNode = [];
+        let qTotalDays: number = 0;
+        for (const [key, value] of Object.entries(props.timelineData.data)) {
+            let qdays: number = 0;
+            for (let i = 0; i < value.length; i++) {
+                qdays += value[i].days;
+            }
+            quartesReactNode.push(
+                <div className={styles.column} 
+                style={{ left: `${((qTotalDays * 2) )}px`, width: `${((qdays * 2) -1)}px` }}
                         />
-                    );
-                })}
-            </>
+            );
+            qTotalDays += qdays;
+        }
+        return (
+            quartesReactNode
         )
 
     }
@@ -62,6 +61,7 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
                             return (
                                 <RoadmapItem
                                     key={index}
+                                    timelineData={props.timelineData}
                                     toggles={props.toggles}
                                     togglesChange={props.togglesChange}
                                     treeItem={item}
