@@ -1,0 +1,839 @@
+{
+    "request": {
+        "title": "Get Portfolio items",
+        "method": "POST",
+        "url": "https://cencosud.atlassian.net/rest/api/3/search",
+        "body": {
+            "expand": [
+                "names",
+                "schema",
+                "children",
+                "descendants"
+            ],
+            "jql": "'Epic Link' =JC-3 order by created DESC",
+            "maxResults": 15,
+            "fieldsByKeys": false,
+            "fields": [
+                "summary",
+                "status",
+                "assignee",
+                "issuelinks",
+                "duedate",
+                "created",
+                "customfield_10015",
+                "issuetype",
+                "project"
+            ],
+            "startAt": 0
+        }
+    },
+    "response": {
+        "expand": "schema,names",
+        "startAt": 0,
+        "maxResults": 15,
+        "total": 11,
+        "issues": [
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141255",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141255",
+                "key": "JC-32",
+                "fields": {
+                    "summary": "Creación del flujo de portafolio",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "created": "2022-12-19T10:54:00.522-0300",
+                    "duedate": null,
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                        "description": "This issue is being actively worked on at the moment by the assignee.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                        "name": "In Progress",
+                        "id": "3",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                            "id": 4,
+                            "key": "indeterminate",
+                            "colorName": "yellow",
+                            "name": "In Progress"
+                        }
+                    },
+                    "customfield_10015": null
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141205",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141205",
+                "key": "JC-31",
+                "fields": {
+                    "summary": "Se hicieron las Configuraciones core (iniciales)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "duedate": null,
+                    "created": "2022-12-19T10:07:25.325-0300",
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                        "description": "This issue is being actively worked on at the moment by the assignee.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                        "name": "In Progress",
+                        "id": "3",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                            "id": 4,
+                            "key": "indeterminate",
+                            "colorName": "yellow",
+                            "name": "In Progress"
+                        }
+                    },
+                    "customfield_10015": null
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141192",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141192",
+                "key": "JC-29",
+                "fields": {
+                    "summary": "Creación del espacio de portafolio MVP ParisTech (Chile)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "duedate": null,
+                    "created": "2022-12-19T09:52:35.434-0300",
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "customfield_10015": null,
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                        "description": "This issue is being actively worked on at the moment by the assignee.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                        "name": "In Progress",
+                        "id": "3",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                            "id": 4,
+                            "key": "indeterminate",
+                            "colorName": "yellow",
+                            "name": "In Progress"
+                        }
+                    }
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141191",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141191",
+                "key": "JC-28",
+                "fields": {
+                    "summary": "Refactorización proyecto Venta Teléfono ParisTech (Chile)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "duedate": null,
+                    "created": "2022-12-19T09:52:15.208-0300",
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": null,
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/1",
+                        "description": "The issue is open and ready for the assignee to start work on it.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/open.png",
+                        "name": "Open",
+                        "id": "1",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                            "id": 2,
+                            "key": "new",
+                            "colorName": "blue-gray",
+                            "name": "To Do"
+                        }
+                    },
+                    "customfield_10015": null
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141190",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141190",
+                "key": "JC-27",
+                "fields": {
+                    "summary": "Refactorización proyecto AS400 ParisTech (Chile)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "created": "2022-12-19T09:51:52.225-0300",
+                    "duedate": null,
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": null,
+                    "customfield_10015": null,
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/1",
+                        "description": "The issue is open and ready for the assignee to start work on it.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/open.png",
+                        "name": "Open",
+                        "id": "1",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                            "id": 2,
+                            "key": "new",
+                            "colorName": "blue-gray",
+                            "name": "To Do"
+                        }
+                    }
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141189",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141189",
+                "key": "JC-26",
+                "fields": {
+                    "summary": "Refactorización proyecto Ecosistema ParisTech (Chile)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "duedate": null,
+                    "created": "2022-12-19T09:51:36.940-0300",
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": null,
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/1",
+                        "description": "The issue is open and ready for the assignee to start work on it.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/open.png",
+                        "name": "Open",
+                        "id": "1",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                            "id": 2,
+                            "key": "new",
+                            "colorName": "blue-gray",
+                            "name": "To Do"
+                        }
+                    },
+                    "customfield_10015": null
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141188",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141188",
+                "key": "JC-25",
+                "fields": {
+                    "summary": "Migrar Venta Teléfono ParisTech (Chile)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "duedate": null,
+                    "created": "2022-12-19T09:50:46.030-0300",
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                        "description": "This issue is being actively worked on at the moment by the assignee.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                        "name": "In Progress",
+                        "id": "3",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                            "id": 4,
+                            "key": "indeterminate",
+                            "colorName": "yellow",
+                            "name": "In Progress"
+                        }
+                    },
+                    "customfield_10015": null
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141186",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141186",
+                "key": "JC-24",
+                "fields": {
+                    "summary": "Migrar proyecto AS400 ParisTech (Chile)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "created": "2022-12-19T09:49:36.115-0300",
+                    "duedate": null,
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "customfield_10015": null,
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                        "description": "This issue is being actively worked on at the moment by the assignee.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                        "name": "In Progress",
+                        "id": "3",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                            "id": 4,
+                            "key": "indeterminate",
+                            "colorName": "yellow",
+                            "name": "In Progress"
+                        }
+                    }
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "141185",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/141185",
+                "key": "JC-23",
+                "fields": {
+                    "summary": "Migrar proyecto equipo Ecosistema de Compra ParisTech (Chile)",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "duedate": null,
+                    "created": "2022-12-19T09:48:38.449-0300",
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "customfield_10015": null,
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                        "description": "This issue is being actively worked on at the moment by the assignee.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                        "name": "In Progress",
+                        "id": "3",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                            "id": 4,
+                            "key": "indeterminate",
+                            "colorName": "yellow",
+                            "name": "In Progress"
+                        }
+                    }
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "140467",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/140467",
+                "key": "JC-18",
+                "fields": {
+                    "summary": " Propuesta Portafolio para MVP ParisTech",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "created": "2022-12-14T13:48:04.579-0300",
+                    "duedate": null,
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/5",
+                        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/resolved.png",
+                        "name": "Resolved",
+                        "id": "5",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/3",
+                            "id": 3,
+                            "key": "done",
+                            "colorName": "green",
+                            "name": "Done"
+                        }
+                    },
+                    "customfield_10015": null
+                }
+            },
+            {
+                "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                "id": "140466",
+                "self": "https://cencosud.atlassian.net/rest/api/3/issue/140466",
+                "key": "JC-17",
+                "fields": {
+                    "summary": "Relevamiento info para MVP ParisTech",
+                    "issuetype": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10002",
+                        "id": "10002",
+                        "description": "A small, distinct piece of work.",
+                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                        "name": "Task",
+                        "subtask": false,
+                        "avatarId": 10318,
+                        "hierarchyLevel": 0
+                    },
+                    "created": "2022-12-14T13:48:00.051-0300",
+                    "duedate": null,
+                    "project": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/project/10098",
+                        "id": "10098",
+                        "key": "JC",
+                        "name": "Jira Consulting",
+                        "projectTypeKey": "software",
+                        "simplified": false,
+                        "avatarUrls": {
+                            "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400",
+                            "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=small",
+                            "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=xsmall",
+                            "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10400?size=medium"
+                        },
+                        "projectCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                            "id": "10000",
+                            "description": "Proyecto de Ecommerce Salesfore",
+                            "name": "ParisTech Ecommerce"
+                        }
+                    },
+                    "issuelinks": [],
+                    "assignee": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                        "accountId": "6357e13c13f37118d72646f3",
+                        "emailAddress": "dpalminio@agilistik.cl",
+                        "avatarUrls": {
+                            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                        },
+                        "displayName": "Dario Palminio",
+                        "active": true,
+                        "timeZone": "America/Santiago",
+                        "accountType": "atlassian"
+                    },
+                    "status": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/status/5",
+                        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/resolved.png",
+                        "name": "Resolved",
+                        "id": "5",
+                        "statusCategory": {
+                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/3",
+                            "id": 3,
+                            "key": "done",
+                            "colorName": "green",
+                            "name": "Done"
+                        }
+                    },
+                    "customfield_10015": null
+                }
+            }
+        ],
+        "names": {
+            "summary": "Summary",
+            "issuetype": "Issue Type",
+            "created": "Created",
+            "duedate": "Due date",
+            "project": "Project",
+            "issuelinks": "Linked Issues",
+            "assignee": "Assignee",
+            "status": "Status",
+            "customfield_10015": "Start date"
+        },
+        "schema": {
+            "summary": {
+                "type": "string",
+                "system": "summary"
+            },
+            "issuetype": {
+                "type": "issuetype",
+                "system": "issuetype"
+            },
+            "created": {
+                "type": "datetime",
+                "system": "created"
+            },
+            "duedate": {
+                "type": "date",
+                "system": "duedate"
+            },
+            "project": {
+                "type": "project",
+                "system": "project"
+            },
+            "issuelinks": {
+                "type": "array",
+                "items": "issuelinks",
+                "system": "issuelinks"
+            },
+            "assignee": {
+                "type": "user",
+                "system": "assignee"
+            },
+            "status": {
+                "type": "status",
+                "system": "status"
+            },
+            "customfield_10015": {
+                "type": "date",
+                "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
+                "customId": 10015
+            }
+        }
+    }
+}

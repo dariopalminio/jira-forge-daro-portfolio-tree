@@ -1,0 +1,1076 @@
+
+{
+    "request": {
+        "title":"Get Portfolio items",
+        "method":"POST",
+        "url": "https://cencosud.atlassian.net/rest/api/3/search",
+        "body": {
+            "expand": [
+              "names",
+              "schema",
+              "children",
+              "descendants"
+            ],
+            "jql": "project=POR and issuetype='Portfolio Item' order by created DESC",
+            "maxResults": 15,
+            "fieldsByKeys": false,
+            "fields": [
+              "summary",
+              "status",
+              "assignee",
+              "issuelinks",
+              "duedate",
+              "created",
+              "customfield_10015",
+              "issuetype",
+              "project"
+            ],
+            "startAt": 0
+          }
+    },
+    "response": {
+    "expand": "schema,names",
+    "startAt": 0,
+    "maxResults": 15,
+    "total": 8,
+    "issues": [
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "141395",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/141395",
+            "key": "POR-8",
+            "fields": {
+                "summary": "Ecosistema (evolutivos)",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "created": "2022-12-19T13:28:32.147-0300",
+                "duedate": null,
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [
+                    {
+                        "id": "132849",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132849",
+                        "type": {
+                            "id": "10003",
+                            "name": "Relates",
+                            "inward": "relates to",
+                            "outward": "relates to",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10003"
+                        },
+                        "outwardIssue": {
+                            "id": "140980",
+                            "key": "POR-5",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140980",
+                            "fields": {
+                                "summary": "Ecosistema de Compras (Proyecto EPM 4876)",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/6",
+                                    "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/closed.png",
+                                    "name": "Closed",
+                                    "id": "6",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/3",
+                                        "id": 3,
+                                        "key": "done",
+                                        "colorName": "green",
+                                        "name": "Done"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                                    "id": "10170",
+                                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                                    "name": "Portfolio Item",
+                                    "subtask": false,
+                                    "avatarId": 10620,
+                                    "hierarchyLevel": 0
+                                }
+                            }
+                        }
+                    }
+                ],
+                "assignee": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                    "accountId": "6357e13c13f37118d72646f3",
+                    "emailAddress": "dpalminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                        "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                        "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                        "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                    },
+                    "displayName": "Dario Palminio",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "customfield_10015": null,
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10164",
+                    "description": "This was auto-generated by Jira Service Management during workflow import",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/status_generic.gif",
+                    "name": "Implementing",
+                    "id": "10164",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "140997",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140997",
+            "key": "POR-7",
+            "fields": {
+                "summary": "Venta Telefónica / Convenios Comerciales",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "duedate": null,
+                "created": "2022-12-16T09:53:15.791-0300",
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [],
+                "assignee": null,
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10164",
+                    "description": "This was auto-generated by Jira Service Management during workflow import",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/status_generic.gif",
+                    "name": "Implementing",
+                    "id": "10164",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                },
+                "customfield_10015": null
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "140995",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140995",
+            "key": "POR-6",
+            "fields": {
+                "summary": "AS400 JDA",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "created": "2022-12-16T09:52:08.184-0300",
+                "duedate": null,
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [],
+                "assignee": null,
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10164",
+                    "description": "This was auto-generated by Jira Service Management during workflow import",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/status_generic.gif",
+                    "name": "Implementing",
+                    "id": "10164",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                },
+                "customfield_10015": null
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "140980",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140980",
+            "key": "POR-5",
+            "fields": {
+                "summary": "Ecosistema de Compras (Proyecto EPM 4876)",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "duedate": null,
+                "created": "2022-12-16T09:00:09.436-0300",
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [
+                    {
+                        "id": "132849",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132849",
+                        "type": {
+                            "id": "10003",
+                            "name": "Relates",
+                            "inward": "relates to",
+                            "outward": "relates to",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10003"
+                        },
+                        "inwardIssue": {
+                            "id": "141395",
+                            "key": "POR-8",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/141395",
+                            "fields": {
+                                "summary": "Ecosistema (evolutivos)",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10164",
+                                    "description": "This was auto-generated by Jira Service Management during workflow import",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/status_generic.gif",
+                                    "name": "Implementing",
+                                    "id": "10164",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                                        "id": 4,
+                                        "key": "indeterminate",
+                                        "colorName": "yellow",
+                                        "name": "In Progress"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                                    "id": "10170",
+                                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                                    "name": "Portfolio Item",
+                                    "subtask": false,
+                                    "avatarId": 10620,
+                                    "hierarchyLevel": 0
+                                }
+                            }
+                        }
+                    }
+                ],
+                "assignee": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                    "accountId": "6357e13c13f37118d72646f3",
+                    "emailAddress": "dpalminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                        "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                        "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                        "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                    },
+                    "displayName": "Dario Palminio",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/6",
+                    "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/closed.png",
+                    "name": "Closed",
+                    "id": "6",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/3",
+                        "id": 3,
+                        "key": "done",
+                        "colorName": "green",
+                        "name": "Done"
+                    }
+                },
+                "customfield_10015": null
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "140459",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140459",
+            "key": "POR-4",
+            "fields": {
+                "summary": " Jira Consulting",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "created": "2022-12-14T13:36:01.605-0300",
+                "duedate": "2023-02-28",
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [
+                    {
+                        "id": "132610",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132610",
+                        "type": {
+                            "id": "10014",
+                            "name": "Initiative",
+                            "inward": "included in",
+                            "outward": "includes",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10014"
+                        },
+                        "outwardIssue": {
+                            "id": "140456",
+                            "key": "JC-7",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140456",
+                            "fields": {
+                                "summary": "Organizar gestión basada en OKR ParisTech",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/1",
+                                    "description": "The issue is open and ready for the assignee to start work on it.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/open.png",
+                                    "name": "Open",
+                                    "id": "1",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                                        "id": 2,
+                                        "key": "new",
+                                        "colorName": "blue-gray",
+                                        "name": "To Do"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10000",
+                                    "id": "10000",
+                                    "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/issuetypes/epic.svg",
+                                    "name": "Epic",
+                                    "subtask": false,
+                                    "hierarchyLevel": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "132611",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132611",
+                        "type": {
+                            "id": "10014",
+                            "name": "Initiative",
+                            "inward": "included in",
+                            "outward": "includes",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10014"
+                        },
+                        "outwardIssue": {
+                            "id": "140457",
+                            "key": "JC-8",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140457",
+                            "fields": {
+                                "summary": "Capacitaciones sobre Jira",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/1",
+                                    "description": "The issue is open and ready for the assignee to start work on it.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/open.png",
+                                    "name": "Open",
+                                    "id": "1",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                                        "id": 2,
+                                        "key": "new",
+                                        "colorName": "blue-gray",
+                                        "name": "To Do"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10000",
+                                    "id": "10000",
+                                    "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/issuetypes/epic.svg",
+                                    "name": "Epic",
+                                    "subtask": false,
+                                    "hierarchyLevel": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "132607",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132607",
+                        "type": {
+                            "id": "10014",
+                            "name": "Initiative",
+                            "inward": "included in",
+                            "outward": "includes",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10014"
+                        },
+                        "outwardIssue": {
+                            "id": "140452",
+                            "key": "JC-3",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140452",
+                            "fields": {
+                                "summary": "Organización Jira MVP de ParisTech (Chile)",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                                    "description": "This issue is being actively worked on at the moment by the assignee.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                                    "name": "In Progress",
+                                    "id": "3",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                                        "id": 4,
+                                        "key": "indeterminate",
+                                        "colorName": "yellow",
+                                        "name": "In Progress"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10000",
+                                    "id": "10000",
+                                    "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/issuetypes/epic.svg",
+                                    "name": "Epic",
+                                    "subtask": false,
+                                    "hierarchyLevel": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "132608",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132608",
+                        "type": {
+                            "id": "10014",
+                            "name": "Initiative",
+                            "inward": "included in",
+                            "outward": "includes",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10014"
+                        },
+                        "outwardIssue": {
+                            "id": "140454",
+                            "key": "JC-4",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140454",
+                            "fields": {
+                                "summary": "Organizar Jira MVP de Colombia",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                                    "description": "This issue is being actively worked on at the moment by the assignee.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                                    "name": "In Progress",
+                                    "id": "3",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                                        "id": 4,
+                                        "key": "indeterminate",
+                                        "colorName": "yellow",
+                                        "name": "In Progress"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10000",
+                                    "id": "10000",
+                                    "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/issuetypes/epic.svg",
+                                    "name": "Epic",
+                                    "subtask": false,
+                                    "hierarchyLevel": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "132609",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132609",
+                        "type": {
+                            "id": "10014",
+                            "name": "Initiative",
+                            "inward": "included in",
+                            "outward": "includes",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10014"
+                        },
+                        "outwardIssue": {
+                            "id": "140455",
+                            "key": "JC-5",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140455",
+                            "fields": {
+                                "summary": "MVP de QA con Jira Only",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/3",
+                                    "description": "This issue is being actively worked on at the moment by the assignee.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/inprogress.png",
+                                    "name": "In Progress",
+                                    "id": "3",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                                        "id": 4,
+                                        "key": "indeterminate",
+                                        "colorName": "yellow",
+                                        "name": "In Progress"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10000",
+                                    "id": "10000",
+                                    "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/issuetypes/epic.svg",
+                                    "name": "Epic",
+                                    "subtask": false,
+                                    "hierarchyLevel": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "132603",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/132603",
+                        "type": {
+                            "id": "10014",
+                            "name": "Initiative",
+                            "inward": "included in",
+                            "outward": "includes",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10014"
+                        },
+                        "outwardIssue": {
+                            "id": "140450",
+                            "key": "JC-2",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/140450",
+                            "fields": {
+                                "summary": "Diagnóstico inicial de instancias Jira",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/6",
+                                    "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/closed.png",
+                                    "name": "Closed",
+                                    "id": "6",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/3",
+                                        "id": 3,
+                                        "key": "done",
+                                        "colorName": "green",
+                                        "name": "Done"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10000",
+                                    "id": "10000",
+                                    "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/issuetypes/epic.svg",
+                                    "name": "Epic",
+                                    "subtask": false,
+                                    "hierarchyLevel": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "133115",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issueLink/133115",
+                        "type": {
+                            "id": "10015",
+                            "name": "Risk",
+                            "inward": "risk in",
+                            "outward": "has risk",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issueLinkType/10015"
+                        },
+                        "outwardIssue": {
+                            "id": "141675",
+                            "key": "POR-9",
+                            "self": "https://cencosud.atlassian.net/rest/api/3/issue/141675",
+                            "fields": {
+                                "summary": "Las dependencias con focalpoints y otros equipos puede demorar los plazos de entrega",
+                                "status": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10319",
+                                    "description": "",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                                    "name": "Analysis",
+                                    "id": "10319",
+                                    "statusCategory": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                                        "id": 4,
+                                        "key": "indeterminate",
+                                        "colorName": "yellow",
+                                        "name": "In Progress"
+                                    }
+                                },
+                                "priority": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                    "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                    "name": "Medium",
+                                    "id": "3"
+                                },
+                                "issuetype": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10176",
+                                    "id": "10176",
+                                    "description": "Riesgo asociado a un ítems (Story, Epic, Initiative, Feature, Task, Portfolio Item, etc.)",
+                                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10308?size=medium",
+                                    "name": "Riesgo",
+                                    "subtask": false,
+                                    "avatarId": 10308,
+                                    "hierarchyLevel": 0
+                                }
+                            }
+                        }
+                    }
+                ],
+                "assignee": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                    "accountId": "6357e13c13f37118d72646f3",
+                    "emailAddress": "dpalminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                        "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                        "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                        "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                    },
+                    "displayName": "Dario Palminio",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "customfield_10015": "2022-10-28",
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10164",
+                    "description": "This was auto-generated by Jira Service Management during workflow import",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/status_generic.gif",
+                    "name": "Implementing",
+                    "id": "10164",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "139963",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/139963",
+            "key": "POR-3",
+            "fields": {
+                "summary": "Migracion NCR POS Supermercados Colombia [10183]",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "duedate": "2024-05-31",
+                "created": "2022-12-13T11:22:55.038-0300",
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [],
+                "assignee": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                    "accountId": "6357e13c13f37118d72646f3",
+                    "emailAddress": "dpalminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                        "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                        "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                        "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                    },
+                    "displayName": "Dario Palminio",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10047",
+                    "description": "Ideas, iniciativas o proyectos seleccionaos, listas en Backlog de iniciativas listas para comprometer o Portfolio Backlog de iniciativas aprobadas. Este es un inventario de opciones (iniciativas) 'Ir' (es decir, elementos de trabajo que están a la espera de ser comprometidos). Los elementos de trabajo de opción pueden ser Proyecto o Requisito del cliente. En el lado ascendente del Sistema Kanban, la demanda de trabajo (también conocida como \"Opciones\") se inserta en el inventario frente al punto de compromiso desde el cual se ingresa en la cola de entrada del equipo. En el tablero Kanban ascendente, el concepto de \"inventario mínimo\" se realizó a través de límites mínimos de opciones. Los límites mínimos de opciones imponen un mínimo en el número de opciones que hay en el tablero.",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                    "name": "READY TO COMMIT",
+                    "id": "10047",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                },
+                "customfield_10015": "2022-05-15"
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "139960",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/139960",
+            "key": "POR-2",
+            "fields": {
+                "summary": "Migración POS Easy Colombia [5378]",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "duedate": null,
+                "created": "2022-12-13T11:22:17.449-0300",
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [],
+                "assignee": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                    "accountId": "6357e13c13f37118d72646f3",
+                    "emailAddress": "dpalminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                        "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                        "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                        "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                    },
+                    "displayName": "Dario Palminio",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10047",
+                    "description": "Ideas, iniciativas o proyectos seleccionaos, listas en Backlog de iniciativas listas para comprometer o Portfolio Backlog de iniciativas aprobadas. Este es un inventario de opciones (iniciativas) 'Ir' (es decir, elementos de trabajo que están a la espera de ser comprometidos). Los elementos de trabajo de opción pueden ser Proyecto o Requisito del cliente. En el lado ascendente del Sistema Kanban, la demanda de trabajo (también conocida como \"Opciones\") se inserta en el inventario frente al punto de compromiso desde el cual se ingresa en la cola de entrada del equipo. En el tablero Kanban ascendente, el concepto de \"inventario mínimo\" se realizó a través de límites mínimos de opciones. Los límites mínimos de opciones imponen un mínimo en el número de opciones que hay en el tablero.",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                    "name": "READY TO COMMIT",
+                    "id": "10047",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                },
+                "customfield_10015": null
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "139957",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/139957",
+            "key": "POR-1",
+            "fields": {
+                "summary": "Desacoplamiento módulo GNX para Inventarios y Rappels [10210]",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10170",
+                    "id": "10170",
+                    "description": "Iniciativa o ítem de portafolio que puede ser un proyecto (CAPEX) a un servicio evolutivo (OPEX)",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10620?size=medium",
+                    "name": "Portfolio Item",
+                    "subtask": false,
+                    "avatarId": 10620,
+                    "hierarchyLevel": 0
+                },
+                "duedate": "2023-03-31",
+                "created": "2022-12-13T11:20:47.716-0300",
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10096",
+                    "id": "10096",
+                    "key": "POR",
+                    "name": "Portafolio ParisTech MVP",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10404?size=medium"
+                    },
+                    "projectCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "description": "Proyecto de Ecommerce Salesfore",
+                        "name": "ParisTech Ecommerce"
+                    }
+                },
+                "issuelinks": [],
+                "assignee": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/user?accountId=6357e13c13f37118d72646f3",
+                    "accountId": "6357e13c13f37118d72646f3",
+                    "emailAddress": "dpalminio@agilistik.cl",
+                    "avatarUrls": {
+                        "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/48",
+                        "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/24",
+                        "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/16",
+                        "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6357e13c13f37118d72646f3/8e9cc84a-fd5c-46be-b1f8-8aa348365243/32"
+                    },
+                    "displayName": "Dario Palminio",
+                    "active": true,
+                    "timeZone": "America/Santiago",
+                    "accountType": "atlassian"
+                },
+                "customfield_10015": "2022-06-01",
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10047",
+                    "description": "Ideas, iniciativas o proyectos seleccionaos, listas en Backlog de iniciativas listas para comprometer o Portfolio Backlog de iniciativas aprobadas. Este es un inventario de opciones (iniciativas) 'Ir' (es decir, elementos de trabajo que están a la espera de ser comprometidos). Los elementos de trabajo de opción pueden ser Proyecto o Requisito del cliente. En el lado ascendente del Sistema Kanban, la demanda de trabajo (también conocida como \"Opciones\") se inserta en el inventario frente al punto de compromiso desde el cual se ingresa en la cola de entrada del equipo. En el tablero Kanban ascendente, el concepto de \"inventario mínimo\" se realizó a través de límites mínimos de opciones. Los límites mínimos de opciones imponen un mínimo en el número de opciones que hay en el tablero.",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                    "name": "READY TO COMMIT",
+                    "id": "10047",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/4",
+                        "id": 4,
+                        "key": "indeterminate",
+                        "colorName": "yellow",
+                        "name": "In Progress"
+                    }
+                }
+            }
+        }
+    ],
+    "names": {
+        "summary": "Summary",
+        "issuetype": "Issue Type",
+        "created": "Created",
+        "duedate": "Due date",
+        "project": "Project",
+        "issuelinks": "Linked Issues",
+        "assignee": "Assignee",
+        "customfield_10015": "Start date",
+        "status": "Status"
+    },
+    "schema": {
+        "summary": {
+            "type": "string",
+            "system": "summary"
+        },
+        "issuetype": {
+            "type": "issuetype",
+            "system": "issuetype"
+        },
+        "created": {
+            "type": "datetime",
+            "system": "created"
+        },
+        "duedate": {
+            "type": "date",
+            "system": "duedate"
+        },
+        "project": {
+            "type": "project",
+            "system": "project"
+        },
+        "issuelinks": {
+            "type": "array",
+            "items": "issuelinks",
+            "system": "issuelinks"
+        },
+        "assignee": {
+            "type": "user",
+            "system": "assignee"
+        },
+        "customfield_10015": {
+            "type": "date",
+            "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
+            "customId": 10015
+        },
+        "status": {
+            "type": "status",
+            "system": "status"
+        }
+    }
+}
+}

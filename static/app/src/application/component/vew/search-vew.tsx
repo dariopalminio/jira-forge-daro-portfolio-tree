@@ -16,7 +16,8 @@ import TreeViewPanel from "./tree-view-panel";
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
-    const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByEpicLink } = useJiraHook();
+    const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByEpicLink,
+        isProcessing, hasError, msg, isSuccess } = useJiraHook();
     const { dataTree, setDataTree, toggles, setToggles, configData } = useContext(PortfolioContext);
     const [jql, setJql] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
@@ -163,14 +164,14 @@ const SearchView: React.FC = () => {
 
                 {tabSelected === 'table' && (
                     <TableViewPanel headers={TableHeadersDefault}
-                    onClick={(item: IssueTreeNodeType) => handleClick(item)}/>
+                        onClick={(item: IssueTreeNodeType) => handleClick(item)} />
 
                 )}
 
                 {tabSelected === 'roadmaps' &&
                     (
                         <RoadmapViewPanel headers={TableHeadersDefault}
-                        onClick={(item: IssueTreeNodeType) => handleClick(item)} />
+                            onClick={(item: IssueTreeNodeType) => handleClick(item)} />
                     )
                 }
 
@@ -185,6 +186,8 @@ const SearchView: React.FC = () => {
 
             </ModalDialog>
 
+            {hasError && <label>{msg}</label>}
+            
         </div>
 
     );

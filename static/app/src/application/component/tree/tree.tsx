@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-types';
-import Checkbox from '../../common/checkbox/checkbox';
-import RadioButton from '../../common/radio/radio-button';
-import RadioButtonGroup from '../../common/radio/radio-button-group';
+import Button from '../../common/button/button';
 import TreeItem from './tree-item';
 import styles from './tree-item.module.css';
 
@@ -42,10 +40,18 @@ const Tree: React.FC<IProps> = ({ expandAllLabel, collapseAllLabel, tree, onClic
         <div className={styles.treeContainer}>
 
             <div className={styles.treeHeader}>
-                <RadioButtonGroup style={{ display: 'inline-block', marginLeft: '5px' }}>
-                    <RadioButton id={'expand'} label={expandAllLabel} groupName={'tree'} onClick={() => expand()} />
-                    <RadioButton id={'collaps'} label={collapseAllLabel} groupName={'tree'} onClick={() => collapse()} />
-                </RadioButtonGroup>
+
+                <Button styleType={"secondary"}
+                    style={{ height: "15px", marginTop: '2px', fontSize: '10px', float: 'left' }}
+                    onClick={() => expand()}>
+                    {expandAllLabel}
+                </Button>
+                <Button styleType={"secondary"}
+                    style={{ height: "15px", marginTop: '2px', marginLeft: '2px', fontSize: '10px', float: 'left' }}
+                    onClick={() => collapse()}>
+                    {collapseAllLabel}
+                </Button>
+
             </div>
             {tree?.childrens?.map((item, index) => {
                 return (

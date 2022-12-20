@@ -4,7 +4,7 @@ import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
 import { togglesTreeExample } from '../../infrastructure/api/api-fake/example-data';
-import { IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
+import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
 
 /**
  * Custom hook
@@ -60,8 +60,10 @@ export default function useJiraHook() {
             }
             return tree;
         } catch (error) {
-            console.error(error);
-            return undefined;
+            const m = 'Ha ocurrido un error...';
+            setState({ isProcessing: true, hasError: true, msg: m, isSuccess: false });
+            console.error('Error in useJiraHook.searchJql:', error);
+            return issueItemDefault;
         }
     };
 

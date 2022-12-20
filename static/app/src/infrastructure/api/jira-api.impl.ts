@@ -55,10 +55,17 @@ export default function JiraApiImpl(): IJiraApi {
                 },
                 body: JSON.stringify(body)
             });
+            console.error('***searchJql.response:', response);
             const data = await response.json();
+            console.error('***searchJql.response.json():', data);
+            if (response.status !== 200){
+                const errorMessages = data?.errorMessages? data.errorMessages : 'Internal error in searchJql function!'
+                throw new Error(errorMessages);
+            }
             return data;
         } catch (error) {
-            console.error(error);
+            console.error('***searchJql.catch error***');
+            console.error('***searchJql.catch error:', error);
             throw error;
         }
     };
@@ -102,8 +109,49 @@ export default function JiraApiImpl(): IJiraApi {
     };
 
     async function getIssuesByEpikLink(epicKey: string): Promise<any> {
-        //TODO...
-        return {};
+        try {
+            const jql = `'Epic Link' =${epicKey} order by created DESC`;
+            const body = {
+                "expand": [
+                    "names",
+                    "schema",
+                    "children",
+                    "descendants"
+                ],
+                "jql": jql,
+                "maxResults": 15,
+                "fieldsByKeys": false,
+                "fields": [
+                    "summary",
+                    "status",
+                    "assignee",
+                    "issuelinks",
+                    "duedate",
+                    "created",
+                    "customfield_10015",
+                    "issuetype",
+                    "project"
+                ],
+                "startAt": 0
+            };
+            const response = await requestJira(`/rest/api/3/search`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+            if (response.status !== 200){
+                const errorMessages = data?.errorMessages? data.errorMessages : 'Internal error in getIssuesByEpikLink function!'
+                throw new Error(errorMessages);
+            }
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
 
     return {
