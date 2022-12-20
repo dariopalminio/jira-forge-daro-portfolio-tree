@@ -3,17 +3,11 @@ import { useTranslation } from "react-i18next";
 import useJiraHook from "../../../domain/hook/jira-hook";
 import Button from "../../common/button/button";
 import TextField from "../../common/text-field/text-field";
-import { Tree } from "../tree";
-import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../common/splitable-container"
-import { IColHeader, TableSelectable } from "../table";
+import { IColHeader } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
-import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
+import PortfolioContext from "../../../domain/context/portfolio-context";
 import styles from './search-view.module.css';
 import { ModalDialog } from "../../common/dialog";
-import { getQuarters, QuartersType } from "../../../domain/helper/quarter.helper";
-import TimeLine from "../roadmap/timeline";
-import Roadmaps from "../roadmap/roadmaps";
-import { getDaysBetweenTwoDates } from "../../../domain/helper/date.helper";
 import { TabsType } from "../../common/tab-panel/types";
 import Tabs from "../../common/tab-panel/tabs";
 import RoadmapViewPanel from "./roadmaps-view-panel";
@@ -27,7 +21,6 @@ const SearchView: React.FC = () => {
     const [jql, setJql] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
-    const idSpliter = "Daro";
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
     const [tabSelected, setTabSelected] = useState<string>('tree');
 
@@ -139,11 +132,6 @@ const SearchView: React.FC = () => {
         setIssueToShow(null);
     }
 
-    const getQuartersData = (): QuartersType => {
-        const quarters: QuartersType = getQuarters(new Date('2022-07-28'), new Date('2023-04-20'));
-        return quarters;
-    }
-
     return (
         <div id="TabPanel" className={styles.panelContainer}>
             <div id="actionPanel" className={styles.actionPanel}>
@@ -170,19 +158,19 @@ const SearchView: React.FC = () => {
 
                 {tabSelected === 'tree' && (
                     <TreeViewPanel headers={TableHeadersDefault}
-                        onClick={(item: any) => alert(item.key)} />
+                        onClick={(item: IssueTreeNodeType) => handleClick(item)} />
                 )}
 
                 {tabSelected === 'table' && (
                     <TableViewPanel headers={TableHeadersDefault}
-                        onClick={(item: any) => alert(item.key)} />
+                    onClick={(item: IssueTreeNodeType) => handleClick(item)}/>
 
                 )}
 
                 {tabSelected === 'roadmaps' &&
                     (
                         <RoadmapViewPanel headers={TableHeadersDefault}
-                            onClick={(item: any) => alert(item.key)} />
+                        onClick={(item: IssueTreeNodeType) => handleClick(item)} />
                     )
                 }
 
@@ -203,30 +191,3 @@ const SearchView: React.FC = () => {
 };
 
 export default SearchView;
-
-/**
-TREE:
-                         <div style={{ width: "5000px" }}>
-                            <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                                {t('tree.list.title')}
-                            </div>
-                            <Tree
-                                collapseAllLabel={t("collapse.all")}
-                                expandAllLabel={t("expand.all")}
-                                tree={dataTree}
-                                toggles={toggles}
-                                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                                onClick={(item) => handleClick(item)} />
-                        </div>
-
-TABLE:
-        <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                            {t('table.fields.title')}
-        </div>
-        <TableSelectable
-                            headers={TableHeadersDefault}
-                            tree={dataTree}
-                            toggles={toggles}
-                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                            onClick={(item: any) => alert(item.key)} />
- */

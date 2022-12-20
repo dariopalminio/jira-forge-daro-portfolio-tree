@@ -180,7 +180,7 @@ export default function useJiraHook() {
      * @returns array of parent-child link type names of outward, eg ['includes', 'featutes by', 'related to']
      */
     const getOutwardsFromJira = async (): Promise<string[]> => {
-        const excludedOutwards = ['blocks', 'causes', 'clones', 'duplicates'];
+        const excludedOutwards = ['blocks', 'causes', 'clones', 'duplicates', 'relates to'];
         try {
             let outward: string[] = [];
             const data: any = await jiraApi.getIssueLinkTypes();
