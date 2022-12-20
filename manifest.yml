@@ -12,7 +12,7 @@ resources:
   - key: main
     path: static/app/build
 app:
-  id: ari:cloud:ecosystem::app/e98c9f69-38da-4ffa-8e2e-4f8a609a25d1
+  id: ari:cloud:ecosystem::app/1b2ee552-5041-4d83-9439-8989dbf85e9c
 permissions:
   scopes:
     - read:issue-link:jira

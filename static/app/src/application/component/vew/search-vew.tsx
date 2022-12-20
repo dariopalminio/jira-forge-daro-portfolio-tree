@@ -13,11 +13,14 @@ import Tabs from "../../common/tab-panel/tabs";
 import RoadmapViewPanel from "./roadmaps-view-panel";
 import TableViewPanel from "./table-view-panel";
 import TreeViewPanel from "./tree-view-panel";
+import useJiraHostHook from "../../../domain/hook/jira-host-hook";
+//import * as GlobalConfig from '../../../infrastructure/global.config';
 
 const SearchView: React.FC = () => {
     const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
     const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByEpicLink,
         isProcessing, hasError, msg, isSuccess } = useJiraHook();
+    const { navigateToNewWindows } = useJiraHostHook();
     const { dataTree, setDataTree, toggles, setToggles, configData } = useContext(PortfolioContext);
     const [jql, setJql] = useState<string>(jqlDefault);
     const [isValid, setIsValid] = useState<boolean>(true);
@@ -133,6 +136,13 @@ const SearchView: React.FC = () => {
         setIssueToShow(null);
     }
 
+    const handleOnClickAnchorLink = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        if (issueToShow?.path){
+            navigateToNewWindows(issueToShow?.path);
+        }
+    }
+
     return (
         <div id="TabPanel" className={styles.panelContainer}>
             <div id="actionPanel" className={styles.actionPanel}>
@@ -182,12 +192,16 @@ const SearchView: React.FC = () => {
                 isOpen={issueToShow !== null}
                 onClose={closeDialog}
             >
-                <span>GO: <a href={issueToShow?.path} target="_blank">{issueToShow?.path}</a></span>
+                <span>{t('go.to')}:&nbsp;
+                    <a href={'#'} onClick={(e) => handleOnClickAnchorLink(e)}>
+                        {issueToShow?.key}
+                    </a>
+                </span>
 
             </ModalDialog>
 
             {hasError && <label>{msg}</label>}
-            
+
         </div>
 
     );

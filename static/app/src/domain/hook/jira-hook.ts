@@ -93,10 +93,10 @@ export default function useJiraHook() {
      * @returns string url
      */
     const getSelfLink = (url: string, key: string): string => {
-        let domain = (new URL(url));
-        let origin = domain.origin;
-        const urlResult = `${origin}/browse/${key}`;
-        return urlResult;
+        //let domain = (new URL(url));
+        //let origin = domain.origin;
+        //const urlResult = `${origin}/browse/${key}`;
+        return `/browse/${key}`;
     }
 
     /**

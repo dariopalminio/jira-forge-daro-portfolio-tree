@@ -3,6 +3,7 @@ import styles from './key-cell.module.css';
 import imgError from "./item-no-image.png"
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import { TreeToggleType } from "../../../../domain/model/tree-types";
+import useJiraHostHook from "../../../../domain/hook/jira-host-hook";
 
 interface IPropsAssigneeCell {
     item: any;
@@ -11,6 +12,7 @@ interface IPropsAssigneeCell {
     togglesChange: (newToggles: TreeToggleType) => void;
 }
 const KeyCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
+    const { navigateToNewWindows } = useJiraHostHook();
 
     const getPaddingLeft = (): string => {
         return ((props.item.level - 1) * 15).toString() + 'px';
@@ -23,6 +25,13 @@ const KeyCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
     const handleClickOpen = () => {
         const newToggles = { ...props.toggles, [props.item.key]: !props.toggles[props.item.key] };
         props.togglesChange(newToggles);
+    }
+
+    const handleOnClickAnchorLink = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        if (props.item?.path) {
+            navigateToNewWindows(props.item?.path);
+        }
     }
 
     return (
@@ -43,10 +52,10 @@ const KeyCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
                     e.currentTarget.src = imgError
                 }}
                 alt="" height="16" width="16" />
-                <a 
-                 
-                 href={props.item?.path} target="_blank">{props.item?.key}</a>
-            
+            <a href={'#'} onClick={(e) => handleOnClickAnchorLink(e)}>
+                {props.item?.key}
+            </a>
+
         </div>
     )
 }
