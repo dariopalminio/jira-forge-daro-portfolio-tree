@@ -1,0 +1,73 @@
+{
+    "request": {
+        "title": "Get Filter by self",
+        "method": "GET",
+        "url": "https://dariopalminio.atlassian.net/rest/api/2/filter/10001",
+        "headers": {
+            "Accept": "application/json"
+          }
+    },
+    "response": {
+        "self": "https://dariopalminio.atlassian.net/rest/api/2/filter/10001",
+        "id": "10001",
+        "name": "Filter for PORF board",
+        "owner": {
+            "self": "https://dariopalminio.atlassian.net/rest/api/2/user?accountId=6059177c2f7d9000707f1a60",
+            "accountId": "6059177c2f7d9000707f1a60",
+            "avatarUrls": {
+                "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/48",
+                "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/24",
+                "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/16",
+                "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/6059177c2f7d9000707f1a60/a7d2f5d2-8ae9-48f9-9bd9-a93e701ff6ee/32"
+            },
+            "displayName": "Dario Andres Palminio Choy",
+            "active": true
+        },
+        "jql": "project = PORF ORDER BY Rank ASC",
+        "viewUrl": "https://dariopalminio.atlassian.net/issues/?filter=10001",
+        "searchUrl": "https://dariopalminio.atlassian.net/rest/api/2/search?jql=project+%3D+PORF+ORDER+BY+Rank+ASC",
+        "favourite": false,
+        "favouritedCount": 0,
+        "sharePermissions": [
+            {
+                "id": 10002,
+                "type": "project",
+                "project": {
+                    "self": "https://dariopalminio.atlassian.net/rest/api/2/project/10001",
+                    "id": "10001",
+                    "key": "PORF",
+                    "assigneeType": "PROJECT_LEAD",
+                    "name": "Portfolio",
+                    "roles": {},
+                    "avatarUrls": {
+                        "48x48": "https://dariopalminio.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10416",
+                        "24x24": "https://dariopalminio.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10416?size=small",
+                        "16x16": "https://dariopalminio.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10416?size=xsmall",
+                        "32x32": "https://dariopalminio.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10416?size=medium"
+                    },
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "style": "classic",
+                    "properties": {}
+                }
+            }
+        ],
+        "editPermissions": [],
+        "isWritable": true,
+        "sharedUsers": {
+            "size": 22,
+            "items": [],
+            "max-results": 1000,
+            "start-index": 0,
+            "end-index": 0
+        },
+        "subscriptions": {
+            "size": 0,
+            "items": [],
+            "max-results": 1000,
+            "start-index": 0,
+            "end-index": 0
+        }
+    }
+
+}

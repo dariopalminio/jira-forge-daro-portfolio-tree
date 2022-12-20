@@ -1,0 +1,37 @@
+{
+    "request": {
+        "title": "Get Filters",
+        "method": "GET",
+        "url": "https://dariopalminio.atlassian.net//rest/api/2/filter/search",
+        "headers": {
+            "Accept": "application/json"
+          }
+    },
+    "response": {
+        "self": "https://dariopalminio.atlassian.net/rest/api/2/filter/search?maxResults=50&startAt=0",
+        "maxResults": 50,
+        "startAt": 0,
+        "total": 3,
+        "isLast": true,
+        "values": [
+            {
+                "expand": "description,owner,jql,viewUrl,searchUrl,favourite,favouritedCount,sharePermissions,editPermissions,isWritable,subscriptions",
+                "self": "https://dariopalminio.atlassian.net/rest/api/2/filter/10001",
+                "id": "10001",
+                "name": "Filter for PORF board"
+            },
+            {
+                "expand": "description,owner,jql,viewUrl,searchUrl,favourite,favouritedCount,sharePermissions,editPermissions,isWritable,subscriptions",
+                "self": "https://dariopalminio.atlassian.net/rest/api/2/filter/10000",
+                "id": "10000",
+                "name": "Filter for TKP board"
+            },
+            {
+                "expand": "description,owner,jql,viewUrl,searchUrl,favourite,favouritedCount,sharePermissions,editPermissions,isWritable,subscriptions",
+                "self": "https://dariopalminio.atlassian.net/rest/api/2/filter/10002",
+                "id": "10002",
+                "name": "getByEpikLink"
+            }
+        ]
+    }
+}
