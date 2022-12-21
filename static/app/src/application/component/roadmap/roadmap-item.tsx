@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-types';
-import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 //className={styles.inputTextField}
 import styles from './roadmap.module.css';
-import { QuartersType } from '../../../domain/helper/quarter.helper';
 import { getDaysBetweenTwoDates } from '../../../domain/helper/date.helper';
+import { QuartersType } from '../../../domain/model/quarter-types';
 
 interface IProps {
     timelineData: QuartersType;

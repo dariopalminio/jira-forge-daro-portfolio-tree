@@ -104,19 +104,17 @@ export default function useJiraHook() {
      * Each issue has a boolean value associated with your key to indicate if it is open
      * (showing its children) or not.
      */
-    const getTreeTogglesFrom = (issuesTree: IssueTreeNodeType[]): TreeToggleType => {
+    const getTreeTogglesFrom = (issuesTree: IssueTreeNodeType): TreeToggleType => {
         let toggles: TreeToggleType = {}; //dictionary = { [key: string]: boolean };
-
-        for (var i = 0; i < issuesTree.length; i++) {
-            //togglesTreeExample['k-1'] = false;
-            toggles[`${issuesTree[i].key}`] = false;
-            if (issuesTree[i].hasChildren) {
-                for (var j = 0; j < issuesTree[i].childrens.length; j++) {
-                    toggles[`${issuesTree[i].childrens[j].key}`] = false;
+        if (issuesTree.hasChildren) {
+            for (var i = 0; i < issuesTree.childrens.length; i++) {
+                toggles[`${issuesTree.childrens[i].key}`] = false;
+                if (issuesTree.childrens[i].hasChildren) {
+                    const togglesRec: TreeToggleType = getTreeTogglesFrom(issuesTree.childrens[i]);
+                    toggles = {...toggles, ...togglesRec};
                 }
             }
         }
-
         return toggles;
     };
 

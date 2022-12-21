@@ -1,5 +1,5 @@
 import React from "react";
-import { QuartersDictionaryType, QuartersType } from "../../../domain/helper/quarter.helper";
+import { QuartersType } from "../../../domain/model/quarter-types";
 import styles from './roadmap.module.css';
 
 

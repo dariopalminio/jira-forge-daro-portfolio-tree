@@ -88,17 +88,17 @@ const SearchView: React.FC = () => {
             //load first level, generally are Initiatives
             const dataTree: IssueTreeNodeType | undefined = await searchJql(jql);
             if (dataTree === undefined) throw new Error('Search JQL not found data!')
-            const treeToggles = getTreeTogglesFrom(dataTree?.childrens);
+            const treeToggles = getTreeTogglesFrom(dataTree);
             setToggles(treeToggles);
             setDataTree(dataTree);
             //load childs by links
             const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards);
-            const newTreeToggles = getTreeTogglesFrom(newDataTree?.childrens);
+            const newTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
             //load child by epic link
             const lastDataTree: IssueTreeNodeType = await addChildrenByEpicLink(dataTree);
-            const lastTreeToggles = getTreeTogglesFrom(newDataTree?.childrens);
+            const lastTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(lastTreeToggles);
             setDataTree(lastDataTree);
         } catch (error) {

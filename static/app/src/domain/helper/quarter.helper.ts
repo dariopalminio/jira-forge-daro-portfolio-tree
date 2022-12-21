@@ -1,20 +1,11 @@
+import { QuarterItemType, QuartersDictionaryType, QuartersType } from "../model/quarter-types";
 
-const quarterGeneric: string[] = ['Q1', 'Q1', 'Q1', 'Q2', 'Q2', 'Q2', 'Q3', 'Q3', 'Q3', 'Q4', 'Q4', 'Q4'];
+const QuarterPeerMonth: string[] = ['Q1', 'Q1', 'Q1', 'Q2', 'Q2', 'Q2', 'Q3', 'Q3', 'Q3', 'Q4', 'Q4', 'Q4'];
 
 
-export type QuarterItemType = { quarter: string, months: Array<MonthItemType> };
-export type MonthItemType = {
-    year: number;
-    month: number;
-    days: number;
-};
-export type QuartersDictionaryType = { [key: string]: Array<MonthItemType> };
-export type QuartersType = {
-    firstDate: Date;
-    lastDate: Date;
-    data: QuartersDictionaryType
-};
-
+/**
+ * Get quarter from quarter name and year passed by arguments
+ */
 const getQuarterObject = (q: string, y: number): QuarterItemType | undefined => {
     switch (q) {
         case 'Q1': {
@@ -127,7 +118,7 @@ result:{
 }
 
  */
-export const getQuartersDictionary = (fromDate: Date, toDate: Date): QuartersDictionaryType => {
+const getQuartersDictionary = (fromDate: Date, toDate: Date): QuartersDictionaryType => {
     const fromYear = fromDate.getFullYear();
     const fromMonth = fromDate.getMonth();
     const toYear = toDate.getFullYear();
@@ -138,7 +129,7 @@ export const getQuartersDictionary = (fromDate: Date, toDate: Date): QuartersDic
         const monthLimit = year === toYear ? toMonth : 11;
 
         for (; monthNum <= monthLimit; monthNum++) {
-            const q = quarterGeneric[monthNum];
+            const q = QuarterPeerMonth[monthNum];
             const quarter: QuarterItemType | undefined = getQuarterObject(q, year);
             if (quarter !== undefined) {
                 const key: string = quarter.quarter;

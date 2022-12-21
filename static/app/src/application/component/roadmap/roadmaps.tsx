@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { QuartersDictionaryType, QuartersType } from "../../../domain/helper/quarter.helper";
+import { QuartersType } from "../../../domain/model/quarter-types";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 import RoadmapItem from "./roadmap-item";
 import styles from './roadmap.module.css';

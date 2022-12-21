@@ -3,8 +3,6 @@ import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../commo
 import { IColHeader, TableSelectable } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
-import { getQuarters, QuartersType } from "../../../domain/helper/quarter.helper";
-import Roadmaps from "../roadmap/roadmaps";
 import { useTranslation } from "react-i18next";
 import { Tree } from "../tree";
 

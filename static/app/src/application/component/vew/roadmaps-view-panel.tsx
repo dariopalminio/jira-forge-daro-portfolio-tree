@@ -3,9 +3,10 @@ import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../commo
 import { IColHeader, TableSelectable } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 import PortfolioContext, { IPortfolioContext } from "../../../domain/context/portfolio-context";
-import { getQuarters, QuartersType } from "../../../domain/helper/quarter.helper";
 import Roadmaps from "../roadmap/roadmaps";
 import { useTranslation } from "react-i18next";
+import { QuartersType } from "../../../domain/model/quarter-types";
+import useRoadmaps from "../../../domain/hook/roadmaps-hook";
 
 
 interface IProps {
@@ -14,13 +15,14 @@ interface IProps {
 }
 
 export const RoadmapViewPanel: React.FC<IProps> = (props: IProps) => {
-
+    const { getExtremeDatesFromTree, getRoadmapsQuarters } = useRoadmaps();
     const { dataTree, setDataTree, toggles, setToggles, configData } = useContext(PortfolioContext);
     const idSpliter = "RoadmapPanelView";
     const { t } = useTranslation();
-    
+
     const getQuartersData = (): QuartersType => {
-        const quarters: QuartersType = getQuarters(new Date('2022-07-28'), new Date('2023-04-20'));
+        const dates: any = getExtremeDatesFromTree(dataTree);
+        const quarters: QuartersType = getRoadmapsQuarters(dates.fromDate, dates.toDate);
         return quarters;
     }
 
