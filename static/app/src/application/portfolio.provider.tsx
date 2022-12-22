@@ -5,12 +5,14 @@ import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from "../domain/m
 
 interface Props {children?: React.ReactNode}
 
+const jqlDefault: string = "project=POR and issuetype='Portfolio Item' order by created DESC";
 
 const PortfolioContextProvider: FC<Props> = ({ children }) => {
     const [dataTree, setDataTree] = useState<IssueTreeNodeType>(issueItemDefault);
     const [toggles, setToggles] = useState<TreeToggleType>({});
     const [configData, setConfigData] = useState<ConfigStorageDataType>(ConfigStorageDataDefault);
     const [configHasChanges, setConfigHasChanges] = useState<boolean>(false);
+    const [jql, setJql] = useState<string>(jqlDefault);
 
   useEffect(() => {
 
@@ -26,7 +28,9 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
         configData, 
         setConfigData,
         configHasChanges, 
-        setConfigHasChanges
+        setConfigHasChanges,
+        jql,
+        setJql
       }}
     >
       {children}

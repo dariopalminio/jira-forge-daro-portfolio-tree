@@ -2,6 +2,8 @@ import { createContext } from 'react';
 import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data.type';
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
 
+
+
 //const [toggles, setToggles] = useState<TreeToggleType>({});
 //const [configData, setConfigData] = useState(null);
 export interface IPortfolioContext {
@@ -13,6 +15,8 @@ export interface IPortfolioContext {
     setConfigData: (newConfigData: ConfigStorageDataType) => void;
     configHasChanges: boolean;
     setConfigHasChanges: (configHasChanges: boolean) => void;
+    jql: string;
+    setJql: (newJql: string) => void;
 };
 
 export const PortfolioContextDefaultValues: IPortfolioContext = {
@@ -23,7 +27,9 @@ export const PortfolioContextDefaultValues: IPortfolioContext = {
     configData: ConfigStorageDataDefault,
     setConfigData: (newConfigData: ConfigStorageDataType) => { },
     configHasChanges: false,
-    setConfigHasChanges: (configHasChanges: boolean) => {}
+    setConfigHasChanges: (configHasChanges: boolean) => {},
+    jql: '',
+    setJql: (newJql: string) => {}
 };
 
 const PortfolioContext = createContext<IPortfolioContext>(PortfolioContextDefaultValues);

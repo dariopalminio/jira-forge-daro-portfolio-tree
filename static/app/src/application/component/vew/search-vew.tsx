@@ -14,15 +14,14 @@ import RoadmapViewPanel from "./roadmaps-view-panel";
 import TableViewPanel from "./table-view-panel";
 import TreeViewPanel from "./tree-view-panel";
 import useJiraHostHook from "../../../domain/hook/jira-host-hook";
+import IssueView from "../issue/issue-view";
 //import * as GlobalConfig from '../../../infrastructure/global.config';
 
 const SearchView: React.FC = () => {
-    const jqlDefault: string = "project=Portfolio and issuetype=Initiative order by created DESC";
+    
     const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByEpicLink,
         isProcessing, hasError, msg, isSuccess } = useJiraHook();
-    const { navigateToNewWindows } = useJiraHostHook();
-    const { dataTree, setDataTree, toggles, setToggles, configData } = useContext(PortfolioContext);
-    const [jql, setJql] = useState<string>(jqlDefault);
+    const { dataTree, setDataTree, toggles, setToggles, configData, jql, setJql } = useContext(PortfolioContext);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
@@ -38,7 +37,7 @@ const SearchView: React.FC = () => {
         {
             "prop": "summary",
             "label": t("summary"),
-            "width": 160
+            "width": 200
         },
         {
             "prop": "status",
@@ -53,7 +52,7 @@ const SearchView: React.FC = () => {
         {
             "prop": "assignee",
             "label": t("assignee"),
-            "width": 110
+            "width": 160
         },
         {
             "prop": "startdate",
@@ -136,13 +135,6 @@ const SearchView: React.FC = () => {
         setIssueToShow(null);
     }
 
-    const handleOnClickAnchorLink = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        e.preventDefault();
-        if (issueToShow?.path){
-            navigateToNewWindows(issueToShow?.path);
-        }
-    }
-
     return (
         <div id="TabPanel" className={styles.panelContainer}>
             <div id="actionPanel" className={styles.actionPanel}>
@@ -191,12 +183,9 @@ const SearchView: React.FC = () => {
             <ModalDialog
                 isOpen={issueToShow !== null}
                 onClose={closeDialog}
+                style={{height: '240px'}}
             >
-                <span>{t('go.to')}:&nbsp;
-                    <a href={'#'} onClick={(e) => handleOnClickAnchorLink(e)}>
-                        {issueToShow?.key}
-                    </a>
-                </span>
+                <IssueView issueItem={issueToShow}/>
 
             </ModalDialog>
 

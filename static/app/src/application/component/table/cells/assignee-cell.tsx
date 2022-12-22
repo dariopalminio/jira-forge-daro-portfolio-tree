@@ -37,7 +37,7 @@ import imgError from "./user-no-image.png"
 
 interface IPropsAssigneeCell {
     item: any;
-    colHeader: IColHeader;
+    colHeader?: IColHeader;
 }
 const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
 
@@ -67,7 +67,7 @@ const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) =
     }
 
     return (
-        <div style={{ width: props.colHeader.width }}>
+        <div style={{ width: props.colHeader?.width? props.colHeader?.width : '200px'}}>
             {
                 getAvatarUrl() &&
                 <img src={getAvatarUrl()}

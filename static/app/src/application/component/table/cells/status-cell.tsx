@@ -36,7 +36,7 @@ import styles from './status-cell.module.css';
 
 interface IPropsAssigneeCell {
     item: any;
-    colHeader: IColHeader;
+    colHeader?: IColHeader;
 }
 const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
 
@@ -143,13 +143,14 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
             color: getColor(),
             background: getBckgroundColor(),
             borderRadius: '3px',
-            border: '1px solid white'
+            border: '1px solid white',
+            maxWidth: props.colHeader?.width? props.colHeader?.width : '400px'
         }
     }
 
     return (
         <div className={styles.statusWrapper}
-            style={{ width: props.colHeader.width }}>
+            style={{ width: props.colHeader?.width? props.colHeader?.width : '400px' }}>
             {
                 <label className={styles.statusLabel}
                     style={getLabelStyle()}>

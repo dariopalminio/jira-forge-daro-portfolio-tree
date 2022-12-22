@@ -19,8 +19,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "buildNoMaps": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
-    "build": "react-scripts build",
+    "buildToProd": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+    "buildToDev": "react-scripts build",
     "eject": "react-scripts eject"
   },
   "browserslist": {
