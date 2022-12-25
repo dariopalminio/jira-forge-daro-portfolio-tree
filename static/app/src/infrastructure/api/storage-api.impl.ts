@@ -16,7 +16,7 @@ export default function StorageApiImpl(): IStorageApi {
 
     async function getConfigStorage(key: string): Promise<any> {
         try {
-            console.log('--->InvokeIssue');
+            //console.log('--->InvokeIssue');
             const payload = {
                 key: key
             };

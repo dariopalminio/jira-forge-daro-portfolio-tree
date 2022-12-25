@@ -89,7 +89,14 @@
     padding-left: 0px;
     width: 200px;
     border-radius: 3px;
+    cursor: pointer;
   }
 
+.labelDate {
+  position: absolute;
+  font-size: 9px;
+  color: rgb(133, 133, 133);
+  top: 2px;
+}
 
   

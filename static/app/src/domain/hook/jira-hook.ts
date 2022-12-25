@@ -58,10 +58,11 @@ export default function useJiraHook() {
                 hasChildren: (treeArray.length > 0),
                 childrens: treeArray
             }
+            setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return tree;
         } catch (error) {
             const m = 'Ha ocurrido un error...';
-            setState({ isProcessing: true, hasError: true, msg: m, isSuccess: false });
+            setState({ isProcessing: false, hasError: true, msg: m, isSuccess: false });
             console.error('Error in useJiraHook.searchJql:', error);
             return issueItemDefault;
         }
@@ -111,7 +112,7 @@ export default function useJiraHook() {
                 toggles[`${issuesTree.childrens[i].key}`] = false;
                 if (issuesTree.childrens[i].hasChildren) {
                     const togglesRec: TreeToggleType = getTreeTogglesFrom(issuesTree.childrens[i]);
-                    toggles = {...toggles, ...togglesRec};
+                    toggles = { ...toggles, ...togglesRec };
                 }
             }
         }
@@ -122,12 +123,22 @@ export default function useJiraHook() {
      * Get Children of each issue in tree by Links Hierarchy.
      */
     const addChildrenByLink = async (issuesTree: IssueTreeNodeType, linksOutwards: string[]): Promise<IssueTreeNodeType> => {
-        let outwards: string[] = [];
-        if (linksOutwards && Array.isArray(linksOutwards) && linksOutwards.length > 0) {
-            outwards = linksOutwards;
+        setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
+        try {
+            let outwards: string[] = [];
+            if (linksOutwards && Array.isArray(linksOutwards) && linksOutwards.length > 0) {
+                outwards = linksOutwards;
+            }
+            const MAX_ALLOWED_LEVEL = 10;
+            const r: IssueTreeNodeType = await getTreeWithChildrenByLink(issuesTree, outwards, 1, MAX_ALLOWED_LEVEL);
+            setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
+            return r;
+        } catch (error) {
+            const m = 'Ha ocurrido un error...';
+            setState({ isProcessing: false, hasError: true, msg: m, isSuccess: false });
+            console.error('Error in useJiraHook.searchJql:', error);
+            return issueItemDefault;
         }
-        const MAX_ALLOWED_LEVEL = 10;
-        return await getTreeWithChildrenByLink(issuesTree, outwards, 1, MAX_ALLOWED_LEVEL);
     };
 
     /**
@@ -144,7 +155,7 @@ export default function useJiraHook() {
      * @returns IssueTreeNodeType tree
      */
     const getTreeWithChildrenByLink = async (issuesTree: IssueTreeNodeType, outwards: string[], level: number, maxLevel: number): Promise<IssueTreeNodeType> => {
-        console.log('* getChildTree:', level);
+       
         if (issuesTree.hasChildren && level < maxLevel) {
             let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
             for (var i = 0; i < childsArray.length; i++) {
@@ -207,12 +218,22 @@ export default function useJiraHook() {
      * @returns 
      */
     const addChildrenByEpicLink = async (issuesTree: IssueTreeNodeType): Promise<IssueTreeNodeType> => {
-        const MAX_ALLOWED_LEVEL = 10;
-        return await getTreeChildrenByEpicLink(issuesTree, 0, MAX_ALLOWED_LEVEL);
+        setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
+        try {
+            const MAX_ALLOWED_LEVEL = 10;
+            const r: IssueTreeNodeType = await getTreeChildrenByEpicLink(issuesTree, 0, MAX_ALLOWED_LEVEL);
+            setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
+            return r;
+        } catch (error) {
+            const m = 'Ha ocurrido un error...';
+            setState({ isProcessing: false, hasError: true, msg: m, isSuccess: false });
+            console.error('Error in useJiraHook.searchJql:', error);
+            return issueItemDefault;
+        }
     };
 
     const getTreeChildrenByEpicLink = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number): Promise<IssueTreeNodeType> => {
-        console.log('* getChildTree:', level);
+      
         if (issuesTree.hasChildren && level < maxLevel) {
             let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
             for (var i = 0; i < childsArray.length; i++) {

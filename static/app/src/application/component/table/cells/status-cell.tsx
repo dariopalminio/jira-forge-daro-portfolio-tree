@@ -56,7 +56,7 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
     const getStatusKey = (): string | undefined => {
         try {
             const statusName = props?.item?.fields?.status?.statusCategory?.key;
-            console.log('statusCategory-->statusName:',statusName);
+            
             if (statusName === undefined || statusName === null || typeof statusName !== 'string') {
                 return undefined;
             }

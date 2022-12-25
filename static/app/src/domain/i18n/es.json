@@ -22,6 +22,8 @@
     "table": "Vista de Tabla",
     "tree": "Desglose",
     "roadmaps": "Hojas de ruta",
-    "go.to": "Ir a"
+    "go.to": "Ir a",
+    "jql.placeholder": "Escriba aquí una expresión JQL ...",
+    "jql.last.label": "Última JQL"
 
 }

@@ -16,7 +16,7 @@ interface IProps {
 
 export const RoadmapViewPanel: React.FC<IProps> = (props: IProps) => {
     const { getExtremeDatesFromTree, getRoadmapsQuarters } = useRoadmaps();
-    const { dataTree, setDataTree, toggles, setToggles, configData } = useContext(PortfolioContext);
+    const { dataTree, setDataTree, toggles, setToggles } = useContext(PortfolioContext);
     const idSpliter = "RoadmapPanelView";
     const { t } = useTranslation();
 

@@ -5,8 +5,9 @@ import { useTranslation } from "react-i18next";
 import SearchJql from './component/vew/search-vew';
 import useJiraHook from '../domain/hook/jira-hook';
 import { supportedLngs } from '../domain/i18n/supported-lngs';
-import PortfolioContextProvider from './portfolio.provider';
+import PortfolioContextProvider from './component/provider/portfolio.provider';
 import PortfolioPanel from './component/portfolio-panel';
+import StoreContextProvider from './component/provider/store.provider';
 
 
 
@@ -29,9 +30,7 @@ function App() {
             console.log('The locale is not includedin this app.');
             return;
         }
-        console.log('--->i18n.language before:', i18n.language);
         i18n.changeLanguage(lng);
-        console.log('--->i18n.language after:', i18n.language);
     }
 
     useEffect(() => {
@@ -39,7 +38,6 @@ function App() {
             try {
                 const infoUser: any = await getCurrentUser();
                 setCurrentUser(infoUser);
-                console.log('--->i18n.language infoUser.locale:', infoUser.locale);
                 changeLngToUserLng(infoUser.locale);
             } catch (error) {
                 console.log(error);
@@ -50,9 +48,11 @@ function App() {
 
     return (
         <div className={styles.app}>
-            <PortfolioContextProvider>
-                <PortfolioPanel />
-            </PortfolioContextProvider>
+            <StoreContextProvider>
+                <PortfolioContextProvider>
+                    <PortfolioPanel />
+                </PortfolioContextProvider>
+            </StoreContextProvider>
             <br />
         </div>
     );

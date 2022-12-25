@@ -14,6 +14,8 @@ API: https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-filte
 
 See [developer.atlassian.com/platform/forge/](https://developer.atlassian.com/platform/forge) for documentation and tutorials explaining Forge.
 
+Distribute: https://developer.atlassian.com/platform/forge/distribute-your-apps/
+
 # Architecture
 
 Forge makes it possible to build a fully-functional app, with hosting, multiple development environments, and API authentication built-in. Forge can be used to build custom apps and integrations or apps distributed through the Atlassian Marketplace. With the built-in Storage API, Jira API, FaaS and triggers, one can operate apps with virtually no owned infrastructure – which also makes the entire operation model not only incredibly cheap but also much more secure.

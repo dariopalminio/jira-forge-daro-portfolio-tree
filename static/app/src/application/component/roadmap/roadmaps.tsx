@@ -26,18 +26,40 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
         props.onClick(item);
     }
 
+    const getQuarterBackground = (key: string): string => {
+        var lastChar = key.substring(key.length - 1); 
+        switch  (lastChar) {
+            case '1':{
+                return '#F9FAEE'; //yellow
+            }
+            case '2':{
+                return '#F2FEEE'; //green
+            }
+            case '3':{
+                return '#EEF4F4'; //blue
+            }
+            case '4':{
+                return '#EEEEF4'; //berry
+            }
+            default:{
+                return 'white';
+            }
+          }
+    }
+
     const getScheduleColumns = (): React.ReactNode => {
         const quartesReactNode = [];
         let qTotalDays: number = 0;
         for (const [key, value] of Object.entries(props.timelineData.data)) {
+
             let qdays: number = 0;
             for (let i = 0; i < value.length; i++) {
                 qdays += value[i].days;
             }
             quartesReactNode.push(
-                <div className={styles.column} 
-                style={{ left: `${((qTotalDays * 2) )}px`, width: `${((qdays * 2) -1)}px` }}
-                        />
+                <div className={styles.column}
+                    style={{ left: `${((qTotalDays * 2))}px`, width: `${((qdays * 2) - 1)}px`, background: getQuarterBackground(key) }}
+                />
             );
             qTotalDays += qdays;
         }
@@ -48,8 +70,8 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
     }
 
     return (
-        <div className={styles.roadmapsContainer} style={{width: `${timeLineWidth}`}}>
-            <TimeLine  monthWidth={monthWidth} quarters={props.timelineData} />
+        <div className={styles.roadmapsContainer} style={{ width: `${timeLineWidth}` }}>
+            <TimeLine monthWidth={monthWidth} quarters={props.timelineData} />
 
             <div className={styles.schedule}>
                 {getScheduleColumns()}

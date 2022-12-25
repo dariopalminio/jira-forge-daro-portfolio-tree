@@ -836,7 +836,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                                 "name": "In Progress"
                             }
                         },
-                        "customfield_10015": "2022-11-07"
+                        "customfield_10015": "2021-10-01"
                     }
                 }
             ],

@@ -3,18 +3,11 @@ import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
 
 
-
-//const [toggles, setToggles] = useState<TreeToggleType>({});
-//const [configData, setConfigData] = useState(null);
 export interface IPortfolioContext {
     dataTree:  IssueTreeNodeType ;
     setDataTree: (newDataTree: IssueTreeNodeType) => void;
     toggles: TreeToggleType;
     setToggles: (newToggles: TreeToggleType) => void;
-    configData: ConfigStorageDataType;
-    setConfigData: (newConfigData: ConfigStorageDataType) => void;
-    configHasChanges: boolean;
-    setConfigHasChanges: (configHasChanges: boolean) => void;
     jql: string;
     setJql: (newJql: string) => void;
 };
@@ -24,10 +17,6 @@ export const PortfolioContextDefaultValues: IPortfolioContext = {
     setDataTree: (newDataTree: IssueTreeNodeType) => { },
     toggles: {},
     setToggles: (newToggles: TreeToggleType) => { },
-    configData: ConfigStorageDataDefault,
-    setConfigData: (newConfigData: ConfigStorageDataType) => { },
-    configHasChanges: false,
-    setConfigHasChanges: (configHasChanges: boolean) => {},
     jql: '',
     setJql: (newJql: string) => {}
 };

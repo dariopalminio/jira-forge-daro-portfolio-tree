@@ -19,17 +19,19 @@ export default function GlobalFactory() {
     const container: Map<string, any> = new Map();
 
 //IS FAKE
-    /*
+  
         container.set('jiraApi', JiraApiFakeImpl());
         container.set('storageApi', StorageApiFake());
          container.set('jiraHost', JiraHostFake());
+   
+         /*
 */
          //IN PROD
-
+  /*
         container.set('storageApi', StorageApiImpl());
         container.set('jiraApi', JiraApiImpl());
         container.set('jiraHost', JiraHostImpl());
-   /**/
+*/
 
     //Get instance for key name
     const get = (key: string) => {

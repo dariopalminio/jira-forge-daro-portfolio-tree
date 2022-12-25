@@ -22,6 +22,8 @@
     "table": "Table",
     "tree": "Tree",
     "roadmaps": "Roadmaps",
-    "go.to": "Go to"
+    "go.to": "Go to",
+    "jql.placeholder": "Here JQL...",
+    "jql.last.label": "Last JQL"
 
 }

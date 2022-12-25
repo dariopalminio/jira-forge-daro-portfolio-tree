@@ -5,22 +5,23 @@ import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
 
+const CONFIG_KEY = 'CONFIG';
 /**
  * Custom hook
+ * 
+ * All users share the same configuration storage.
  * 
  * @returns 
  */
 export default function useStorageHook() {
 
     const [state, setState] = useState<IHookState>(InitialState);
-    //const storageApi: IStorageApi = StorageApiImpl();
     const storageApi: IStorageApi = GlobalConfig.Factory.get('storageApi');
 
     const getConfigStorage = async (): Promise<ConfigStorageDataType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            const data = await storageApi.getConfigStorage('CONFIG');
-            //const isEmpty = Object.keys(obj).length === 0;
+            const data = await storageApi.getConfigStorage(CONFIG_KEY);
             if (!data || data === null || data === undefined || isEmpty(data)) {
                 //The first time there is no data
                 const config: ConfigStorageDataType = ConfigStorageDataDefault;
@@ -45,7 +46,7 @@ export default function useStorageHook() {
     const setConfigStorage = async (configData: ConfigStorageDataType): Promise<ConfigStorageDataType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            const data: any = await storageApi.setConfigStorage('CONFIG', configData);
+            const data: any = await storageApi.setConfigStorage(CONFIG_KEY, configData);
             const config: ConfigStorageDataType = data;
             return config;
         } catch (error) {

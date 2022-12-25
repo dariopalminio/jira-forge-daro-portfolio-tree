@@ -1,16 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PortfolioContext from "../../../domain/context/portfolio-context";
+import StoreContext from "../../../domain/context/store-context";
 import useJiraHook from "../../../domain/hook/jira-hook";
 import useStorageHook from "../../../domain/hook/storage-hook";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
 import Button from "../../common/button/button";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
 import CheckboxGroup from "../../common/checkbox/checkbox-group";
+import TextField from "../../common/text-field/text-field";
 
 const ConfigStore: React.FC = () => {
     //const [configData, setConfigData] = useState(null);
-    const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(PortfolioContext);
+    const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
+
     const { getConfigStorage,
         setConfigStorage } = useStorageHook();
     const { t } = useTranslation();
@@ -68,14 +70,19 @@ const ConfigStore: React.FC = () => {
             setConfigData(newConfig);
         }
         setConfigHasChanges(true);
-        console.log("*************setThereAreChanges");
     }
 
     const handleSave = async () => {
-        const configDataEdited = { ...configData, updatedAt: (new Date).toString() };
+        const todate: string = (new Date).toString();
+        const configDataEdited = { ...configData, updatedAt: todate };
         const infoResponse: ConfigStorageDataType = await setConfigStorage(configDataEdited);
         setConfigData(infoResponse);
         setConfigHasChanges(false);
+    }
+
+    const handleJqlChange = async (val: string) => {
+        setConfigData({ ...configData, lastJql: val });
+        setConfigHasChanges(true);
     }
 
     return (
@@ -94,10 +101,22 @@ const ConfigStore: React.FC = () => {
                         onChange={(checkboxesListEdited: CheckboxType[], index: number) => handleOnChangeOutwards(checkboxesListEdited, index)}
                     />
                 </div>
+
+                <div style={{display: 'flex', width: '100%'}}>
+                    <label>{t("jql.last.label")}:</label>
+                    <TextField 
+                        style={{marginLeft: '5px', width: '400px'}}
+                        id="jql-textfield-config"
+                        placeholder="Here text..."
+                        onChange={(e) => handleJqlChange(e.target.value)}
+                        value={configData.lastJql}
+                    />
+                </div>
             </form>
+
             {configHasChanges && (
                 <div style={{ marginLeft: '10px', marginTop: '0px' }}>
-                    <Button onClick={() => handleSave()} style={{ float: 'right' }}>{t('save')}</Button>
+                    <Button onClick={() => handleSave()} style={{ marginTop: '10px', float: 'right' }}>{t('save')}</Button>
                 </div>
             )}
 
