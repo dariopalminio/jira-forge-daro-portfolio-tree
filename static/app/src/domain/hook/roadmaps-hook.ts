@@ -1,7 +1,9 @@
 
+import { useState } from 'react';
 import * as GlobalConfig from '../../infrastructure/global.config';
+import { getDaysBetweenTwoDates } from '../helper/date.helper';
 import { getQuarters } from '../helper/quarter.helper';
-import { QuartersType } from '../model/quarter-types';
+import { QuartersDefault, QuartersType } from '../model/quarter-types';
 import { IssueTreeNodeType } from '../model/tree-types';
 
 
@@ -11,6 +13,8 @@ import { IssueTreeNodeType } from '../model/tree-types';
  * @returns 
  */
 export default function useRoadmaps() {
+
+    const [quarters, setQuarters] = useState<QuartersType>(QuartersDefault);
 
     /**
      * iterate recursively
@@ -61,7 +65,7 @@ export default function useRoadmaps() {
             toDate: new Date()
         }
         const datesResult: any = getDatesFromTreeRecursive(tree, dates);
-        console.log('getExtremeDatesFromTree: ', datesResult);
+        //console.log('getExtremeDatesFromTree: ', datesResult);
 
         /*return {
             fromDate: new Date('2022-07-28'),
@@ -77,8 +81,28 @@ export default function useRoadmaps() {
         return getQuarters(fromDate, toDate);
     }
 
+    const getDaysFromFirstDateUntilTodate = (firstDate: Date): number => {
+        try {
+            const todate: Date = new Date();
+            console.log('firstDate:', firstDate);
+            console.log('todate:', todate);
+            const days: number = getDaysBetweenTwoDates(firstDate, todate);
+            console.log('days:', days);
+            if (days < 0) {
+                return 0;
+            }
+            return days;
+        } catch (error) {
+            console.log('getDaysFromFirstDateUntilToDate.error:', error);
+            return 0;
+        }
+    }
+
     return {
         getExtremeDatesFromTree,
-        getRoadmapsQuarters
+        getRoadmapsQuarters,
+        quarters, 
+        setQuarters,
+        getDaysFromFirstDateUntilTodate
     };
 };

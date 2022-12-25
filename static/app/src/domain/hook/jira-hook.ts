@@ -40,7 +40,7 @@ export default function useJiraHook() {
 
         try {
             const data: any = await jiraApi.searchJql(jql);
-            console.log('searchJql.data:', data);
+
             let treeArray: IssueTreeNodeType[] = [];
             const issues: IssueTreeNodeType[] = data?.issues;
             treeArray = issues?.map((item, index) => {

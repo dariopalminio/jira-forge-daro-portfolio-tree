@@ -19,3 +19,9 @@ export type QuartersType = {
     lastDate: Date;
     data: QuartersDictionaryType
 };
+
+export const QuartersDefault: QuartersType = {
+    firstDate: new Date(),
+    lastDate: new Date(),
+    data: {}
+};

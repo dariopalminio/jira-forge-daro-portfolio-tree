@@ -15,16 +15,27 @@ interface IProps {
 }
 
 export const RoadmapViewPanel: React.FC<IProps> = (props: IProps) => {
-    const { getExtremeDatesFromTree, getRoadmapsQuarters } = useRoadmaps();
+    const { getExtremeDatesFromTree, getRoadmapsQuarters, quarters, setQuarters } = useRoadmaps();
     const { dataTree, setDataTree, toggles, setToggles } = useContext(PortfolioContext);
     const idSpliter = "RoadmapPanelView";
     const { t } = useTranslation();
 
-    const getQuartersData = (): QuartersType => {
+    const getQuartersData = () => {
         const dates: any = getExtremeDatesFromTree(dataTree);
-        const quarters: QuartersType = getRoadmapsQuarters(dates.fromDate, dates.toDate);
-        return quarters;
+        const quartersData: QuartersType = getRoadmapsQuarters(dates.fromDate, dates.toDate);
+        setQuarters(quartersData);
     }
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                getQuartersData();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getData()
+    }, []);
 
     const handlerToggleChange = (newToggles: TreeToggleType) => {
         setToggles(newToggles)
@@ -48,7 +59,7 @@ export const RoadmapViewPanel: React.FC<IProps> = (props: IProps) => {
                 <SplitRight id={idSpliter}>
 
                     <Roadmaps
-                        timelineData={getQuartersData()}
+                        timelineData={quarters}
                         tree={dataTree}
                         toggles={toggles}
                         togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}

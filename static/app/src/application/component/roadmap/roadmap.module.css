@@ -69,6 +69,17 @@
     border-right: 1px solid rgb(167, 167, 167);
   }
 
+  .todate {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    font-size: 12px;
+    height: 6000px;
+    width: 0px;
+    z-index: 2;
+    border-right: 1px solid #CA0443;
+  }
+
   .bar {
     position: relative;
     display: flex;
