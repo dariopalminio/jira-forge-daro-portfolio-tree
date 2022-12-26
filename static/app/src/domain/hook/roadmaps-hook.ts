@@ -84,10 +84,10 @@ export default function useRoadmaps() {
     const getDaysFromFirstDateUntilTodate = (firstDate: Date): number => {
         try {
             const todate: Date = new Date();
-            console.log('firstDate:', firstDate);
-            console.log('todate:', todate);
+            //console.log('firstDate:', firstDate);
+            //console.log('todate:', todate);
             const days: number = getDaysBetweenTwoDates(firstDate, todate);
-            console.log('days:', days);
+            //console.log('days:', days);
             if (days < 0) {
                 return 0;
             }

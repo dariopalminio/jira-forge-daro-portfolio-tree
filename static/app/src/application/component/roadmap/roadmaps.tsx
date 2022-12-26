@@ -86,9 +86,14 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
 
     const getTodateColumnLine = (): React.ReactNode => {
         return (
+            <>
+            <div className={styles.todatePoint}
+                style={{ left: `${((getDaysFromFirstDateUntilToDate() - 1.5) * zoomFactor)}px`}}
+            />
             <div className={styles.todate}
                 style={{ left: `${(getDaysFromFirstDateUntilToDate() * zoomFactor)}px`}}
             />
+            </>
         );
     }
 
