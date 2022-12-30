@@ -22,17 +22,16 @@ export default function JiraApiImpl(): IJiraApi {
         }
     };
 
-    async function searchJql(jql: string): Promise<any> {
+    async function searchJql(jql: string, maxResults: number, startAt: number): Promise<any> {
         try {
             const body = {
                 "expand": [
                     "names",
-                    "schema",
                     "children",
                     "descendants"
                 ],
                 "jql": jql,
-                "maxResults": 15,
+                "maxResults": maxResults,
                 "fieldsByKeys": false,
                 "fields": [
                     "summary",
@@ -43,9 +42,10 @@ export default function JiraApiImpl(): IJiraApi {
                     "created",
                     "customfield_10015",
                     "issuetype",
-                    "project"
+                    "project",
+                    "subtasks"
                 ],
-                "startAt": 0
+                "startAt": startAt
             };
             const response = await requestJira(`/rest/api/3/search`, {
                 method: "POST",
@@ -58,8 +58,8 @@ export default function JiraApiImpl(): IJiraApi {
             console.error('***searchJql.response:', response);
             const data = await response.json();
             console.error('***searchJql.response.json():', data);
-            if (response.status !== 200){
-                const errorMessages = data?.errorMessages? data.errorMessages : 'Internal error in searchJql function!'
+            if (response.status !== 200) {
+                const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in searchJql function!'
                 throw new Error(errorMessages);
             }
             return data;
@@ -97,9 +97,9 @@ export default function JiraApiImpl(): IJiraApi {
         try {
             const response = await requestJira(`/rest/api/3/issueLinkType`, {
                 headers: {
-                  'Accept': 'application/json'
+                    'Accept': 'application/json'
                 }
-              });
+            });
             const data = await response.json();
             return data;
         } catch (error) {
@@ -108,18 +108,54 @@ export default function JiraApiImpl(): IJiraApi {
         }
     };
 
-    async function getIssuesByEpikLink(epicKey: string): Promise<any> {
+    /**
+     * Get project versions paginated
+     * GET /rest/api/2/project/{projectIdOrKey}/version
+     * Returns a paginated list of all versions in a project. See the Get project versions resource if you want to get a full list of versions without pagination.
+     * This operation can be accessed anonymously.
+     * Permissions required: Browse Projects 
+     * Use expand to include additional information in the response. This parameter accepts a comma-separated list. Expand options include:
+     * - issuesstatus Returns the number of issues in each status category for each version.
+     * - operations Returns actions that can be performed on the specified version.
+     */
+    async function getProjectVersions(projectKey: string): Promise<any> {
         try {
-            const jql = `'Epic Link' =${epicKey} order by created DESC`;
+            const response = await requestJira(`/rest/api/2/project/${projectKey}/version`, {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            const data = await response.json();
+            if (response.status !== 200) {
+                const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in getVersionForProject function!'
+                throw new Error(errorMessages);
+            }
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
+
+    /**
+     * Get Epic's children issues
+     * Query JQL examples: 
+     * - example 1: parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} ORDER BY rank
+     * - example 2: 'Epic Link' =${epicKey} order by created DESC
+     * @param epicKey 
+     * @returns 
+     */
+    async function getEpicsChildrens(epicKey: string, maxResults: number, startAt: number): Promise<any> {
+        try {
+            const jql = `parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} order by created DESC`;
             const body = {
                 "expand": [
                     "names",
-                    "schema",
                     "children",
                     "descendants"
                 ],
                 "jql": jql,
-                "maxResults": 15,
+                "maxResults": maxResults,
                 "fieldsByKeys": false,
                 "fields": [
                     "summary",
@@ -130,9 +166,10 @@ export default function JiraApiImpl(): IJiraApi {
                     "created",
                     "customfield_10015",
                     "issuetype",
-                    "project"
+                    "project",
+                    "subtasks"
                 ],
-                "startAt": 0
+                "startAt": startAt
             };
             const response = await requestJira(`/rest/api/3/search`, {
                 method: "POST",
@@ -143,8 +180,8 @@ export default function JiraApiImpl(): IJiraApi {
                 body: JSON.stringify(body)
             });
             const data = await response.json();
-            if (response.status !== 200){
-                const errorMessages = data?.errorMessages? data.errorMessages : 'Internal error in getIssuesByEpikLink function!'
+            if (response.status !== 200) {
+                const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in getIssuesByEpikLink function!'
                 throw new Error(errorMessages);
             }
             return data;
@@ -159,6 +196,7 @@ export default function JiraApiImpl(): IJiraApi {
         getCurrentUser,
         getIssueBySelf,
         getIssueLinkTypes,
-        getIssuesByEpikLink
+        getEpicsChildrens,
+        getProjectVersions
     };
 };

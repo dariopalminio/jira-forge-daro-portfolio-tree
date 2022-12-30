@@ -89,6 +89,84 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "avatarId": 10551,
                             "hierarchyLevel": 0
                         },
+                        "subtasks": [
+                            {
+                                "id": "144281",
+                                "key": "OKR-2",
+                                "self": "https://cencosud.atlassian.net/rest/api/3/issue/144281",
+                                "fields": {
+                                    "summary": "100 % implementación Jira para Q1",
+                                    "status": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/status/10286",
+                                        "description": "",
+                                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                                        "name": "New",
+                                        "id": "10286",
+                                        "statusCategory": {
+                                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                                            "id": 2,
+                                            "key": "new",
+                                            "colorName": "blue-gray",
+                                            "name": "To Do"
+                                        }
+                                    },
+                                    "priority": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                        "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                        "name": "Medium",
+                                        "id": "3"
+                                    },
+                                    "issuetype": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10180",
+                                        "id": "10180",
+                                        "description": "Resultado Clave",
+                                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10321?size=medium",
+                                        "name": "Key Result",
+                                        "subtask": true,
+                                        "avatarId": 10321,
+                                        "hierarchyLevel": -1
+                                    }
+                                }
+                            },
+                            {
+                                "id": "144282",
+                                "key": "OKR-3",
+                                "self": "https://cencosud.atlassian.net/rest/api/3/issue/144282",
+                                "fields": {
+                                    "summary": "Example Key Result para Q1",
+                                    "status": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/status/10286",
+                                        "description": "",
+                                        "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                                        "name": "New",
+                                        "id": "10286",
+                                        "statusCategory": {
+                                            "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                                            "id": 2,
+                                            "key": "new",
+                                            "colorName": "blue-gray",
+                                            "name": "To Do"
+                                        }
+                                    },
+                                    "priority": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                        "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                        "name": "Medium",
+                                        "id": "3"
+                                    },
+                                    "issuetype": {
+                                        "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10180",
+                                        "id": "10180",
+                                        "description": "Resultado Clave",
+                                        "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10321?size=medium",
+                                        "name": "Key Result",
+                                        "subtask": true,
+                                        "avatarId": 10321,
+                                        "hierarchyLevel": -1
+                                    }
+                                }
+                            }
+                        ],
                         "duedate": null,
                         "created": "2022-11-28T17:39:22.333-0300",
                         "project": {
@@ -790,7 +868,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "avatarId": 10551,
                             "hierarchyLevel": 0
                         },
-                        "duedate": "2023-03-15",
+                        "duedate": "2022-12-15",
                         "created": "2022-11-14T10:30:59.174-0300",
                         "project": {
                             "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
@@ -826,7 +904,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/status/10029",
                             "description": "",
                             "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
-                            "name": "IMPLEMENTING",
+                            "name": "BLOCKED",
                             "id": "10029",
                             "statusCategory": {
                                 "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
@@ -1164,7 +1242,46 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "timeZone": "America/Santiago",
                     "accountType": "atlassian"
                 },
-                "subtasks": [],
+                "subtasks": [
+                    {
+                        "id": `213${strNum}`,
+                        "key": `KR-${strNum}`,
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issue/144281",
+                        "fields": {
+                            "summary": "100 % implementación Jira para Q1",
+                            "status": {
+                                "self": "https://cencosud.atlassian.net/rest/api/3/status/10286",
+                                "description": "",
+                                "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                                "name": "New",
+                                "id": "10286",
+                                "statusCategory": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                                    "id": 2,
+                                    "key": "new",
+                                    "colorName": "blue-gray",
+                                    "name": "To Do"
+                                }
+                            },
+                            "priority": {
+                                "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                "name": "Medium",
+                                "id": "3"
+                            },
+                            "issuetype": {
+                                "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10180",
+                                "id": "10180",
+                                "description": "Resultado Clave",
+                                "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10321?size=medium",
+                                "name": "Key Result",
+                                "subtask": true,
+                                "avatarId": 10321,
+                                "hierarchyLevel": -1
+                            }
+                        }
+                    }
+                ],
                 "customfield_10040": null,
                 "customfield_10041": null,
                 "customfield_10042": null,
@@ -1285,7 +1402,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
         }
     }
 
-    async function getIssuesByEpikLink(epicKey: string): Promise<any> {
+    async function getEpicsChildrens(epicKey: string, maxResults: number, startAt: number): Promise<any> {
         const num = Math.floor(Math.random() * 1000);
         const strNum: string = num.toString();
         if(num%2==0){
@@ -1578,11 +1695,390 @@ export default function JiraApiFakeImpl(): IJiraApi {
         }
     };
 
+    async function getProjectVersions(projectKey: string): Promise<any> {
+
+        return {
+            "self": "https://cencosud.atlassian.net/rest/api/2/project/PTECH/version?maxResults=50&startAt=0",
+            "maxResults": 50,
+            "startAt": 0,
+            "total": 19,
+            "isLast": true,
+            "values": [
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10018",
+                    "id": "10018",
+                    "name": "Ecommerce - Release 06 (Marzo)",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-03-23",
+                    "releaseDate": "2020-03-31",
+                    "userStartDate": "22/Mar/20",
+                    "userReleaseDate": "30/Mar/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 25
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10010",
+                    "id": "10010",
+                    "description": "Release E-Commerce Enero 13 a Febrero 28",
+                    "name": "E-commerce Jan - Feb 20', 1st Release",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-01-13",
+                    "releaseDate": "2020-03-23",
+                    "userStartDate": "12/Jan/20",
+                    "userReleaseDate": "22/Mar/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 39
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10011",
+                    "id": "10011",
+                    "description": "Release E-Commerce Diciembre 30 a Enero 10",
+                    "name": "E-Commerce Jan 20', 1st Release",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2019-12-30",
+                    "releaseDate": "2020-01-10",
+                    "userStartDate": "29/Dec/19",
+                    "userReleaseDate": "09/Jan/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 10
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10012",
+                    "id": "10012",
+                    "description": "Release E-Commerce Diciembre 2 al 13",
+                    "name": "E-Commerce Dec 19', 1st Release",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2019-12-02",
+                    "releaseDate": "2019-12-13",
+                    "userStartDate": "01/Dec/19",
+                    "userReleaseDate": "12/Dec/19",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 16
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10013",
+                    "id": "10013",
+                    "description": "Release para GO LIVE de la nueva funcionalidad de Multishipping",
+                    "name": "Go Live Multishipping E-commerce Jan 20",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-02-13",
+                    "releaseDate": "2020-02-27",
+                    "userStartDate": "12/Feb/20",
+                    "userReleaseDate": "26/Feb/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 76
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10014",
+                    "id": "10014",
+                    "description": "Release E-Commerce Diciembre 16 al 27",
+                    "name": "E-Commerce Dec 19', 2nd Release",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2019-12-16",
+                    "releaseDate": "2020-01-31",
+                    "userStartDate": "15/Dec/19",
+                    "userReleaseDate": "30/Jan/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 21
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10017",
+                    "id": "10017",
+                    "name": "E-commerce Mar 20'",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-03-02",
+                    "releaseDate": "2020-03-23",
+                    "userStartDate": "01/Mar/20",
+                    "userReleaseDate": "22/Mar/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 26
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10019",
+                    "id": "10019",
+                    "name": "Ecommerce - Release 07 (Abril)",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-04-01",
+                    "releaseDate": "2020-04-17",
+                    "userStartDate": "31/Mar/20",
+                    "userReleaseDate": "16/Apr/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 30
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10020",
+                    "id": "10020",
+                    "name": "Ecommerce - Release 08 (Abril)",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-04-18",
+                    "releaseDate": "2020-04-30",
+                    "userStartDate": "17/Apr/20",
+                    "userReleaseDate": "29/Apr/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 49
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10022",
+                    "id": "10022",
+                    "name": "Ecommerce - Release 09 (Mayo)",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-05-01",
+                    "releaseDate": "2020-05-15",
+                    "userStartDate": "30/Apr/20",
+                    "userReleaseDate": "14/May/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 51
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10023",
+                    "id": "10023",
+                    "name": "Ecommerce - Release 05 Mayo 2020",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-05-16",
+                    "releaseDate": "2020-05-31",
+                    "userStartDate": "15/May/20",
+                    "userReleaseDate": "30/May/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 31
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10024",
+                    "id": "10024",
+                    "name": "Ecommerce - Release 06 Junio 2020",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-06-01",
+                    "releaseDate": "2020-06-30",
+                    "userStartDate": "31/May/20",
+                    "userReleaseDate": "29/Jun/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 1,
+                        "inProgress": 0,
+                        "done": 92
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10025",
+                    "id": "10025",
+                    "name": "Ecommerce - Release 07 Julio 2020",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-07-01",
+                    "releaseDate": "2020-07-31",
+                    "userStartDate": "30/Jun/20",
+                    "userReleaseDate": "30/Jul/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 46
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10026",
+                    "id": "10026",
+                    "name": "Ecommerce - Release Grouping 2020",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-06-15",
+                    "releaseDate": "2020-07-31",
+                    "userStartDate": "14/Jun/20",
+                    "userReleaseDate": "30/Jul/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 98
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10027",
+                    "id": "10027",
+                    "name": "Ecommerce - Release 08 Agosto 2020",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-08-01",
+                    "releaseDate": "2020-08-31",
+                    "userStartDate": "31/Jul/20",
+                    "userReleaseDate": "30/Aug/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 46
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10029",
+                    "id": "10029",
+                    "name": "Ecommerce - Release 09 Septiembre 2020",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-09-01",
+                    "releaseDate": "2020-09-30",
+                    "userStartDate": "31/Aug/20",
+                    "userReleaseDate": "29/Sep/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 33
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10030",
+                    "id": "10030",
+                    "name": "Ecommerce - Release 10 Octubre 2020",
+                    "archived": false,
+                    "released": true,
+                    "startDate": "2020-10-01",
+                    "releaseDate": "2020-10-31",
+                    "userStartDate": "30/Sep/20",
+                    "userReleaseDate": "30/Oct/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 36
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10031",
+                    "id": "10031",
+                    "name": "Ecommerce - Release 11 Noviembre 2020",
+                    "archived": false,
+                    "released": false,
+                    "startDate": "2020-11-01",
+                    "releaseDate": "2020-11-30",
+                    "overdue": true,
+                    "userStartDate": "31/Oct/20",
+                    "userReleaseDate": "29/Nov/20",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 11
+                    }
+                },
+                {
+                    "expand": "issuesstatus",
+                    "self": "https://cencosud.atlassian.net/rest/api/2/version/10050",
+                    "id": "10050",
+                    "name": "Limpieza",
+                    "archived": false,
+                    "released": true,
+                    "releaseDate": "2021-05-29",
+                    "userReleaseDate": "28/May/21",
+                    "projectId": 10009,
+                    "issuesStatusForFixVersion": {
+                        "unmapped": 0,
+                        "toDo": 0,
+                        "inProgress": 0,
+                        "done": 32
+                    }
+                }
+            ]
+        }
+    };
+
     return {
         searchJql,
         getCurrentUser,
         getIssueBySelf,
         getIssueLinkTypes,
-        getIssuesByEpikLink
+        getEpicsChildrens,
+        getProjectVersions
     };
 };

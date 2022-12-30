@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
+import useIssueHook from '../../../domain/hook/issue-hook';
 import { TreeToggleType } from '../../../domain/model/tree-types';
 import AssigneeCell from './cells/assignee-cell';
 import KeyCell from './cells/key-cell';
@@ -18,7 +18,8 @@ interface IProps {
 }
 
 const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, toggles, togglesChange }) => {
-
+    const {statusKeyOf,
+        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress} = useIssueHook();
 
     const handleOnClick = (item: any) => {
         onClick(item);
@@ -42,11 +43,11 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
         }
     }
 
-    const getCellElement = (item: any, colHeader: IColHeader, index: number): React.ReactNode => {
+    const getCellElement = (colHeader: IColHeader, index: number): React.ReactNode => {
         switch (colHeader.prop) {
             case 'key': {
                 return (
-                    <KeyCell key={index} item={item} colHeader={colHeader} toggles={toggles} togglesChange={togglesChange}/>)
+                    <KeyCell key={index} item={item} colHeader={colHeader} toggles={toggles} togglesChange={togglesChange} />)
             }
             case 'assignee': {
                 return (
@@ -55,41 +56,58 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
             }
             case 'summary': {
                 return (
-                <div key={index} style={{ width: colHeader.width }}>
-                    <label className={styles.textOverflow}>{getFieldValue('summary')}</label>
-                </div>)
+                    <div key={index} style={{ width: colHeader.width, cursor: 'pointer' }}
+                        onClick={() => handleOnClick(item)}>
+                        <label className={styles.textOverflow}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            {getFieldValue('summary')}
+                        </label>
+                    </div>
+                )
             }
             case 'status': {
                 return (
-                    <StatusCell key={index} item={item} colHeader={colHeader} />)
+                    <StatusCell key={index} item={item} colHeader={colHeader} />
+                )
             }
             case 'startdate': {
-                return (<div key={index} style={{ width: colHeader.width }}>
-                    {item?.fields?.customfield_10015}
-                </div>)
+                const labelColor: string = isStartdateExpiredAndTodo(item)? 'red': 'black';
+                return (
+                    <div key={index} style={{ width: colHeader.width, color: `${labelColor}` }}>
+                        {item?.fields?.customfield_10015}
+                    </div>
+                )
             }
             case 'duedate': {
-                return (<div key={index} style={{ width: colHeader.width }}>
-                    {item?.fields?.duedate}
-                </div>)
+                const labelColor: string = isDuedateExpiredAndInprogress(item)? 'red': 'black';
+                return (
+                    <div key={index} style={{ width: colHeader.width, color: `${labelColor}` }}>
+                        {item?.fields?.duedate}
+                    </div>
+                )
             }
             case 'project': {
-                return (<div key={index} style={{ width: colHeader.width }}>
-                    {item?.fields?.project?.name}
-                </div>)
+                return (
+                    <div key={index} style={{ width: colHeader.width }}>
+                        {item?.fields?.project?.name}
+                    </div>
+                )
             }
             default: {
-                return (<div key={index} style={{ width: colHeader.width }}>
-                    {getFieldValue(colHeader.prop)}
-                </div>)
+                return (
+                    <div key={index} style={{ width: colHeader.width }}>
+                        {getFieldValue(colHeader.prop)}
+                    </div>
+                )
             }
         }
     }
 
-    const getRowCellElements = (item: any): React.ReactNode => {
+    const getRowCellElements = (): React.ReactNode => {
         return headers.map(
             (element: IColHeader, index: number) => {
-                return getCellElement(item, element, index)
+                return getCellElement(element, index)
             }
         )
     }
@@ -105,7 +123,7 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
                 style={getGridTemplateColumns()}
             >
                 {
-                    getRowCellElements(item)
+                    getRowCellElements()
                 }
             </div>
             {isOpen() &&

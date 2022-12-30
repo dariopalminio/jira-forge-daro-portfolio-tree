@@ -24,6 +24,8 @@
     "roadmaps": "Roadmaps",
     "go.to": "Go to",
     "jql.placeholder": "Here JQL...",
-    "jql.last.label": "Last JQL"
+    "jql.last.label": "Last JQL",
+    "with.epics.children": "With Epic's children",
+    "maxResults.last.label": "Max Results in first levels"
 
 }

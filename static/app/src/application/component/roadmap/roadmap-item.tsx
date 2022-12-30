@@ -4,6 +4,7 @@ import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-ty
 import styles from './roadmap.module.css';
 import { getDaysBetweenTwoDates } from '../../../domain/helper/date.helper';
 import { QuartersType } from '../../../domain/model/quarter-types';
+import useIssueHook from '../../../domain/hook/issue-hook';
 
 interface IProps {
     timelineData: QuartersType;
@@ -14,6 +15,8 @@ interface IProps {
 }
 
 const RoadmapItem: React.FC<IProps> = (props: IProps) => {
+    const {statusKeyOf, stardateOf, duedateOf, issueTypeNameOf,
+        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress} = useIssueHook();
 
     const handleClickOpen = () => {
         const newToggles = { ...props.toggles, [props.treeItem.key]: !props.toggles[props.treeItem.key] };
@@ -24,13 +27,8 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
         props.onClick(item);
     }
 
-    const getIssueTypeName = (): string => {
-        const name: string = props.treeItem?.fields?.issuetype?.name? props.treeItem.fields.issuetype.name  : '';
-        return name;
-    }
-
     const getBarBackground = (): string => {
-        let issueType: string = getIssueTypeName();
+        let issueType: string = issueTypeNameOf(props.treeItem);
         issueType = issueType ? issueType.toUpperCase().trim() : '';
         let color = 'yellow';
         switch  (issueType) {
@@ -55,24 +53,11 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
           return color;
     }
 
-    const getStatusKey = (): string | undefined => {
-        try {
-            const statusName = props?.treeItem?.fields?.status?.statusCategory?.key;
-            
-            if (statusName === undefined || statusName === null || typeof statusName !== 'string') {
-                return undefined;
-            }
-            return statusName;
-        } catch (error) {
-            return undefined;
-        }
-    }
-
     const getStatusBckground = (): string => {
         try {
-            const statusName = getStatusKey();
+            const statusName: string = statusKeyOf(props?.treeItem);
 
-            if (statusName === undefined) {
+            if (statusName === '') {
                 return 'LightGray';
             }
 
@@ -96,8 +81,8 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
     }
 
     const getMarginLeft = () => {
-        const startdate: string = props.treeItem?.fields?.customfield_10015;
-        if (!startdate || startdate === undefined || startdate === '') {
+        const startdate: string = stardateOf(props.treeItem);
+        if (startdate === '') {
             return 0;
         }
         const days: number = getDaysBetweenTwoDates(props.timelineData.firstDate, new Date(startdate));
@@ -106,12 +91,12 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
     }
 
     const getBarWidth = () => {
-        const startdate: string = props.treeItem?.fields?.customfield_10015;
-        if (!startdate || startdate === undefined || startdate === '') {
+        const startdate: string = stardateOf(props.treeItem);
+        if (startdate === '') {
             return 0;
         }
-        const duedate = props.treeItem?.fields?.duedate;
-        if (!duedate || duedate === undefined || duedate === '') {
+        const duedate = duedateOf(props.treeItem);
+        if (duedate === '') {
             return 0;
         }
         const days: number = getDaysBetweenTwoDates(new Date(startdate), new Date(duedate));
@@ -125,23 +110,25 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
 
     const getLabelStartDate = (): React.ReactNode => {
         let date = props.treeItem?.fields?.customfield_10015;
-
         date = (date && typeof date === 'string' && date.length>10)? date.substring(0, 10) : date;
+        const labelColor: string = isStartdateExpiredAndTodo(props.treeItem)? 'red': 'grey';
         return (
             (getBarWidth() !== 0) &&
             <label className={styles.labelDate}
-                style={{ left: `${getMarginLeft() - 50}px` }}>
+                style={{ left: `${getMarginLeft() - 50}px`, color: `${labelColor}`}}>
                 {date}</label>
 
         )
     }
 
     const getLabelEndDate = (): React.ReactNode => {
-        const date = props.treeItem?.fields?.duedate;
+        let date = duedateOf(props.treeItem);
+        date = (date && typeof date === 'string' && date.length>10)? date.substring(0, 10) : date;
+        const labelColor: string = isDuedateExpiredAndInprogress(props.treeItem)? 'red': 'grey';
         return (
             (getBarWidth() !== 0) &&
             <label className={styles.labelDate}
-                style={{ left: `${getMarginLeft() + getBarWidth() + 5}px` }}>
+                style={{ left: `${getMarginLeft() + getBarWidth() + 5}px`, color: `${labelColor}` }}>
                 {date}</label>
 
         )

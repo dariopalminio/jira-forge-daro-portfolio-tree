@@ -85,6 +85,23 @@ const ConfigStore: React.FC = () => {
         setConfigHasChanges(true);
     }
 
+    const handleMaxResultsChange = async (val: string) => {
+        try {
+            const maxResultsNumber: number = Number(val);
+            const maxResultsStr: string = Math.abs(maxResultsNumber).toString();
+            if (maxResultsStr === 'NaN') {
+                throw new Error('Number of maxResults has format error');
+            }
+            if (maxResultsStr === '0') {
+                throw new Error('Number of maxResults Must be greater than zero');
+            }
+            setConfigData({ ...configData, maxResults: maxResultsStr });
+            setConfigHasChanges(true);
+        } catch (error) {
+            console.log('Error in handleMaxResultsChange function: ', error);
+        };
+    }
+
     return (
         <div>
             <p style={{ fontSize: "11px", color: "grey" }}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
@@ -94,7 +111,7 @@ const ConfigStore: React.FC = () => {
                     {t("issue.link.types.msg.active")} {t("issue.link.types.outwards.msg.")}
                 </p>
 
-                <div>
+                <div style={{ display: 'flex', width: '100%', marginTop: '10px' }}>
                     <label>{t("issue.link.types.outwards")}:</label>
                     <CheckboxGroup
                         checkboxesList={outwardsCheckboxes}
@@ -102,10 +119,21 @@ const ConfigStore: React.FC = () => {
                     />
                 </div>
 
-                <div style={{display: 'flex', width: '100%'}}>
+                <div style={{ display: 'flex', width: '100%', marginTop: '10px' }}>
+                    <label>{t("maxResults.last.label")}:</label>
+                    <TextField
+                        style={{ marginLeft: '5px', width: '100px' }}
+                        id="maxResults-textfield-config"
+                        placeholder="Here text..."
+                        onChange={(e) => handleMaxResultsChange(e.target.value)}
+                        value={configData.maxResults}
+                    />
+                </div>
+
+                <div style={{ display: 'flex', width: '100%', marginTop: '10px' }}>
                     <label>{t("jql.last.label")}:</label>
-                    <TextField 
-                        style={{marginLeft: '5px', width: '400px'}}
+                    <TextField
+                        style={{ marginLeft: '5px', width: '500px' }}
                         id="jql-textfield-config"
                         placeholder="Here text..."
                         onChange={(e) => handleJqlChange(e.target.value)}

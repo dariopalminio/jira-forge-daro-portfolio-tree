@@ -1,44 +1,14 @@
 import { IColHeader } from "../types";
 import styles from './status-cell.module.css';
 
-/**
-"fields": {
-    "status": {
-                    "self": "https://daropalmi.atlassian.net/rest/api/3/status/10029",
-                    "description": "",
-                    "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
-                    "name": "IMPLEMENTING",
-                    "id": "10029",
-                    "statusCategory": {
-                        "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/4",
-                        "id": 4,
-                        "key": "indeterminate",
-                        "colorName": "yellow",
-                        "name": "In Progress"
-                    }
-                }
-                     "status": {
-                                    "self": "https://daropalmi.atlassian.net/rest/api/3/status/10002",
-                                    "description": "",
-                                    "iconUrl": "https://daropalmi.atlassian.net/",
-                                    "name": "Backlog",
-                                    "id": "10002",
-                                    "statusCategory": {
-                                        "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/2",
-                                        "id": 2,
-                                        "key": "new",
-                                        "colorName": "blue-gray",
-                                        "name": "To Do"
-                                    }
-                                },
-}
- */
 
 interface IPropsAssigneeCell {
     item: any;
     colHeader?: IColHeader;
 }
 const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
+    const redStatusNames = ['BLOCKED', 'OFF TRACK', 'CRITICAL', 'BLOQUEADO', 'DEFICIENTE', 'DEFICIENT', 'FALLIDO', 'FAILED', 'FAILURE'];
+    const yellowStatusNames = ['AT RISK', 'CON RIESGO', 'NEED ATTENTION', 'ATTENTION'];
 
     const getStatusNameText = (): string => {
         try {
@@ -113,13 +83,23 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
 
     const getBckgroundColor = (): string => {
         try {
-            const statusName = getStatusKey();
+            const statusName: string = getStatusNameText().toUpperCase();
 
-            if (statusName === undefined) {
+            if (redStatusNames.includes(statusName)){
+                return '#F94881';
+            }
+
+            if (yellowStatusNames.includes(statusName)){
+                return '#F0E776';
+            }
+
+            const statusKey: string | undefined = getStatusKey();
+
+            if (statusKey === undefined) {
                 return 'LightGray';
             }
 
-            switch (statusName) {
+            switch (statusKey) {
                 case 'new': {
                     return 'LightGray';
                 }

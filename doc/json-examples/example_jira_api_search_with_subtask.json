@@ -1,0 +1,191 @@
+
+{
+    "request": {
+        "title":"Search JQL with subtasks",
+        "method":"POST",
+        "url": "https://cencosud.atlassian.net/rest/api/3/search",
+        "body": {
+            "expand": [
+              "names",
+              "schema",
+              "children",
+              "descendants"
+            ],
+            "jql": "project=OKR and issuetype='Objective' order by created DESC",
+            "maxResults": 15,
+            "fieldsByKeys": false,
+            "fields": [
+              "summary",
+              "status",
+              "assignee",
+              "issuelinks",
+              "duedate",
+              "created",
+              "customfield_10015",
+              "issuetype",
+              "project",
+              "subtasks"
+            ],
+            "startAt": 0
+          }
+    },
+    "response": 
+
+{
+    "expand": "names,schema",
+    "startAt": 0,
+    "maxResults": 15,
+    "total": 1,
+    "issues": [
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "144280",
+            "self": "https://cencosud.atlassian.net/rest/api/3/issue/144280",
+            "key": "OKR-1",
+            "fields": {
+                "summary": "Madurez de Procesos TI",
+                "issuetype": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10179",
+                    "id": "10179",
+                    "description": "Objetivo",
+                    "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10313?size=medium",
+                    "name": "Objective",
+                    "subtask": false,
+                    "avatarId": 10313,
+                    "hierarchyLevel": 0
+                },
+                "subtasks": [
+                    {
+                        "id": "144281",
+                        "key": "OKR-2",
+                        "self": "https://cencosud.atlassian.net/rest/api/3/issue/144281",
+                        "fields": {
+                            "summary": "100 % implementación Jira para Q1",
+                            "status": {
+                                "self": "https://cencosud.atlassian.net/rest/api/3/status/10286",
+                                "description": "",
+                                "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                                "name": "New",
+                                "id": "10286",
+                                "statusCategory": {
+                                    "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                                    "id": 2,
+                                    "key": "new",
+                                    "colorName": "blue-gray",
+                                    "name": "To Do"
+                                }
+                            },
+                            "priority": {
+                                "self": "https://cencosud.atlassian.net/rest/api/3/priority/3",
+                                "iconUrl": "https://cencosud.atlassian.net/images/icons/priorities/minor.svg",
+                                "name": "Medium",
+                                "id": "3"
+                            },
+                            "issuetype": {
+                                "self": "https://cencosud.atlassian.net/rest/api/3/issuetype/10180",
+                                "id": "10180",
+                                "description": "Resultado Clave",
+                                "iconUrl": "https://cencosud.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10321?size=medium",
+                                "name": "Key Result",
+                                "subtask": true,
+                                "avatarId": 10321,
+                                "hierarchyLevel": -1
+                            }
+                        }
+                    }
+                ],
+                "duedate": "2023-12-31",
+                "created": "2022-12-30T11:34:59.898-0300",
+                "project": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/project/10102",
+                    "id": "10102",
+                    "key": "OKR",
+                    "name": "OKRs Project Demo 2023",
+                    "projectTypeKey": "software",
+                    "simplified": false,
+                    "avatarUrls": {
+                        "48x48": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10411",
+                        "24x24": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10411?size=small",
+                        "16x16": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10411?size=xsmall",
+                        "32x32": "https://cencosud.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10411?size=medium"
+                    }
+                },
+                "issuelinks": [],
+                "assignee": null,
+                "status": {
+                    "self": "https://cencosud.atlassian.net/rest/api/3/status/10286",
+                    "description": "",
+                    "iconUrl": "https://cencosud.atlassian.net/images/icons/statuses/generic.png",
+                    "name": "New",
+                    "id": "10286",
+                    "statusCategory": {
+                        "self": "https://cencosud.atlassian.net/rest/api/3/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "blue-gray",
+                        "name": "To Do"
+                    }
+                },
+                "customfield_10015": "2023-01-01"
+            }
+        }
+    ],
+    "names": {
+        "summary": "Summary",
+        "issuetype": "Issue Type",
+        "subtasks": "Sub-tasks",
+        "duedate": "Due date",
+        "created": "Created",
+        "project": "Project",
+        "issuelinks": "Linked Issues",
+        "assignee": "Assignee",
+        "status": "Status",
+        "customfield_10015": "Start date"
+    },
+    "schema": {
+        "summary": {
+            "type": "string",
+            "system": "summary"
+        },
+        "issuetype": {
+            "type": "issuetype",
+            "system": "issuetype"
+        },
+        "subtasks": {
+            "type": "array",
+            "items": "issuelinks",
+            "system": "subtasks"
+        },
+        "duedate": {
+            "type": "date",
+            "system": "duedate"
+        },
+        "created": {
+            "type": "datetime",
+            "system": "created"
+        },
+        "project": {
+            "type": "project",
+            "system": "project"
+        },
+        "issuelinks": {
+            "type": "array",
+            "items": "issuelinks",
+            "system": "issuelinks"
+        },
+        "assignee": {
+            "type": "user",
+            "system": "assignee"
+        },
+        "status": {
+            "type": "status",
+            "system": "status"
+        },
+        "customfield_10015": {
+            "type": "date",
+            "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
+            "customId": 10015
+        }
+    }
+}
+}

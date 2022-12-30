@@ -19,6 +19,7 @@ import Loading from "../../common/loading/loading";
 import StoreContext from "../../../domain/context/store-context";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
 import useStorageHook from "../../../domain/hook/storage-hook";
+import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
 
 
 const SearchView: React.FC = () => {
@@ -35,6 +36,14 @@ const SearchView: React.FC = () => {
     const [tabSelected, setTabSelected] = useState<string>('tree');
     const [progress, setProgress] = useState<number>(0);
 
+    const withEpicsChildrenDefault: CheckboxType = {
+        label: t('with.epics.children'),
+        checked: false
+    };
+    const [withEpicsChildren, setWithEpicsChildren] = useState<CheckboxType>(withEpicsChildrenDefault);
+
+
+
     const TableHeadersDefault: IColHeader[] = [
         {
             "prop": "key",
@@ -49,7 +58,7 @@ const SearchView: React.FC = () => {
         {
             "prop": "status",
             "label": t("status"),
-            "width": 100
+            "width": 150
         },
         {
             "prop": "project",
@@ -89,23 +98,34 @@ const SearchView: React.FC = () => {
         }
     ];
 
+    const getMaxResults = (): number => {
+        //console.log('***configData?.maxResults:', configData?.maxResults);
+        if (!configData?.maxResults || configData?.maxResults === '' || configData?.maxResults === null) {
+            return 15;
+        }
+        const maxResults: number = Number(configData?.maxResults);
+        //console.log('***maxResults:', Math.abs(maxResults));
+        return Math.abs(maxResults);
+    }
+
     const searchData = async () => {
         try {
+            const MAX_ALLOWED_LEVEL = 10;
             //load first level, generally are Initiatives
-            const dataTree: IssueTreeNodeType | undefined = await searchJql(jql);
+            const dataTree: IssueTreeNodeType | undefined = await searchJql(jql, getMaxResults(), 0);
             if (dataTree === undefined) throw new Error('Search JQL not found data!')
             const treeToggles = getTreeTogglesFrom(dataTree);
             setToggles(treeToggles);
             setDataTree(dataTree);
             setProgress(30);
-            //load childs by links
-            const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards);
+            //load childs by links to all levels
+            const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
             const newTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
             setProgress(60);
-            //load child by epic link
-            const lastDataTree: IssueTreeNodeType = await addChildrenByEpicLink(dataTree);
+            //load Epics children
+            const lastDataTree: IssueTreeNodeType = await addChildrenByEpicLink(dataTree, 150, 0, MAX_ALLOWED_LEVEL);
             const lastTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(lastTreeToggles);
             setDataTree(lastDataTree);
@@ -147,10 +167,14 @@ const SearchView: React.FC = () => {
 
     const handleSave = async () => {
         const todate: string = (new Date).toString();
-        const configDataEdited = { ...configData, updatedAt: todate, lastJql: jql};
+        const configDataEdited = { ...configData, updatedAt: todate, lastJql: jql };
         const infoResponse: ConfigStorageDataType = await setConfigStorage(configDataEdited);
         setConfigData(infoResponse);
         setConfigHasChanges(false);
+    }
+
+    const handleWithEpicsChildrenToggle = () => {
+        setWithEpicsChildren({ ...withEpicsChildren, checked: !withEpicsChildren.checked })
     }
 
     return (
@@ -167,7 +191,10 @@ const SearchView: React.FC = () => {
                         />
                     </div>
                     <div style={{ float: 'right' }}>
-                        <Button onClick={() => handleSave()}
+
+                    
+                        <Button style={{ marginLeft: '5px' }}
+                            onClick={() => handleSave()}
                             styleType={"secondary"} >
                             {t('save')}
                         </Button>
@@ -176,7 +203,6 @@ const SearchView: React.FC = () => {
                             {t('search')}
                         </Button>
                     </div>
-
                 </div>
             </div>
 

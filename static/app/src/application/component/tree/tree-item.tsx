@@ -3,6 +3,7 @@ import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-ty
 import styles from './tree-item.module.css';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import imgError from "./item-no-image.png"
+import StatusCell from '../table/cells/status-cell';
 //className={styles.inputTextField}
 
 
@@ -41,12 +42,12 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
     }
 
     const getIssueTypeName = (): string => {
-        const name: string = treeItem?.fields?.issuetype?.name? treeItem.fields.issuetype.name + ':' : '';
+        const name: string = treeItem?.fields?.issuetype?.name ? treeItem.fields.issuetype.name + ':' : '';
         return name;
     }
 
     return (
-        <span className={styles.treeItemContainer} style={{height: '20px'}}>
+        <span className={styles.treeItemContainer} style={{ height: '20px' }}>
             <span className={styles.treeItem}
                 style={{ marginLeft: getPaddingLeft() }}>
                 {treeItem?.hasChildren ? (
@@ -61,13 +62,13 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                 <a className={styles.anchorLink} href="#"
                     onClick={(e) => handleOnClickAnchorLink(e)}>
                     <img className={styles.treeItemImg}
-                        src={treeItem.iconUrl} 
+                        src={treeItem.iconUrl}
                         onError={(e) => {
                             e.currentTarget.src = imgError
-                          }}
-                          alt="" height="16" width="16" />
+                        }}
+                        alt="" height="16" width="16" />
                     <span className={styles.treeItemTextLine} >
-                    <span className={styles.textKey}>
+                        <span className={styles.textKey}>
                             {getIssueTypeName()}
                         </span>
                         &nbsp;
@@ -78,6 +79,10 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                         <span className={styles.textSummary}>
                             {treeItem.summary}
                         </span>
+                        &nbsp;
+                        <div style={{ display: 'inline-block' }}>
+                            <StatusCell item={treeItem} />
+                        </div>
                     </span>
                 </a>
             </span>

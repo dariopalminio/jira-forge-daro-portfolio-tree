@@ -51,7 +51,7 @@ export const TableViewPanel: React.FC<IProps> = (props: IProps) => {
                         tree={dataTree}
                         toggles={toggles}
                         togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                        onClick={(item: any) => alert(item.key)} />
+                        onClick={(item) => props.onClick(item)} />
 
                 </SplitRight>
             </SplitableContainer>

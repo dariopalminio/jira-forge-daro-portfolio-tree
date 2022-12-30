@@ -1,13 +1,11 @@
-import { useContext, useState } from 'react';
-import JiraApiImpl from '../../infrastructure/api/jira-api.impl';
+import { useState } from 'react';
 import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
-import { togglesTreeExample } from '../../infrastructure/api/api-fake/example-data';
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
 
 /**
- * Custom hook
+ * useJiraHook Custom hook
  * 
  * @returns 
  */
@@ -15,6 +13,7 @@ export default function useJiraHook() {
 
     const [state, setState] = useState<IHookState>(InitialState);
     const jiraApi: IJiraApi = GlobalConfig.Factory.get('jiraApi');
+    const MAX_ALLOWED_LEVEL = 20;
 
     /**
      * Get current user logged in Jira
@@ -35,11 +34,11 @@ export default function useJiraHook() {
      * Searcj JQL in Jira to retrieve issues from portfolio.
      * Return first level of a tree structure.
      */
-    const searchJql = async (jql: string): Promise<IssueTreeNodeType | undefined> => {
+    const searchJql = async (jql: string, maxResults: number, startAt: number): Promise<IssueTreeNodeType | undefined> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
 
         try {
-            const data: any = await jiraApi.searchJql(jql);
+            const data: any = await jiraApi.searchJql(jql, maxResults, startAt);
 
             let treeArray: IssueTreeNodeType[] = [];
             const issues: IssueTreeNodeType[] = data?.issues;
@@ -122,15 +121,15 @@ export default function useJiraHook() {
     /**
      * Get Children of each issue in tree by Links Hierarchy.
      */
-    const addChildrenByLink = async (issuesTree: IssueTreeNodeType, linksOutwards: string[]): Promise<IssueTreeNodeType> => {
+    const addChildrenByLink = async (issuesTree: IssueTreeNodeType, linksOutwards: string[], maxLevel: number): Promise<IssueTreeNodeType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             let outwards: string[] = [];
             if (linksOutwards && Array.isArray(linksOutwards) && linksOutwards.length > 0) {
                 outwards = linksOutwards;
             }
-            const MAX_ALLOWED_LEVEL = 10;
-            const r: IssueTreeNodeType = await getTreeWithChildrenByLink(issuesTree, outwards, 1, MAX_ALLOWED_LEVEL);
+            //const MAX_ALLOWED_LEVEL = 10;
+            const r: IssueTreeNodeType = await getTreeWithChildrenByLink(issuesTree, outwards, 1, maxLevel);
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return r;
         } catch (error) {
@@ -155,9 +154,22 @@ export default function useJiraHook() {
      * @returns IssueTreeNodeType tree
      */
     const getTreeWithChildrenByLink = async (issuesTree: IssueTreeNodeType, outwards: string[], level: number, maxLevel: number): Promise<IssueTreeNodeType> => {
-       
-        if (issuesTree.hasChildren && level < maxLevel) {
+
+        if (issuesTree.hasChildren && ((level < maxLevel) && (level < MAX_ALLOWED_LEVEL))) {
             let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
+            //get subtask children
+            for (var i = 0; i < childsArray.length; i++) {
+                if (childsArray[i]?.fields?.subtasks && childsArray[i]?.fields?.subtasks.length > 0) {
+                    for (var n = 0; n < childsArray[i]?.fields?.subtasks.length; n++) {
+                        const issueUrl: string = childsArray[i]?.fields?.subtasks[n].self;
+                        const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
+                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(issueChild, level + 2);
+                        childsArray[i].childrens.push(issue);
+                        childsArray[i].hasChildren = true;
+                    }
+                }
+            }
+            //get Links children
             for (var i = 0; i < childsArray.length; i++) {
                 const links: any[] = childsArray[i].fields?.issuelinks;
                 for (var j = 0; j < links.length; j++) {
@@ -174,6 +186,7 @@ export default function useJiraHook() {
                     }
                 }
             }
+
             const newArray: IssueTreeNodeType[] = [...childsArray];
             const finalArray: IssueTreeNodeType[] = [];
             for (var i = 0; i < newArray.length; i++) {
@@ -217,11 +230,11 @@ export default function useJiraHook() {
      * @param issuesTree 
      * @returns 
      */
-    const addChildrenByEpicLink = async (issuesTree: IssueTreeNodeType): Promise<IssueTreeNodeType> => {
+    const addChildrenByEpicLink = async (issuesTree: IssueTreeNodeType, maxResults: number, startAt: number, maxLevel: number): Promise<IssueTreeNodeType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            const MAX_ALLOWED_LEVEL = 10;
-            const r: IssueTreeNodeType = await getTreeChildrenByEpicLink(issuesTree, 0, MAX_ALLOWED_LEVEL);
+            //const MAX_ALLOWED_LEVEL = 10;
+            const r: IssueTreeNodeType = await getTreeChildrenByEpicLink(issuesTree, 0, maxLevel, maxResults, startAt);
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return r;
         } catch (error) {
@@ -232,13 +245,14 @@ export default function useJiraHook() {
         }
     };
 
-    const getTreeChildrenByEpicLink = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number): Promise<IssueTreeNodeType> => {
-      
-        if (issuesTree.hasChildren && level < maxLevel) {
+    const getTreeChildrenByEpicLink = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number, maxResults: number, startAt: number): Promise<IssueTreeNodeType> => {
+
+        if (issuesTree.hasChildren && ((level < maxLevel) && (level < MAX_ALLOWED_LEVEL))) {
             let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
             for (var i = 0; i < childsArray.length; i++) {
+                //get Epic Children
                 if (childsArray[i]?.fields?.issuetype?.name === 'Epic') {
-                    const data: any = await jiraApi.getIssuesByEpikLink(childsArray[i].key);
+                    const data: any = await jiraApi.getEpicsChildrens(childsArray[i].key, maxLevel, startAt);
                     if (data?.issues && Array.isArray(data?.issues) && (data?.issues?.length > 0)) {
                         for (var j = 0; j < data?.issues?.length; j++) {
                             const issue: IssueTreeNodeType = convertToIssueTreeNodeType(data?.issues[j], level + 2);
@@ -247,11 +261,23 @@ export default function useJiraHook() {
                         }
                     }
                 }
+                //get children tasks
+                /*
+                if (childsArray[i]?.fields?.subtasks && childsArray[i]?.fields?.subtasks.length > 0) {
+                    for (var n = 0; n < childsArray[i]?.fields?.subtasks.length; n++) {
+                        const issueUrl: string = childsArray[i]?.fields?.subtasks[n].self;
+                        const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
+                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(issueChild, level + 2);
+                        childsArray[i].childrens.push(issue);
+                        childsArray[i].hasChildren = true;
+                    }
+                }
+                */
             }
             const newArray: IssueTreeNodeType[] = [...childsArray];
             const finalArray: IssueTreeNodeType[] = [];
             for (var i = 0; i < newArray.length; i++) {
-                const issue = await getTreeChildrenByEpicLink(newArray[i], level + 1, maxLevel);
+                const issue = await getTreeChildrenByEpicLink(newArray[i], level + 1, maxLevel, maxResults, startAt);
                 finalArray.push(issue);
             }
             return { ...issuesTree, childrens: finalArray };

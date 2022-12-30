@@ -53,7 +53,7 @@ export const RoadmapViewPanel: React.FC<IProps> = (props: IProps) => {
                         tree={dataTree}
                         toggles={toggles}
                         togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                        onClick={(item: any) => alert(item.key)} />
+                        onClick={(item) => props.onClick(item)} />
                 </SplitLeft>
                 <SplitBar id={idSpliter}></SplitBar>
                 <SplitRight id={idSpliter}>
