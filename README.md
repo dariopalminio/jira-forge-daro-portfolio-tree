@@ -1,4 +1,14 @@
 # Custom UI Example
 
-Todas las Sutask de hijos:
-fields.subtasks
+Upstream Portfolio Features:
+- Cros-project view.
+- Filtering your query.
+- Navigating the views.
+- Issue hierarchy by Issue Links, Parent, Epic Link and subtasks.
+- Table view.
+- Cross-roadmap view.
+
+Other in the furure:
+- Project releases/versions view.
+- Export to Excel.
+
