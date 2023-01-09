@@ -119,7 +119,7 @@ export default function useJiraHook() {
     };
 
     /**
-     * Get Children of each issue in tree by Links Hierarchy.
+     * Get Children of each issue in tree by Links Hierarchy and subtasks.
      */
     const addChildrenByLink = async (issuesTree: IssueTreeNodeType, linksOutwards: string[], maxLevel: number): Promise<IssueTreeNodeType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
@@ -141,7 +141,7 @@ export default function useJiraHook() {
     };
 
     /**
-     * Get recursively Children of each issue in tree by Links Hierarchy.
+     * Get recursively Children of each issue in tree by Links Hierarchy and subtasks.
      * Complete all children based on Outwards type links by bringing the issues from Jira and completing the data tree.
      * The iteration of the tree is using Order Traversal Sequence by Level.
      * Each level iterates through the entire level looking for the children of each node.
@@ -163,7 +163,7 @@ export default function useJiraHook() {
                     for (var n = 0; n < childsArray[i]?.fields?.subtasks.length; n++) {
                         const issueUrl: string = childsArray[i]?.fields?.subtasks[n].self;
                         const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
-                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(issueChild, level + 2);
+                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(issueChild, level + 1);
                         childsArray[i].childrens.push(issue);
                         childsArray[i].hasChildren = true;
                     }
@@ -261,18 +261,6 @@ export default function useJiraHook() {
                         }
                     }
                 }
-                //get children tasks
-                /*
-                if (childsArray[i]?.fields?.subtasks && childsArray[i]?.fields?.subtasks.length > 0) {
-                    for (var n = 0; n < childsArray[i]?.fields?.subtasks.length; n++) {
-                        const issueUrl: string = childsArray[i]?.fields?.subtasks[n].self;
-                        const issueChild: any = await jiraApi.getIssueBySelf(issueUrl);
-                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(issueChild, level + 2);
-                        childsArray[i].childrens.push(issue);
-                        childsArray[i].hasChildren = true;
-                    }
-                }
-                */
             }
             const newArray: IssueTreeNodeType[] = [...childsArray];
             const finalArray: IssueTreeNodeType[] = [];

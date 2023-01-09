@@ -10,5 +10,7 @@ Upstream Portfolio Features:
 
 Other in the furure:
 - Project releases/versions view.
+- Save multiple JQL.
+- Advanced Filtering.
 - Export to Excel.
 

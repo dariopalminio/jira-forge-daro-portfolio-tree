@@ -19,7 +19,7 @@ interface IProps {
 
 const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, toggles, togglesChange }) => {
     const {statusKeyOf,
-        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress} = useIssueHook();
+        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf} = useIssueHook();
 
     const handleOnClick = (item: any) => {
         onClick(item);
@@ -52,6 +52,18 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
             case 'assignee': {
                 return (
                     <AssigneeCell key={index} item={item} colHeader={colHeader} />
+                )
+            }
+            case 'issuetype': {
+                return (
+                    <div key={index} style={{ width: colHeader.width, cursor: 'pointer' }}
+                        onClick={() => handleOnClick(item)}>
+                        <label className={styles.textOverflow}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            {issueTypeNameOf(item)}
+                        </label>
+                    </div>
                 )
             }
             case 'summary': {

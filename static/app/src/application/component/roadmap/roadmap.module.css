@@ -53,7 +53,7 @@
   
   .schedule {
     width: inherit;
-    height: 1000px;
+    height: 12000px;
     position: relative;
     overflow: hidden;
     /* touch-action: none; */
@@ -64,7 +64,7 @@
     left: 0px;
     top: 0px;
     font-size: 12px;
-    height: 6000px;
+    height: 12000px;
     width: 179px;
     border-right: 1px solid rgb(167, 167, 167);
   }
@@ -74,7 +74,7 @@
     left: 0px;
     top: 0px;
     font-size: 12px;
-    height: 6000px;
+    height: 12000px;
     width: 0px;
     z-index: 2;
     border-right: 1px solid #CA0443;
@@ -116,11 +116,20 @@
     cursor: pointer;
   }
 
+  .internalRombo{
+    position: relative;
+    background-color: red;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+    cursor: pointer;
+  }
+
 .labelDate {
   position: absolute;
   font-size: 9px;
   color: rgb(133, 133, 133);
   top: 2px;
 }
-
-  

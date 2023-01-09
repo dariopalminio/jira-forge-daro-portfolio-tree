@@ -26,6 +26,7 @@
     "jql.placeholder": "Here JQL...",
     "jql.last.label": "Last JQL",
     "with.epics.children": "With Epic's children",
-    "maxResults.last.label": "Max Results in first levels"
+    "maxResults.last.label": "Max Results in first levels",
+    "issue.type": "Issue type"
 
 }

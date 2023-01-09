@@ -35,6 +35,7 @@ const SearchView: React.FC = () => {
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
     const [tabSelected, setTabSelected] = useState<string>('tree');
     const [progress, setProgress] = useState<number>(0);
+    const [progressTitle, setProgressTitle] = useState<string>('Loading...');
 
     const withEpicsChildrenDefault: CheckboxType = {
         label: t('with.epics.children'),
@@ -48,12 +49,17 @@ const SearchView: React.FC = () => {
         {
             "prop": "key",
             "label": t("key"),
-            "width": 150
+            "width": 230
+        },
+        {
+            "prop": "issuetype",
+            "label": t("issue.type"),
+            "width": 100
         },
         {
             "prop": "summary",
             "label": t("summary"),
-            "width": 200
+            "width": 250
         },
         {
             "prop": "status",
@@ -112,18 +118,22 @@ const SearchView: React.FC = () => {
         try {
             const MAX_ALLOWED_LEVEL = 10;
             //load first level, generally are Initiatives
+            setProgress(0);
+            setProgressTitle('Loading JQL with tree first level...');
             const dataTree: IssueTreeNodeType | undefined = await searchJql(jql, getMaxResults(), 0);
             if (dataTree === undefined) throw new Error('Search JQL not found data!')
             const treeToggles = getTreeTogglesFrom(dataTree);
             setToggles(treeToggles);
             setDataTree(dataTree);
             setProgress(30);
+            setProgressTitle('Loading childs by links to all tree levels...');
             //load childs by links to all levels
             const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
             const newTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
             setProgress(60);
+            setProgressTitle('Loading Epics children...');
             //load Epics children
             const lastDataTree: IssueTreeNodeType = await addChildrenByEpicLink(dataTree, 150, 0, MAX_ALLOWED_LEVEL);
             const lastTreeToggles = getTreeTogglesFrom(newDataTree);
@@ -243,7 +253,7 @@ const SearchView: React.FC = () => {
 
             {hasError && <label>{msg}</label>}
 
-            {isProcessing && <Loading progress={progress} />}
+            {isProcessing && <Loading title={progressTitle} progress={progress} />}
 
         </div>
 

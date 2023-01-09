@@ -4,6 +4,7 @@ import styles from './tree-item.module.css';
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import imgError from "./item-no-image.png"
 import StatusCell from '../table/cells/status-cell';
+import useIssueHook from '../../../domain/hook/issue-hook';
 //className={styles.inputTextField}
 
 
@@ -15,8 +16,14 @@ interface IProps {
     toggles: TreeToggleType;
 }
 
+/**
+ * 
+ * @param param0 
+ * @returns 
+ */
 const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, togglesChange }) => {
-
+    const { issueTypeNameOf } = useIssueHook();
+        
     const handleClickOpen = () => {
         const newToggles = { ...toggles, [treeItem.key]: !toggles[treeItem.key] };
         togglesChange(newToggles);
@@ -39,11 +46,6 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
     const isOpen = (): boolean => {
         //console.log(`toggles[${treeItem.key}]: `, toggles[treeItem.key]);
         return toggles[treeItem.key];
-    }
-
-    const getIssueTypeName = (): string => {
-        const name: string = treeItem?.fields?.issuetype?.name ? treeItem.fields.issuetype.name + ':' : '';
-        return name;
     }
 
     return (
@@ -69,11 +71,11 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                         alt="" height="16" width="16" />
                     <span className={styles.treeItemTextLine} >
                         <span className={styles.textKey}>
-                            {getIssueTypeName()}
+                            {issueTypeNameOf(treeItem)}
                         </span>
                         &nbsp;
                         <span className={styles.textKey}>
-                            {`[${treeItem.key}]`}
+                            {`${treeItem.key}:`}
                         </span>
                         &nbsp;
                         <span className={styles.textSummary}>

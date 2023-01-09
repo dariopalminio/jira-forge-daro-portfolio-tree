@@ -26,6 +26,7 @@
     "jql.placeholder": "Escriba aquí una expresión JQL ...",
     "jql.last.label": "Última JQL",
     "with.epics.children": "Incluir hijos de Epic",
-    "maxResults.last.label": "Máxima cantidad de resultados en primer nivel"
+    "maxResults.last.label": "Máxima cantidad de resultados en primer nivel",
+    "issue.type": "Tipo de item"
 
 }

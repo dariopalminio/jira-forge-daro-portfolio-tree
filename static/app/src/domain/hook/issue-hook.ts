@@ -104,12 +104,26 @@ export default function useIssueHook() {
         }
     };
 
+    const hasStartdate = (issueTree: IssueTreeNodeType): boolean => {
+        let dateStart = stardateOf(issueTree);
+        const hasStartdate: boolean = (dateStart !==undefined && typeof dateStart === 'string' && dateStart.length > 0);
+        return hasStartdate;
+    }
+
+    const hasDuedate = (issueTree: IssueTreeNodeType): boolean => {
+        const  dateEnd = duedateOf(issueTree);
+        const hasDuedate: boolean = (dateEnd !==undefined && typeof dateEnd === 'string' && dateEnd.length > 0);
+        return hasDuedate;
+    }
+
     return {
         issueTypeNameOf,
         statusKeyOf,
         stardateOf,
         duedateOf,
         isStartdateExpiredAndTodo,
-        isDuedateExpiredAndInprogress
+        isDuedateExpiredAndInprogress,
+        hasDuedate,
+        hasStartdate
     };
 };

@@ -25,36 +25,12 @@ export const TableViewPanel: React.FC<IProps> = (props: IProps) => {
 
     return (
         <>
-            <SplitableContainer id={idSpliter} style={{ height: 'calc(100vh - 200px)' }}>
-                <SplitLeft id={idSpliter}>
-                    <div style={{ width: "5000px" }}>
-                        <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                            {t('tree.list.title')}
-                        </div>
-                        <Tree
-                            collapseAllLabel={t("collapse.all")}
-                            expandAllLabel={t("expand.all")}
-                            tree={dataTree}
-                            toggles={toggles}
-                            togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                            onClick={(item) => props.onClick(item)} />
-                    </div>
-                </SplitLeft>
-                <SplitBar id={idSpliter}></SplitBar>
-                <SplitRight id={idSpliter}>
-
-                    <div style={{ height: "20px", width: "5000px", background: "#F0F5F5", color: "grey", fontSize: "12px" }}>
-                        {t('table.fields.title')}
-                    </div>
-                    <TableSelectable
+ <TableSelectable
                         headers={props.headers}
                         tree={dataTree}
                         toggles={toggles}
                         togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                         onClick={(item) => props.onClick(item)} />
-
-                </SplitRight>
-            </SplitableContainer>
         </>
     );
 };

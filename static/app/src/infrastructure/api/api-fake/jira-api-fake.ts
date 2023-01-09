@@ -513,7 +513,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "avatarId": 10551,
                             "hierarchyLevel": 0
                         },
-                        "duedate": null,
+                        "duedate": "2022-12-28",
                         "created": "2022-11-15T19:40:15.333-0300",
                         "project": {
                             "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10001",
@@ -834,7 +834,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "timeZone": "America/Santiago",
                             "accountType": "atlassian"
                         },
-                        "customfield_10015": "2022-11-28",
+                        "customfield_10015": null,
                         "status": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/status/10023",
                             "description": "",
