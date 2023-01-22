@@ -1,9 +1,4 @@
-.app {
-    padding: 10px;
-    margin: 0 auto;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+:root {
 
     /* Primary */
 
@@ -40,13 +35,5 @@
     --neutro-base-color: #868686;
     --neutro-darkened-color: #555555;
     --neutro-dark-color: #414141;
-}
 
-.heading {
-    margin-bottom: 16px;
-}
-
-.panelContainer{
-	width: 100%;
-	margin: 0 auto;
 }

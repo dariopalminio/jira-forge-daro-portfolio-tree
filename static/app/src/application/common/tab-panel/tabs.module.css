@@ -10,8 +10,8 @@ ul.tabs{
 	list-style: none;
 }
 ul.tabs li{
-	background: #f4f5f7;
-	color: #505F79;
+	background: var(--secondary-base-background);
+	color: var(--secondary-darkened-color);
 	display: inline-block;
 	padding: 5px 10px;
 	cursor: pointer;
@@ -19,14 +19,14 @@ ul.tabs li{
 }
 
 ul.tabs li:hover {
-    background: #DEEBFF
+    background: var(--secondary-lighter-background);
 
 }
 
 ul.tabs li.current{
 	background: white;
-	color: #0065ff;
+	color: var(--primary-lighter-background);
     font-weight: bold;
-    border-bottom: solid #0065ff
+    border-bottom: solid var(--primary-lighter-background)
 }
 

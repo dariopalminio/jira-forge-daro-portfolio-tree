@@ -1,8 +1,7 @@
-import { IJiraApi } from "../domain/outgoing/jira-api.interface";
+
 import JiraApiImpl from "./api/jira-api.impl";
 import StorageApiImpl from "./api/storage-api.impl";
 import JiraHostImpl from "./api/jira-host.impl";
-
 
 import JiraHostFake from "./api/api-fake/jira-host-fake";
 import StorageApiFake from "./api/api-fake/storage-api-fake";
@@ -18,27 +17,34 @@ import JiraApiFakeImpl from "./api/api-fake/jira-api-fake";
 export default function GlobalFactory() {
     const container: Map<string, any> = new Map();
 
-//IS FAKE
-/*
-        container.set('jiraApi', JiraApiFakeImpl());
-        container.set('storageApi', StorageApiFake());
-         container.set('jiraHost', JiraHostFake());
+    const initialize = () => {
+        
+        if (true) { //IS FAKE
+            console.log("IS FAKE: running on dev environment...");
+            container.set('jiraApi', JiraApiFakeImpl());
+            container.set('storageApi', StorageApiFake());
+            container.set('jiraHost', JiraHostFake());
+            return;
+        } 
+        if (false) { //IN PROD
+            /*
+            container.set('storageApi', StorageApiImpl());
+            container.set('jiraApi', JiraApiImpl());
+            container.set('jiraHost', JiraHostImpl());
+            */
+            return;
+        }
+    }
 
-          */
+    initialize();
 
-         //IN PROD
-
-        container.set('storageApi', StorageApiImpl());
-        container.set('jiraApi', JiraApiImpl());
-        container.set('jiraHost', JiraHostImpl());
-/*
-        */
     //Get instance for key name
     const get = (key: string) => {
         return container.get(key);
     };
 
     return {
+        initialize,
         get
     };
 };

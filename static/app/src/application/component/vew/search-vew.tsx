@@ -205,7 +205,7 @@ const SearchView: React.FC = () => {
                     
                         <Button style={{ marginLeft: '5px' }}
                             onClick={() => handleSave()}
-                            styleType={"secondary"} >
+                            styleType={"neutro"} >
                             {t('save')}
                         </Button>
                         <Button onClick={() => handleSearch()}

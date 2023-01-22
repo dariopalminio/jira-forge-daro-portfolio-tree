@@ -1,7 +1,7 @@
 
 import * as GlobalConfig from '../../infrastructure/global.config';
 import { IssueTreeNodeType } from '../model/tree-types';
-import { IJiraHost } from '../outgoing/jira-host.interface';
+
 
 /**
  * useIssueHook Custom hook

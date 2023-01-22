@@ -7,6 +7,7 @@ import './infrastructure/i18n/i18n-index';
 
 import '@atlaskit/css-reset';
 
+
 ReactDOM.render(
     <App />,
     document.getElementById('root')
