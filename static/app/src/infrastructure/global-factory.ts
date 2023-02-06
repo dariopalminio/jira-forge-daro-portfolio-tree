@@ -19,19 +19,19 @@ export default function GlobalFactory() {
 
     const initialize = () => {
         
-        if (true) { //IS FAKE
+        if (false) { //IS FAKE
             console.log("IS FAKE: running on dev environment...");
             container.set('jiraApi', JiraApiFakeImpl());
             container.set('storageApi', StorageApiFake());
             container.set('jiraHost', JiraHostFake());
             return;
         } 
-        if (false) { //IN PROD
-            /*
+        if (true) { //IN PROD
+         
             container.set('storageApi', StorageApiImpl());
             container.set('jiraApi', JiraApiImpl());
             container.set('jiraHost', JiraHostImpl());
-            */
+           /* */
             return;
         }
     }

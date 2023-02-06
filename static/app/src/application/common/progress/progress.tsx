@@ -15,28 +15,23 @@ interface IProps {
 
 const Progress: React.FC<IProps> = (props: IProps) => {
 
-    const getTodoPercentage = (): string => {
-        const total = props.progress.inprogress + props.progress.done + props.progress.todo;
-        const todoPercentage = ((props.progress.todo) / total) * 100;
-        return todoPercentage.toString();
-    }
 
     const getWithInprogressPercentage = (): string => {
         const total = props.progress.inprogress + props.progress.done + props.progress.todo;
         const inprogressPercentage = ((props.progress.inprogress + props.progress.done) / total) * 100;
-        return inprogressPercentage.toString();
+        return inprogressPercentage.toFixed(0).toString();
     }
 
     const getInprogressPercentage = (): string => {
         const total = props.progress.inprogress + props.progress.done + props.progress.todo;
         const inprogressPercentage = (props.progress.inprogress / total) * 100;
-        return inprogressPercentage.toString();
+        return inprogressPercentage.toFixed(0).toString();
     }
 
     const getDonePercentage = (): string => {
         const total = props.progress.inprogress + props.progress.done + props.progress.todo;
         const donePercentage = ((props.progress.done) / total) * 100;
-        return donePercentage.toString();
+        return donePercentage.toFixed(0).toString();
     }
 
     const isEmpty = () => {
