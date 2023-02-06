@@ -27,11 +27,11 @@ export default function GlobalFactory() {
             return;
         } 
         if (true) { //IN PROD
-         
+        
             container.set('storageApi', StorageApiImpl());
             container.set('jiraApi', JiraApiImpl());
             container.set('jiraHost', JiraHostImpl());
-           /* */
+             /**/
             return;
         }
     }

@@ -25,12 +25,12 @@ export const TableViewPanel: React.FC<IProps> = (props: IProps) => {
 
     return (
         <>
- <TableSelectable
-                        headers={props.headers}
-                        tree={dataTree}
-                        toggles={toggles}
-                        togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
-                        onClick={(item) => props.onClick(item)} />
+            <TableSelectable
+                headers={props.headers}
+                tree={dataTree}
+                toggles={toggles}
+                togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                onClick={(item) => props.onClick(item)} />
         </>
     );
 };

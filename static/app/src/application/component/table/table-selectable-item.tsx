@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useIssueHook from '../../../domain/hook/issue-hook';
 import { TreeToggleType } from '../../../domain/model/tree-types';
+import Progress from '../../common/progress/progress';
 import AssigneeCell from './cells/assignee-cell';
 import KeyCell from './cells/key-cell';
 import StatusCell from './cells/status-cell';
@@ -19,7 +20,7 @@ interface IProps {
 
 const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, toggles, togglesChange }) => {
     const {statusKeyOf,
-        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf} = useIssueHook();
+        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf, getChildrenProgressCount} = useIssueHook();
 
     const handleOnClick = (item: any) => {
         onClick(item);
@@ -104,6 +105,12 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
                     <div key={index} style={{ width: colHeader.width }}>
                         {item?.fields?.project?.name}
                     </div>
+                )
+            }
+            //<Progress progress={getChildrenProgressCount(treeItem)}
+            case 'progress': {
+                return (
+                    <Progress progress={getChildrenProgressCount(item)} />
                 )
             }
             default: {

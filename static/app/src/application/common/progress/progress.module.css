@@ -7,10 +7,11 @@
     margin-top: 0px;
     border: 1px solid #B0B0B0;
     width: 20em;
-    height: 16px;
+    height: 14px;
     border-radius: 4px;
     box-shadow: 0 0 3px #B0B0;
     backdrop-filter: blur(2px) brightness(101%);
+    vertical-align: middle;
  }
  
  .bar {
@@ -18,7 +19,7 @@
     box-shadow: inset 0px 12px 1.7px #FFFFFF33;
     border-radius: 4px;
     color: white;
-    height: 16px;
+    height: 14px;
     text-align: right;
     font-size: 10px;
  }

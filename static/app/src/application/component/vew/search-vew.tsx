@@ -62,11 +62,6 @@ const SearchView: React.FC = () => {
             "width": 250
         },
         {
-            "prop": "status",
-            "label": t("status"),
-            "width": 150
-        },
-        {
             "prop": "project",
             "label": t("project"),
             "width": 150
@@ -85,6 +80,16 @@ const SearchView: React.FC = () => {
             "prop": "duedate",
             "label": t("duedate"),
             "width": 100
+        },
+        {
+            "prop": "status",
+            "label": t("status"),
+            "width": 150
+        },
+        {
+            "prop": "progress",
+            "label": t("children.progress"),
+            "width": 260
         },
     ];
 
