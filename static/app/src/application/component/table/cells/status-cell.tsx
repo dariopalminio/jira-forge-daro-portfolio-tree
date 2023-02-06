@@ -128,9 +128,16 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
         }
     }
 
+    const getWithStatusWrapper = () => {
+        if (props.colHeader?.width) {
+            return { width: props.colHeader?.width? props.colHeader?.width : '400px' };
+        }
+        return {};
+    }
+
     return (
         <div className={styles.statusWrapper}
-            style={{ width: props.colHeader?.width? props.colHeader?.width : '400px' }}>
+            style={getWithStatusWrapper()}>
             {
                 <label className={styles.statusLabel}
                     style={getLabelStyle()}>

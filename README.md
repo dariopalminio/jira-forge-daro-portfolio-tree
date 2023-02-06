@@ -8,9 +8,10 @@ Upstream Portfolio Features:
 - Table view.
 - Cross-roadmap view.
 
+
 Other in the furure:
 - Project releases/versions view.
 - Save multiple JQL.
 - Advanced Filtering.
 - Export to Excel.
-
+- Tree view of Progress by issue count 

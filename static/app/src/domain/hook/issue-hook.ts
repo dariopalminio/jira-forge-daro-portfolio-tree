@@ -116,6 +116,40 @@ export default function useIssueHook() {
         return hasDuedate;
     }
 
+    const getChildrenProgressCount = (issueTree: IssueTreeNodeType) => {
+
+        let progress = {
+            todo: 0,
+            inprogress: 0,
+            done: 0
+        };
+
+        if (issueTree.hasChildren) {
+            for (var i = 0; i < issueTree.childrens.length; i++) {
+                const statusName = issueTree.childrens[i].fields?.status?.statusCategory?.key;
+                switch (statusName) {
+                    case 'new': {
+                        progress.todo = progress.todo + 1;
+                        break;
+                    }
+                    case 'indeterminate': {
+                        progress.inprogress = progress.inprogress + 1;
+                        break;
+                    }
+                    case 'done': {
+                        progress.done = progress.done + 1;
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return {...progress};
+    }
+
     return {
         issueTypeNameOf,
         statusKeyOf,
@@ -124,6 +158,7 @@ export default function useIssueHook() {
         isStartdateExpiredAndTodo,
         isDuedateExpiredAndInprogress,
         hasDuedate,
-        hasStartdate
+        hasStartdate,
+        getChildrenProgressCount
     };
 };

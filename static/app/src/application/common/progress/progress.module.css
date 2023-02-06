@@ -1,0 +1,45 @@
+.progress {
+    position: relative;
+    display: inline-block;
+    padding-left: 0px;
+    margin-left: 0px;
+    padding-top: 0px;
+    margin-top: 0px;
+    border: 1px solid #B0B0B0;
+    width: 20em;
+    height: 16px;
+    border-radius: 4px;
+    box-shadow: 0 0 3px #B0B0;
+    backdrop-filter: blur(2px) brightness(101%);
+ }
+ 
+ .bar {
+    background: forestgreen;
+    box-shadow: inset 0px 12px 1.7px #FFFFFF33;
+    border-radius: 4px;
+    color: white;
+    height: 16px;
+    text-align: right;
+    font-size: 10px;
+ }
+ 
+ .bar.inprogress {
+    position: absolute;
+    background: dodgerblue;
+    width: 75%;
+    text-align: right;
+ }
+ .bar.done {
+    position: absolute;
+    background: forestgreen;
+    width: 5%;
+    text-align: left;
+ }
+ .bar.todo {
+    position: absolute;
+    background: grey;
+    width: 100%;
+    text-align: right;
+ }
+
+ 

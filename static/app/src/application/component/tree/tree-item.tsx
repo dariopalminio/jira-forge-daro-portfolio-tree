@@ -5,6 +5,7 @@ import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import imgError from "./item-no-image.png"
 import StatusCell from '../table/cells/status-cell';
 import useIssueHook from '../../../domain/hook/issue-hook';
+import Progress from '../../common/progress/progress';
 //className={styles.inputTextField}
 
 
@@ -22,8 +23,8 @@ interface IProps {
  * @returns 
  */
 const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, togglesChange }) => {
-    const { issueTypeNameOf } = useIssueHook();
-        
+    const { issueTypeNameOf, getChildrenProgressCount } = useIssueHook();
+
     const handleClickOpen = () => {
         const newToggles = { ...toggles, [treeItem.key]: !toggles[treeItem.key] };
         togglesChange(newToggles);
@@ -62,14 +63,14 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                 ) : <label style={{ marginLeft: "15px" }} />
                 }
                 <a className={styles.anchorLink} href="#"
-                    onClick={(e) => handleOnClickAnchorLink(e)}>
+                    onClick={(e) => handleOnClickAnchorLink(e)} >
                     <img className={styles.treeItemImg}
                         src={treeItem.iconUrl}
                         onError={(e) => {
                             e.currentTarget.src = imgError
                         }}
                         alt="" height="16" width="16" />
-                    <span className={styles.treeItemTextLine} >
+                    <span className={styles.treeItemTextLine}>
                         <span className={styles.textKey}>
                             {issueTypeNameOf(treeItem)}
                         </span>
@@ -78,15 +79,19 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                             {`${treeItem.key}:`}
                         </span>
                         &nbsp;
-                        <span className={styles.textSummary}>
+                        <span className={styles.textSummary} >
                             {treeItem.summary}
                         </span>
                         &nbsp;
-                        <div style={{ display: 'inline-block' }}>
+                        <div style={{ display: 'inline-block' }} >
                             <StatusCell item={treeItem} />
                         </div>
+                        &nbsp;
+                        <Progress progress={getChildrenProgressCount(treeItem)} 
+                    />
                     </span>
                 </a>
+
             </span>
             {isOpen() &&
                 treeItem?.childrens?.map(
