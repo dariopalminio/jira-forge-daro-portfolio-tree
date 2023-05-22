@@ -1,10 +1,15 @@
 # Custom UI Example
 
+App Name: Daro Portfolio Tree
+Type: Jira Forge app
+Category: Custom UI
+Template: jira-global-page
+
 Upstream Portfolio Features:
-- Cros-project view.
+- Cross-project view.
 - Filtering your query.
 - Navigating the views.
-- Issue hierarchy by Issue Links, Parent, Epic Link and subtasks.
+- Issue hierarchy by Issue Links, Parent Link, Epic Link and subtasks.
 - Table view.
 - Cross-roadmap view.
 
@@ -15,3 +20,4 @@ Other in the furure:
 - Advanced Filtering.
 - Export to Excel.
 - Tree view of Progress by issue count 
+- Permissions to manage who can access

@@ -1,6 +1,6 @@
 {
-  "name": "forge-jql-editor-app",
-  "version": "0.1.0",
+  "name": "daro-portfolio-tree-static-app",
+  "version": "1.0.0",
   "private": true,
   "homepage": ".",
   "dependencies": {
