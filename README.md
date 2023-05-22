@@ -18,9 +18,21 @@ Upstream Portfolio Features:
 
 
 Other in the furure:
+- Licence for Listing Forge apps
 - Project releases/versions view.
 - Save multiple JQL.
 - Advanced Filtering.
 - Export to Excel.
 - Tree view of Progress by issue count 
 - Permissions to manage who can access
+
+# GDPR responsibilities for app developers
+This app comply with the GDPR when handling the personal data for users.
+This includes:
+
+Right to erasure (also known as Right to be Forgotten): If your app stores the personal data for a user and the user requests for their data to be erased, your app must erase the data.
+Right to rectification: If your app stores the personal data for a user and the user changes their data, your app must either erase or update the data.
+Right to be informed: You must inform users if you collect and use their personal data.
+
+In order to comply with these requirements, This apps do not store any user personal data and always retrieve current user data at the time of use using Atlassian APIs. 
+

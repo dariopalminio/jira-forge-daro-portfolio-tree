@@ -8,15 +8,17 @@ Reference:
 https://developer.atlassian.com/cloud/jira/platform/forge/
 https://developer.atlassian.com/platform/forge/custom-ui/
 https://atlaskit.atlassian.com/
-https://developer.atlassian.com/platform/marketplace/listing-forge-apps/
 Scopes: https://developer.atlassian.com/cloud/jira/platform/scopes-for-oauth-2-3LO-and-forge-apps/
 API: https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-filters/#api-rest-api-2-filter-search-get
 
 See [developer.atlassian.com/platform/forge/](https://developer.atlassian.com/platform/forge) for documentation and tutorials explaining Forge.
 
 Distribute: https://developer.atlassian.com/platform/forge/distribute-your-apps/
+Listing Forge App: https://developer.atlassian.com/platform/marketplace/listing-forge-apps/
+Create your Marketplace listing: https://developer.atlassian.com/platform/marketplace/creating-a-marketplace-listing/
 
 Primeros pasos en Forge: Cómo desarrollar Apps en Atlassian Cloud (Parte 1: App para Jira) https://www.enmilocalfunciona.io/primeros-pasos-en-forge-plataforma-para-desarrollos-en-atlassian-cloud/
+
 
 # Architecture
 
