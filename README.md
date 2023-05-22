@@ -1,9 +1,10 @@
 # Application
 
-App Name: Daro Portfolio Tree
-Type: Jira Forge app
-Category: Custom UI
-Template: jira-global-page
+- App Name: Daro Portfolio Tree
+- Description: This is an Application for Jira Cloud (plugin) that allows you to view issues from different projects or portfolios, in a tree-lined way, through link or relationship relationships between issues.
+- Type: Jira Forge app
+- Category: Custom UI
+- Template: jira-global-page
 
 # Features
 
