@@ -1402,7 +1402,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
         }
     }
 
-    async function getEpicsChildrens(epicKey: string, maxResults: number, startAt: number): Promise<any> {
+    async function getChildrens(epicKey: string, maxResults: number, startAt: number): Promise<any> {
         const num = Math.floor(Math.random() * 1000);
         const strNum: string = num.toString();
         if(num%2==0){
@@ -2078,7 +2078,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
         getCurrentUser,
         getIssueBySelf,
         getIssueLinkTypes,
-        getEpicsChildrens,
+        getChildrens,
         getProjectVersions
     };
 };

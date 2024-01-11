@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import StoreContext from "../../../domain/context/store-context";
-import useJiraHook from "../../../domain/hook/jira-hook";
+import useJiraHook from '../../../domain/hook/jira-hook';
 import useStorageHook from "../../../domain/hook/storage-hook";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
 import Button from "../../common/button/button";
@@ -104,6 +104,7 @@ const ConfigStore: React.FC = () => {
 
     return (
         <div>
+            <p style={{ fontSize: "11px", color: "grey" }}>Version 1.3.0 (versión de prueba)</p>
             <p style={{ fontSize: "11px", color: "grey" }}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
 
             <form>

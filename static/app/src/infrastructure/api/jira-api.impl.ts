@@ -138,16 +138,18 @@ export default function JiraApiImpl(): IJiraApi {
     };
 
     /**
-     * Get Epic's children issues
+     * Get children issues
      * Query JQL examples: 
      * - example 1: parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} ORDER BY rank
      * - example 2: 'Epic Link' =${epicKey} order by created DESC
-     * @param epicKey 
+     * @param parentKey 
      * @returns 
      */
-    async function getEpicsChildrens(epicKey: string, maxResults: number, startAt: number): Promise<any> {
+    async function getChildrens(parentKey: string, maxResults: number, startAt: number): Promise<any> {
         try {
-            const jql = `parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} order by created DESC`;
+            const jql = `parent=${parentKey} OR 'Epic Link'=${parentKey} OR 'Parent Link'=${parentKey} order by created DESC`;
+            //console.log(`parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} order by created DESC`);
+
             const body = {
                 "expand": [
                     "names",
@@ -180,6 +182,7 @@ export default function JiraApiImpl(): IJiraApi {
                 body: JSON.stringify(body)
             });
             const data = await response.json();
+            //console.log(`data=${data}`);
             if (response.status !== 200) {
                 const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in getIssuesByEpikLink function!'
                 throw new Error(errorMessages);
@@ -196,7 +199,7 @@ export default function JiraApiImpl(): IJiraApi {
         getCurrentUser,
         getIssueBySelf,
         getIssueLinkTypes,
-        getEpicsChildrens,
+        getChildrens,
         getProjectVersions
     };
 };

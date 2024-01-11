@@ -24,7 +24,7 @@ import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
 
 const SearchView: React.FC = () => {
 
-    const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByEpicLink,
+    const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByParent,
         isProcessing, hasError, msg, isSuccess } = useJiraHook();
     const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
     const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
@@ -138,10 +138,10 @@ const SearchView: React.FC = () => {
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
             setProgress(60);
-            setProgressTitle('Loading Epics children...');
-            //load Epics children
-            const lastDataTree: IssueTreeNodeType = await addChildrenByEpicLink(dataTree, 150, 0, MAX_ALLOWED_LEVEL);
-            const lastTreeToggles = getTreeTogglesFrom(newDataTree);
+            setProgressTitle('Loading childs by parent to all tree levels ...');
+            //load Epics children and children by parent
+            const lastDataTree: IssueTreeNodeType = await addChildrenByParent(newDataTree, 150, 0, MAX_ALLOWED_LEVEL);
+            const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
             setToggles(lastTreeToggles);
             setDataTree(lastDataTree);
             setProgress(100);

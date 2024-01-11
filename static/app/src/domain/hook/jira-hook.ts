@@ -230,11 +230,11 @@ export default function useJiraHook() {
      * @param issuesTree 
      * @returns 
      */
-    const addChildrenByEpicLink = async (issuesTree: IssueTreeNodeType, maxResults: number, startAt: number, maxLevel: number): Promise<IssueTreeNodeType> => {
+    const addChildrenByParent = async (issuesTree: IssueTreeNodeType, maxResults: number, startAt: number, maxLevel: number): Promise<IssueTreeNodeType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             //const MAX_ALLOWED_LEVEL = 10;
-            const r: IssueTreeNodeType = await getTreeChildrenByEpicLink(issuesTree, 0, maxLevel, maxResults, startAt);
+            const r: IssueTreeNodeType = await getTreeChildrenByParent(issuesTree, 0, maxLevel, maxResults, startAt);
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return r;
         } catch (error) {
@@ -245,27 +245,30 @@ export default function useJiraHook() {
         }
     };
 
-    const getTreeChildrenByEpicLink = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number, maxResults: number, startAt: number): Promise<IssueTreeNodeType> => {
+    const getTreeChildrenByParent = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number, maxResults: number, startAt: number): Promise<IssueTreeNodeType> => {
 
         if (issuesTree.hasChildren && ((level < maxLevel) && (level < MAX_ALLOWED_LEVEL))) {
             let childsArray: IssueTreeNodeType[] = [...issuesTree.childrens];
             for (var i = 0; i < childsArray.length; i++) {
                 //get Epic Children
-                if (childsArray[i]?.fields?.issuetype?.name === 'Epic') {
-                    const data: any = await jiraApi.getEpicsChildrens(childsArray[i].key, maxLevel, startAt);
+                //if (childsArray[i]?.fields?.issuetype?.name === 'Epic') {
+                    const data: any = await jiraApi.getChildrens(childsArray[i].key, maxLevel, startAt);
                     if (data?.issues && Array.isArray(data?.issues) && (data?.issues?.length > 0)) {
                         for (var j = 0; j < data?.issues?.length; j++) {
                             const issue: IssueTreeNodeType = convertToIssueTreeNodeType(data?.issues[j], level + 2);
-                            childsArray[i].childrens.push(issue);
-                            childsArray[i].hasChildren = true;
+                            if (!elementoExiste(childsArray[i].childrens,issue)) {
+                                childsArray[i].childrens.push(issue);
+                                childsArray[i].hasChildren = true;
+                            }
+
                         }
                     }
-                }
+                //}
             }
             const newArray: IssueTreeNodeType[] = [...childsArray];
             const finalArray: IssueTreeNodeType[] = [];
             for (var i = 0; i < newArray.length; i++) {
-                const issue = await getTreeChildrenByEpicLink(newArray[i], level + 1, maxLevel, maxResults, startAt);
+                const issue = await getTreeChildrenByParent(newArray[i], level + 1, maxLevel, maxResults, startAt);
                 finalArray.push(issue);
             }
             return { ...issuesTree, childrens: finalArray };
@@ -273,6 +276,24 @@ export default function useJiraHook() {
             return issuesTree;
         }
     };
+
+    const elementoExiste = ( array: IssueTreeNodeType[], elementoBuscado: IssueTreeNodeType ): boolean => {
+        // Inicializar la variable para almacenar el resultado
+        let elementoExiste = false;
+      
+        // Recorrer el array con un bucle for
+        for (let i = 0; i < array.length; i++) {
+          // Verificar si el elemento actual es igual al elemento buscado
+          if (array[i] && (array[i].key === elementoBuscado.key)) {
+            elementoExiste = true;
+            // Romper el bucle si se encuentra el elemento (opcional si no necesitas seguir buscando)
+            break;
+          }
+        }
+        // Devolver true o false
+        return elementoExiste;
+      };
+
 
     return {
         isProcessing: state.isProcessing,
@@ -284,6 +305,6 @@ export default function useJiraHook() {
         getTreeTogglesFrom,
         addChildrenByLink,
         getOutwardsFromJira,
-        addChildrenByEpicLink
+        addChildrenByParent
     };
 };
