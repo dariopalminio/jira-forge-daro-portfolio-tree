@@ -252,17 +252,17 @@ export default function useJiraHook() {
             for (var i = 0; i < childsArray.length; i++) {
                 //get Epic Children
                 //if (childsArray[i]?.fields?.issuetype?.name === 'Epic') {
-                    const data: any = await jiraApi.getChildrens(childsArray[i].key, maxLevel, startAt);
-                    if (data?.issues && Array.isArray(data?.issues) && (data?.issues?.length > 0)) {
-                        for (var j = 0; j < data?.issues?.length; j++) {
-                            const issue: IssueTreeNodeType = convertToIssueTreeNodeType(data?.issues[j], level + 2);
-                            if (!elementoExiste(childsArray[i].childrens,issue)) {
-                                childsArray[i].childrens.push(issue);
-                                childsArray[i].hasChildren = true;
-                            }
-
+                const data: any = await jiraApi.getChildrens(childsArray[i].key, maxLevel, startAt);
+                if (data?.issues && Array.isArray(data?.issues) && (data?.issues?.length > 0)) {
+                    for (var j = 0; j < data?.issues?.length; j++) {
+                        const issue: IssueTreeNodeType = convertToIssueTreeNodeType(data?.issues[j], level + 2);
+                        if (!elementAlreadyExists(childsArray[i].childrens, issue)) {
+                            childsArray[i].childrens.push(issue);
+                            childsArray[i].hasChildren = true;
                         }
+
                     }
+                }
                 //}
             }
             const newArray: IssueTreeNodeType[] = [...childsArray];
@@ -277,23 +277,16 @@ export default function useJiraHook() {
         }
     };
 
-    const elementoExiste = ( array: IssueTreeNodeType[], elementoBuscado: IssueTreeNodeType ): boolean => {
-        // Inicializar la variable para almacenar el resultado
-        let elementoExiste = false;
-      
-        // Recorrer el array con un bucle for
-        for (let i = 0; i < array.length; i++) {
-          // Verificar si el elemento actual es igual al elemento buscado
-          if (array[i] && (array[i].key === elementoBuscado.key)) {
-            elementoExiste = true;
-            // Romper el bucle si se encuentra el elemento (opcional si no necesitas seguir buscando)
-            break;
-          }
-        }
-        // Devolver true o false
-        return elementoExiste;
-      };
-
+    const elementAlreadyExists = (array: IssueTreeNodeType[] | null | undefined,
+        elementoBuscado: IssueTreeNodeType | null | undefined): boolean => {
+        return (
+            array !== null &&
+            array !== undefined &&
+            elementoBuscado !== null &&
+            elementoBuscado !== undefined &&
+            array.some(item => item && item.key === elementoBuscado.key)
+        );
+    };
 
     return {
         isProcessing: state.isProcessing,
