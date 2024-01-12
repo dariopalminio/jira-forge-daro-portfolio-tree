@@ -64,7 +64,7 @@ const SearchView: React.FC = () => {
         {
             "prop": "project",
             "label": t("project"),
-            "width": 150
+            "width": 160
         },
         {
             "prop": "assignee",

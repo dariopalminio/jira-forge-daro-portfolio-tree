@@ -103,7 +103,9 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
             case 'project': {
                 return (
                     <div key={index} style={{ width: colHeader.width }}>
+                        <label className={styles.textOverflow}>
                         {item?.fields?.project?.name}
+                        </label>
                     </div>
                 )
             }

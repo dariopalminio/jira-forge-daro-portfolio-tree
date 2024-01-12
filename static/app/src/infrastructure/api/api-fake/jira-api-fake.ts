@@ -1519,7 +1519,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                             "self": "https://dariopalminio.atlassian.net/rest/api/3/project/10000",
                             "id": "10000",
                             "key": "TKP",
-                            "name": "Test Kanban Project",
+                            "name": "Test Kanban Project Large description full",
                             "projectTypeKey": "software",
                             "simplified": false,
                             "avatarUrls": {
