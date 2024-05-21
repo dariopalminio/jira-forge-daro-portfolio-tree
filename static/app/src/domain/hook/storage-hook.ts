@@ -4,7 +4,7 @@ import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config
 import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
-import { ServiceKeys } from '../../infrastructure/service-key';
+import { ServiceKeys } from '../outgoing/service-key';
 
 const CONFIG_KEY = 'CONFIG';
 /**

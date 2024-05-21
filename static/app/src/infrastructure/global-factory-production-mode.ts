@@ -2,7 +2,7 @@
 import JiraApiImpl from "./api/jira-api.impl";
 import StorageApiImpl from "./api/storage-api.impl";
 import JiraHostImpl from "./api/jira-host.impl";
-import { ServiceKeys } from './service-key';
+import { ServiceKeys } from '../domain/outgoing/service-key';
 
 /**
  * Global Factory for dependency injection

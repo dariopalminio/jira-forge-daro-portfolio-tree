@@ -1,7 +1,7 @@
 
 import * as GlobalConfig from '../../infrastructure/global.config';
 import { IJiraHost } from '../outgoing/jira-host.interface';
-import { ServiceKeys } from '../../infrastructure/service-key';
+import { ServiceKeys } from '../outgoing/service-key';
 
 /**
  * Custom hook

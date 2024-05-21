@@ -1,7 +1,7 @@
 import JiraHostFake from "./api/api-fake/jira-host-fake";
 import StorageApiFake from "./api/api-fake/storage-api-fake";
 import JiraApiFakeImpl from "./api/api-fake/jira-api-fake";
-import { ServiceKeys } from './service-key';
+import { ServiceKeys } from '../domain/outgoing/service-key';
 
 /**
  * Global Factory for dependency injection

@@ -3,7 +3,7 @@ import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
-import { ServiceKeys } from '../../infrastructure/service-key';
+import { ServiceKeys } from '../outgoing/service-key';
 
 /**
  * useJiraHook Custom hook
