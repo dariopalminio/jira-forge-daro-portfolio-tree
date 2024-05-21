@@ -83,7 +83,7 @@ npm start
 - Once the app is installed on a site, the site picks up the new app changes you deploy without needing to rerun the install command.
 
 ### Fake mode
-For false mode comment and uncomment imports in global.config.ts file
+For app FAKE mode comment and uncomment imports in global.config.ts file
 
 ## Support
 
