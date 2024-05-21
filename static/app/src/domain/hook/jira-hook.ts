@@ -3,6 +3,7 @@ import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
+import { ServiceKeys } from '../../infrastructure/service-key';
 
 /**
  * useJiraHook Custom hook
@@ -12,7 +13,7 @@ import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tr
 export default function useJiraHook() {
 
     const [state, setState] = useState<IHookState>(InitialState);
-    const jiraApi: IJiraApi = GlobalConfig.Factory.get('jiraApi');
+    const jiraApi: IJiraApi = GlobalConfig.Factory.get(ServiceKeys.JiraApi);
     const MAX_ALLOWED_LEVEL = 20;
 
     /**

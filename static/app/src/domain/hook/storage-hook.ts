@@ -4,6 +4,7 @@ import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config
 import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
+import { ServiceKeys } from '../../infrastructure/service-key';
 
 const CONFIG_KEY = 'CONFIG';
 /**
@@ -16,7 +17,7 @@ const CONFIG_KEY = 'CONFIG';
 export default function useStorageHook() {
 
     const [state, setState] = useState<IHookState>(InitialState);
-    const storageApi: IStorageApi = GlobalConfig.Factory.get('storageApi');
+    const storageApi: IStorageApi = GlobalConfig.Factory.get(ServiceKeys.StorageApi);
 
     const getConfigStorage = async (): Promise<ConfigStorageDataType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
