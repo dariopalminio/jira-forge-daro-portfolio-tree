@@ -13,7 +13,6 @@ import Tabs from "../../common/tab-panel/tabs";
 import RoadmapViewPanel from "./roadmaps-view-panel";
 import TableViewPanel from "./table-view-panel";
 import TreeViewPanel from "./tree-view-panel";
-import useJiraHostHook from "../../../domain/hook/jira-host-hook";
 import IssueView from "../issue/issue-view";
 import Loading from "../../common/loading/loading";
 import StoreContext from "../../../domain/context/store-context";
