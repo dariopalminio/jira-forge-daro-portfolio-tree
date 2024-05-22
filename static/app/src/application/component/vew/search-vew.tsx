@@ -120,7 +120,7 @@ const SearchView: React.FC = () => {
 
     const searchData = async () => {
         try {
-            const MAX_ALLOWED_LEVEL = 10;
+            const MAX_ALLOWED_LEVEL = 7;
        
             //load first level, generally are Initiatives
             setProgress(0);
