@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import useJiraHostHook from "../../../domain/hook/jira-host-hook";
 import { IssueTreeNodeType } from "../../../domain/model/tree-types";
@@ -6,6 +6,10 @@ import Button from "../../common/button/button";
 import TextField from "../../common/text-field/text-field";
 import AssigneeCell from "../table/cells/assignee-cell";
 import StatusCell from "../table/cells/status-cell";
+import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
+import { ServiceKeys } from "../../../domain/outgoing/service-key";
+import FactoryContext from "../../../domain/context/factory-context";
+import { IJiraHost } from "../../../domain/outgoing/jira-host.interface";
 
 
 interface IProps {
@@ -17,7 +21,11 @@ interface IProps {
  * controlled component
  */
 const IssueView: React.FC<IProps> = (props: IProps) => {
-    const { navigateToNewWindows } = useJiraHostHook();
+
+    const { getObject } = useContext(FactoryContext);
+    const jiraHostApi: IJiraHost = getObject(ServiceKeys.StorageApi);
+    const { navigateToNewWindows } = useJiraHostHook(jiraHostApi);
+    
     const { t } = useTranslation();
 
     const goToIssue = () => {

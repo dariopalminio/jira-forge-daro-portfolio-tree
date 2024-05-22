@@ -1,19 +1,17 @@
 import { useState, useCallback } from 'react';
 import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookState, InitialState } from './hook.type';
-import * as GlobalConfig from '../../infrastructure/global.config';
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
-import { ServiceKeys } from '../outgoing/service-key';
+
 
 /**
  * useJiraHook Custom hook
  * 
  * @returns 
  */
-export default function useJiraHook() {
+export default function useJiraHook(jiraApi: IJiraApi) {
 
     const [state, setState] = useState<IHookState>(InitialState);
-    const jiraApi: IJiraApi = GlobalConfig.Factory.get(ServiceKeys.JiraApi);
     const MAX_ALLOWED_LEVEL = 20;
 
     const updateState = useCallback((newState) => {

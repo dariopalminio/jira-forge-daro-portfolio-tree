@@ -13,11 +13,11 @@ export default function GlobalFactory() {
     const container: Map<string, any> = new Map();
 
     const initialize = () => {
-            console.log("****************************fakeMode:");
-            console.log("IS FAKE: running on DEV environment...");
-            container.set(ServiceKeys.JiraApi, JiraApiFakeImpl());
-            container.set(ServiceKeys.StorageApi, StorageApiFake());
-            container.set(ServiceKeys.JiraHost, JiraHostFake());
+        console.log("****************************fakeMode:");
+        console.log("IS FAKE: running on DEV environment...");
+        container.set(ServiceKeys.JiraApi, JiraApiFakeImpl());
+        container.set(ServiceKeys.StorageApi, StorageApiFake());
+        container.set(ServiceKeys.JiraHost, JiraHostFake());
     }
 
     //Get instance for key name

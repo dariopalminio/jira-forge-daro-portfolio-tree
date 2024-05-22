@@ -1,11 +1,16 @@
 import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
 
+
 export default function StorageApiFake(): IStorageApi {
 
 
     async function getConfigStorage(key: string): Promise<any> {
         return {
-          }
+            updatedAt: '',
+            linksOutwards: ['includes'],
+            lastJql: '',
+            maxResults: '15'
+        }
     };
 
     /**
@@ -14,12 +19,12 @@ export default function StorageApiFake(): IStorageApi {
      * @returns 
      */
     async function setConfigStorage(key: string, data: any): Promise<any> {
-  
-            const payload = {
-                key: key, //'CONFIG'
-                data: data
-            };
-            return data;
+
+        const payload = {
+            key: key, //'CONFIG'
+            data: data
+        };
+        return data;
 
     };
 

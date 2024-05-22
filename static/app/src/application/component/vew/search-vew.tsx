@@ -19,16 +19,23 @@ import StoreContext from "../../../domain/context/store-context";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
 import useStorageHook from "../../../domain/hook/storage-hook";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
+import FactoryContext from "../../../domain/context/factory-context";
+import { ServiceKeys } from "../../../domain/outgoing/service-key";
+import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
+import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
 
 
 const SearchView: React.FC = () => {
-
+    const { getObject } = useContext(FactoryContext);
+    const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
     const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByParent,
-        isProcessing, hasError, msg, isSuccess } = useJiraHook();
+        isProcessing, hasError, msg, isSuccess } = useJiraHook(jiraApi);
     const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
     const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
-    const { getConfigStorage,
-        setConfigStorage } = useStorageHook();
+
+    const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
+    const { getConfigStorage, setConfigStorage } = useStorageHook(storageApi);
+    
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);

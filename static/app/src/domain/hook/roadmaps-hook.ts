@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-import * as GlobalConfig from '../../infrastructure/global.config';
 import { getDaysBetweenTwoDates } from '../helper/date.helper';
 import { getQuarters } from '../helper/quarter.helper';
 import { QuartersDefault, QuartersType } from '../model/quarter-types';

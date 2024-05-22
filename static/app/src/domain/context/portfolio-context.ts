@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data.type';
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
 
 

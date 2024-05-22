@@ -1,5 +1,4 @@
 
-import * as GlobalConfig from '../../infrastructure/global.config';
 import { IssueTreeNodeType } from '../model/tree-types';
 
 
