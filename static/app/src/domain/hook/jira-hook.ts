@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookState, InitialState } from './hook.type';
 import * as GlobalConfig from '../../infrastructure/global.config';
@@ -16,56 +16,56 @@ export default function useJiraHook() {
     const jiraApi: IJiraApi = GlobalConfig.Factory.get(ServiceKeys.JiraApi);
     const MAX_ALLOWED_LEVEL = 20;
 
+    const updateState = useCallback((newState) => {
+        setState(prev => ({ ...prev, ...newState }));
+    }, []);
+
     /**
      * Get current user logged in Jira
      * @returns Jira User Object
      */
-    const getCurrentUser = async (): Promise<any> => {
-        setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
+    const getCurrentUser = useCallback(async () => {
+        updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            const currentUserData: any = await jiraApi.getCurrentUser();
-            //const name: string = currentUserData?.displayName;
+            const currentUserData = await jiraApi.getCurrentUser();
             return currentUserData;
         } catch (error) {
             console.error(error);
+            updateState({ hasError: true, msg: 'Error fetching current user', isSuccess: false });
+            return null;
         }
-    };
+    }, [jiraApi, updateState]);
 
     /**
      * Searcj JQL in Jira to retrieve issues from portfolio.
      * Return first level of a tree structure.
      */
-    const searchJql = async (jql: string, maxResults: number, startAt: number): Promise<IssueTreeNodeType | undefined> => {
-        setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
-
+    const searchJql = useCallback(async (jql: string, maxResults: number, startAt: number): Promise<IssueTreeNodeType | undefined> => {
+        updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            const data: any = await jiraApi.searchJql(jql, maxResults, startAt);
-
-            let treeArray: IssueTreeNodeType[] = [];
-            const issues: IssueTreeNodeType[] = data?.issues;
-            treeArray = issues?.map((item, index) => {
-                let issue: IssueTreeNodeType = convertToIssueTreeNodeType(item, 1);
-                return issue;
-            })
-
-            const tree: IssueTreeNodeType = {
-                key: 'root',
-                level: 0,
-                summary: 'root node',
-                iconUrl: '',
-                path: '',
-                fields: { ...data, issues: [] },
-                hasChildren: (treeArray.length > 0),
-                childrens: treeArray
-            }
-            setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
+            const data = await jiraApi.searchJql(jql, maxResults, startAt);
+            const tree = buildTree(data);
+            updateState({ isProcessing: false, isSuccess: true });
             return tree;
         } catch (error) {
-            const m = 'Ha ocurrido un error...';
-            setState({ isProcessing: false, hasError: true, msg: m, isSuccess: false });
-            console.error('Error in useJiraHook.searchJql:', error);
+            console.error('Error in searchJql:', error);
+            updateState({ hasError: true, msg: 'Search JQL failed', isSuccess: false });
             return issueItemDefault;
         }
+    }, [jiraApi, updateState]);
+
+    const buildTree = (data:any): IssueTreeNodeType => {
+        const treeArray = data?.issues?.map((item: IssueTreeNodeType) => convertToIssueTreeNodeType(item, 1)) || [];
+        return {
+            key: 'root',
+            level: 0,
+            summary: 'root node',
+            iconUrl: '',
+            path: '',
+            fields: { ...data, issues: [] },
+            hasChildren: treeArray.length > 0,
+            childrens: treeArray
+        };
     };
 
     /**
@@ -105,7 +105,8 @@ export default function useJiraHook() {
      * Each issue has a boolean value associated with your key to indicate if it is open
      * (showing its children) or not.
      */
-    const getTreeTogglesFrom = (issuesTree: IssueTreeNodeType): TreeToggleType => {
+    const getTreeTogglesFrom = useCallback((issuesTree: IssueTreeNodeType): TreeToggleType => {
+ 
         let toggles: TreeToggleType = {}; //dictionary = { [key: string]: boolean };
         if (issuesTree.hasChildren) {
             for (var i = 0; i < issuesTree.childrens.length; i++) {
@@ -117,13 +118,13 @@ export default function useJiraHook() {
             }
         }
         return toggles;
-    };
+    }, []);
 
     /**
      * Get Children of each issue in tree by Links Hierarchy and subtasks.
      */
-    const addChildrenByLink = async (issuesTree: IssueTreeNodeType, linksOutwards: string[], maxLevel: number): Promise<IssueTreeNodeType> => {
-        setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
+    const addChildrenByLink = useCallback(async (issuesTree: IssueTreeNodeType, linksOutwards: string[], maxLevel: number): Promise<IssueTreeNodeType> => {
+        updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             let outwards: string[] = [];
             if (linksOutwards && Array.isArray(linksOutwards) && linksOutwards.length > 0) {
@@ -134,12 +135,11 @@ export default function useJiraHook() {
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return r;
         } catch (error) {
-            const m = 'Ha ocurrido un error...';
-            setState({ isProcessing: false, hasError: true, msg: m, isSuccess: false });
+            updateState({ hasError: true, msg: 'Error addChildrenByLink', isSuccess: false });
             console.error('Error in useJiraHook.searchJql:', error);
             return issueItemDefault;
         }
-    };
+    }, [updateState]);
 
     /**
      * Get recursively Children of each issue in tree by Links Hierarchy and subtasks.
@@ -204,7 +204,7 @@ export default function useJiraHook() {
      * Get array of outward names from Jira
      * @returns array of parent-child link type names of outward, eg ['includes', 'featutes by', 'related to']
      */
-    const getOutwardsFromJira = async (): Promise<string[]> => {
+    const getOutwardsFromJira = useCallback(async (): Promise<string[]> => {
         const excludedOutwards = ['blocks', 'causes', 'clones', 'duplicates', 'relates to'];
         try {
             let outward: string[] = [];
@@ -224,26 +224,25 @@ export default function useJiraHook() {
             console.error(error);
             throw error;
         }
-    };
+    }, [jiraApi]);
 
     /**
      * JQL to getChildrenByEpicLink:  "Epic Link" ='CHILD-KEY-1' order by created DESC
      * @param issuesTree 
      * @returns 
      */
-    const addChildrenByParent = async (issuesTree: IssueTreeNodeType, maxResults: number, startAt: number, maxLevel: number): Promise<IssueTreeNodeType> => {
-        setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
+    const addChildrenByParent = useCallback(async (issuesTree: IssueTreeNodeType, maxResults: number, startAt: number, maxLevel: number): Promise<IssueTreeNodeType> => {
+        updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             const r: IssueTreeNodeType = await getTreeChildrenByParent(issuesTree, 0, maxLevel, maxResults, startAt);
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return r;
         } catch (error) {
-            const m = 'Ha ocurrido un error...';
-            setState({ isProcessing: false, hasError: true, msg: m, isSuccess: false });
-            console.error('Error in useJiraHook.searchJql:', error);
+            console.error(error);
+            updateState({ hasError: true, msg: 'Error fetching current user', isSuccess: false });
             return issueItemDefault;
         }
-    };
+    }, [jiraApi, updateState]);
 
     const getTreeChildrenByParent = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number, maxResults: number, startAt: number): Promise<IssueTreeNodeType> => {
 
