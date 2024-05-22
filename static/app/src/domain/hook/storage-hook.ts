@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import StorageApiImpl from '../../infrastructure/api/storage-api.impl';
+import { useState, useCallback } from 'react';
 import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data.type';
 import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookState, InitialState } from './hook.type';
@@ -15,47 +14,33 @@ const CONFIG_KEY = 'CONFIG';
  * @returns 
  */
 export default function useStorageHook() {
-
     const [state, setState] = useState<IHookState>(InitialState);
     const storageApi: IStorageApi = GlobalConfig.Factory.get(ServiceKeys.StorageApi);
 
-    const getConfigStorage = async (): Promise<ConfigStorageDataType> => {
+    const getConfigStorage = useCallback(async (): Promise<ConfigStorageDataType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             const data = await storageApi.getConfigStorage(CONFIG_KEY);
-            if (!data || data === null || data === undefined || isEmpty(data)) {
-                //The first time there is no data
-                const config: ConfigStorageDataType = ConfigStorageDataDefault;
-                return config;
-            }
-            const config: ConfigStorageDataType = data;
-            return config;
+            return data || ConfigStorageDataDefault;
         } catch (error) {
-            //TODO...
             console.error(error);
+            setState({ ...state, hasError: true, msg: 'Error fetching configuration' });
             return ConfigStorageDataDefault;
         }
-    };
+    }, [storageApi]);
 
-    const isEmpty = (object: any) => {
-        for (const property in object) {
-            return false;
-        }
-        return true;
-    }
-
-    const setConfigStorage = async (configData: ConfigStorageDataType): Promise<ConfigStorageDataType> => {
+    const setConfigStorage = useCallback(async (configData: ConfigStorageDataType): Promise<ConfigStorageDataType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            const data: any = await storageApi.setConfigStorage(CONFIG_KEY, configData);
-            const config: ConfigStorageDataType = data;
-            return config;
+            const data = await storageApi.setConfigStorage(CONFIG_KEY, configData);
+            setState({ ...state, isSuccess: true });
+            return data;
         } catch (error) {
-            //TODO...
             console.error(error);
+            setState({ ...state, hasError: true, msg: 'Error updating configuration' });
             return ConfigStorageDataDefault;
         }
-    };
+    }, [storageApi]);
 
     return {
         isProcessing: state.isProcessing,

@@ -34,16 +34,23 @@ function App() {
     }
 
     useEffect(() => {
+        let isMounted = true;
         const getData = async () => {
             try {
                 const infoUser: any = await getCurrentUser();
                 setCurrentUser(infoUser);
-                changeLngToUserLng(infoUser.locale);
+                console.log("Init infoUser:", infoUser);
+                if (infoUser) {
+                    changeLngToUserLng(infoUser.locale);
+                }
             } catch (error) {
-                console.log(error);
+                console.error("Error fetching user data:", error);
             }
         }
-        getData()
+        getData();
+        return () => {
+            isMounted = false;  
+        };
     }, []);
 
     return (

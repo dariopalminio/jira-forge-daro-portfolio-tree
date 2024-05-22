@@ -122,6 +122,7 @@ const SearchView: React.FC = () => {
     const searchData = async () => {
         try {
             const MAX_ALLOWED_LEVEL = 10;
+       
             //load first level, generally are Initiatives
             setProgress(0);
             setProgressTitle('Loading JQL with tree first level...');
@@ -132,6 +133,7 @@ const SearchView: React.FC = () => {
             setDataTree(dataTree);
             setProgress(30);
             setProgressTitle('Loading childs by links to all tree levels...');
+            
             //load childs by links to all levels
             const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
             const newTreeToggles = getTreeTogglesFrom(newDataTree);
@@ -139,12 +141,15 @@ const SearchView: React.FC = () => {
             setDataTree(newDataTree);
             setProgress(60);
             setProgressTitle('Loading childs by parent to all tree levels ...');
+            
             //load Epics children and children by parent
             const lastDataTree: IssueTreeNodeType = await addChildrenByParent(newDataTree, 150, 0, MAX_ALLOWED_LEVEL);
             const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
             setToggles(lastTreeToggles);
             setDataTree(lastDataTree);
             setProgress(100);
+            console.log("lastDataTree:",lastDataTree);
+
         } catch (error) {
             console.log(error);
         }

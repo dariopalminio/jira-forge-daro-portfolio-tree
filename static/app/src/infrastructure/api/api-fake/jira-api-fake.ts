@@ -65,7 +65,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
     };
 
     async function searchJql(jql: string): Promise<any> {
-
+        console.log("Fake fetch for searchJql( jql ):", jql);
         return {
             "expand": "schema,names",
             "startAt": 0,
@@ -968,13 +968,14 @@ export default function JiraApiFakeImpl(): IJiraApi {
     };
 
     async function getIssueBySelf(issueUrl: string): Promise<any> {
-        const num = Math.floor(Math.random() * 1000);
-        const strNum: string = num.toString();
+        //console.log("Fake fetch for getIssueBySelf( issueUrl ):", issueUrl);
+        const randomNum = Math.floor(Math.random() * 1000);
+        const strkeyNum: string = randomNum.toString();
         return {
             "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations,customfield_10010.requestTypePractice,customfield_10043.properties,customfield_10044.properties,customfield_10045.properties",
-            "id": `${strNum}`,
+            "id": `${strkeyNum}`,
             "self": "https://daropalmi.atlassian.net/rest/api/3/issue/10053",
-            "key": `EPIC-${strNum}`,
+            "key": `EPIC-${strkeyNum}`,
             "fields": {
                 "statuscategorychangedate": "2022-11-18T12:01:16.443-0300",
                 "issuetype": {
@@ -1226,7 +1227,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                 "customfield_10009": null,
                 "attachment": [],
                 "aggregatetimeestimate": null,
-                "summary": `Example-${strNum}`,
+                "summary": `Sumary-Example-${strkeyNum}`,
                 "creator": {
                     "self": "https://daropalmi.atlassian.net/rest/api/3/user?accountId=636915272f8b3c8f116ac78d",
                     "accountId": "636915272f8b3c8f116ac78d",
@@ -1244,9 +1245,9 @@ export default function JiraApiFakeImpl(): IJiraApi {
                 },
                 "subtasks": [
                     {
-                        "id": `213${strNum}`,
-                        "key": `KR-${strNum}`,
-                        "self": "https://cencosud.atlassian.net/rest/api/3/issue/144281",
+                        "id": `213${strkeyNum}`,
+                        "key": `KR-${strkeyNum}`,
+                        "self": `https://cencosud.atlassian.net/rest/api/3/issue/144285${strkeyNum}`,
                         "fields": {
                             "summary": "100 % implementación Jira para Q1",
                             "status": {
@@ -1354,6 +1355,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
 
 
     async function getIssueLinkTypes(): Promise<any> {
+        console.log("Fake for getIssueLinkTypes( ):");
         return {
             "issueLinkTypes": [
                 {
@@ -1403,21 +1405,10 @@ export default function JiraApiFakeImpl(): IJiraApi {
     }
 
     async function getChildrens(epicKey: string, maxResults: number, startAt: number): Promise<any> {
+        //console.log("Fake fetch for getChildrens with epicKey:", epicKey);
         const num = Math.floor(Math.random() * 1000);
         const strNum: string = num.toString();
-        if(num%2==0){
-           return {
-                "expand": "schema,names",
-                "startAt": 0,
-                "maxResults": 15,
-                "total": 3,
-                "issues": [],
-                "names": {
-                },
-                "schema": {
-                }
-            }
-        }
+        //return 3 issues as childs
         return {
             "expand": "schema,names",
             "startAt": 0,
@@ -1428,7 +1419,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
                     "id": `${strNum}`,
                     "self": `https://dariopalminio.atlassian.net/rest/api/3/issue/${strNum}`,
-                    "key": `TKP-${strNum}`,
+                    "key": `ID-${strNum}`,
                     "fields": {
                         "summary": "Tarea ejemplo 1",
                         "issuetype": {
@@ -1500,7 +1491,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
                     "id": `${strNum+1}`,
                     "self": `https://dariopalminio.atlassian.net/rest/api/3/issue/${strNum+1}`,
-                    "key": `TKP-${strNum+1}`,
+                    "key": `ID-${strNum+1}`,
                     "fields": {
                         "summary": "Historia de usuario ejemplo 2",
                         "issuetype": {
@@ -1572,7 +1563,7 @@ export default function JiraApiFakeImpl(): IJiraApi {
                     "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
                     "id": `${strNum+2}`,
                     "self": `https://dariopalminio.atlassian.net/rest/api/3/issue/${strNum+2}`,
-                    "key": `TKP-${strNum+2}`,
+                    "key": `ID-${strNum+2}`,
                     "fields": {
                         "summary": "Historia de usuario ejemplo 1",
                         "issuetype": {

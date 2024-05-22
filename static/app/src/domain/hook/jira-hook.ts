@@ -234,7 +234,6 @@ export default function useJiraHook() {
     const addChildrenByParent = async (issuesTree: IssueTreeNodeType, maxResults: number, startAt: number, maxLevel: number): Promise<IssueTreeNodeType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
-            //const MAX_ALLOWED_LEVEL = 10;
             const r: IssueTreeNodeType = await getTreeChildrenByParent(issuesTree, 0, maxLevel, maxResults, startAt);
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return r;

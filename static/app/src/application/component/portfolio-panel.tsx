@@ -25,10 +25,6 @@ const PortfolioPanel: React.FC<IProps> = (props: IProps) => {
             text: t('configure')
         }
     ];
-
-    useEffect(() => {
-
-    }, []);
     
     return (
         <div id="TabPanel" className={styles.panelContainer}>
