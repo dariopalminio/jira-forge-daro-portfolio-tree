@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import StoreContext from "../provider/store-context";
-import FactoryContext from "../provider/factory-context";
+import StoreContext from "../../provider/store-context";
+import FactoryContext from "../../provider/factory-context";
 import useJiraHook from '../../../domain/hook/jira-hook';
 import useStorageHook from "../../../domain/hook/storage-hook";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";

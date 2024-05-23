@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../common/splitable-container"
 import { IColHeader, TableSelectable } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
-import PortfolioContext, { IPortfolioContext } from "../provider/portfolio-context";
+import PortfolioContext, { IPortfolioContext } from "../../provider/portfolio-context";
 import Roadmaps from "../roadmap/roadmaps";
 import { useTranslation } from "react-i18next";
 import { QuartersType } from "../../../domain/model/quarter-types";
