@@ -12,6 +12,7 @@ import TextField from "../../common/text-field/text-field";
 import { ServiceKeys } from '../../../domain/outgoing/service-key';
 import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
 import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
+import AppVersion from "./app-vesrsion";
 
 const ConfigStore: React.FC = () => {
     const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
@@ -110,9 +111,15 @@ const ConfigStore: React.FC = () => {
         };
     }
 
+    const getAppVersion = () => {
+        return process.env.REACT_APP_VERSION;
+    }
+
     return (
         <div>
-            <p style={{ fontSize: "11px", color: "grey" }}>Version 2.0.0</p>
+            <p style={{ fontSize: "11px", color: "grey" }}>
+                <AppVersion/>
+            </p>
             <p style={{ fontSize: "11px", color: "grey" }}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
 
             <form>

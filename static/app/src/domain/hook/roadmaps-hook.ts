@@ -1,14 +1,17 @@
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { getDaysBetweenTwoDates } from '../helper/date.helper';
 import { getQuarters } from '../helper/quarter.helper';
 import { QuartersDefault, QuartersType } from '../model/quarter-types';
 import { IssueTreeNodeType } from '../model/tree-types';
 
+interface DateRange {
+    fromDate: Date;
+    toDate: Date;
+}
 
 /**
- * Custom hook
- * 
+ * useRoadmaps Custom hook
  */
 export default function useRoadmaps() {
 
@@ -20,56 +23,37 @@ export default function useRoadmaps() {
      * @param dates 
      * @returns 
      */
-    const getDatesFromTreeRecursive = (issuesTree: IssueTreeNodeType, dates: any): any => {
-        let newDates: any = { ...dates };
+    const getDatesFromTreeRecursive = (issuesTree: IssueTreeNodeType, dates: DateRange): DateRange => {
+        const newDates = { ...dates };
 
-        //compare start date
-        if (issuesTree?.fields?.customfield_10015) {
-            const startdate: string = issuesTree?.fields?.customfield_10015;
-            const nodeDate: Date = new Date(startdate)
-            const dateObjective: Date = newDates.fromDate;
-            if (nodeDate.getTime() < dateObjective.getTime()) {
-                newDates.fromDate = nodeDate;
-            }
+        const startDate = issuesTree?.fields?.customfield_10015 ? new Date(issuesTree.fields.customfield_10015) : null;
+        const endDate = issuesTree?.fields?.duedate ? new Date(issuesTree.fields.duedate) : null;
+
+        if (startDate && startDate < newDates.fromDate) {
+            newDates.fromDate = startDate;
+        }
+        if (endDate && endDate > newDates.toDate) {
+            newDates.toDate = endDate;
         }
 
-        //compare end date
-        if (issuesTree?.fields?.duedate) {
-            const duedate = issuesTree?.fields?.duedate;
-            const nodeDate: Date = new Date(duedate);
-            const dateObjective: Date = newDates.toDate;
-            if (nodeDate.getTime() > dateObjective.getTime()) {
-                newDates.toDate = nodeDate;
-            }
-        }
-
-        //iterate recursively
         if (issuesTree.hasChildren) {
-            for (var i = 0; i < issuesTree.childrens.length; i++) {
-                newDates = getDatesFromTreeRecursive(issuesTree.childrens[i], newDates);
-            }
+            issuesTree.childrens.forEach(child => {
+                const childDates = getDatesFromTreeRecursive(child, newDates);
+                newDates.fromDate = new Date(Math.min(newDates.fromDate.getTime(), childDates.fromDate.getTime()));
+                newDates.toDate = new Date(Math.max(newDates.toDate.getTime(), childDates.toDate.getTime()));
+            });
         }
-        return { ...newDates };
+        return newDates;
     };
 
     /**
-     * Calculate start date and end date based on tree issues data passed by arguments
+     * Calculate start date and end date based on tree issues data passed by arguments.
+     * Calculates the total range between the oldest date (farthest in the past) 
+     * and the newest date (farthest into the future).
      */
-    function getExtremeDatesFromTree(tree: IssueTreeNodeType): any {
-
-        //TODO...
-        const dates: any = {
-            fromDate: new Date(),
-            toDate: new Date()
-        }
-        const datesResult: any = getDatesFromTreeRecursive(tree, dates);
-        //console.log('getExtremeDatesFromTree: ', datesResult);
-
-        /*return {
-            fromDate: new Date('2022-07-28'),
-            toDate: new Date('2023-04-20')
-        }*/
-        return datesResult;
+    const getExtremeDatesFromTree = (tree: IssueTreeNodeType): DateRange => {
+        const initialDates: DateRange = { fromDate: new Date(), toDate: new Date() };
+        return getDatesFromTreeRecursive(tree, initialDates);
     };
 
     /**
@@ -82,10 +66,7 @@ export default function useRoadmaps() {
     const getDaysFromFirstDateUntilTodate = (firstDate: Date): number => {
         try {
             const todate: Date = new Date();
-            //console.log('firstDate:', firstDate);
-            //console.log('todate:', todate);
             const days: number = getDaysBetweenTwoDates(firstDate, todate);
-            //console.log('days:', days);
             if (days < 0) {
                 return 0;
             }
