@@ -12,7 +12,7 @@ import TextField from "../../common/text-field/text-field";
 import { ServiceKeys } from '../../../domain/outgoing/service-key';
 import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
 import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
-import AppVersion from "./app-vesrsion";
+import AppVersion from "./app-version";
 
 const ConfigStore: React.FC = () => {
     const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
