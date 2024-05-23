@@ -17,13 +17,14 @@ export default function useStorageHook(storageApi: IStorageApi) {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             const data = await storageApi.getConfigStorage(CONFIG_KEY);
+            setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return data || ConfigStorageDataDefault;
         } catch (error) {
             console.error(error);
             setState({ ...state, hasError: true, msg: 'Error fetching configuration' });
             return ConfigStorageDataDefault;
         }
-    }, [storageApi]);
+    }, []);
 
     const setConfigStorage = useCallback(async (configData: ConfigStorageDataType): Promise<ConfigStorageDataType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
@@ -36,7 +37,7 @@ export default function useStorageHook(storageApi: IStorageApi) {
             setState({ ...state, hasError: true, msg: 'Error updating configuration' });
             return ConfigStorageDataDefault;
         }
-    }, [storageApi]);
+    }, []);
 
     return {
         isProcessing: state.isProcessing,

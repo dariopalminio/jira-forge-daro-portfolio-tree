@@ -21,6 +21,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "src/infrastructure/fake/global-factory-fake-mode.ts", "src/infrastructure/fake/example-data.ts", "src/infrastructure/fake/jira-api-fake.ts", "src/infrastructure/fake/jira-host-api-fake.ts", "src/infrastructure/fake/storage-api-fake.ts"  ]
+    "src/**/*",
+    "__tests__/**/*"
+  ]
 }

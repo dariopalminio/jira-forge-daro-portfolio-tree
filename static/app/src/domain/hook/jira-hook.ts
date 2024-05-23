@@ -31,7 +31,7 @@ export default function useJiraHook(jiraApi: IJiraApi) {
             updateState({ hasError: true, msg: 'Error fetching current user', isSuccess: false });
             return null;
         }
-    }, [jiraApi, updateState]);
+    }, [updateState]);
 
     /**
      * Searcj JQL in Jira to retrieve issues from portfolio.
@@ -221,7 +221,7 @@ export default function useJiraHook(jiraApi: IJiraApi) {
             console.error(error);
             throw error;
         }
-    }, [jiraApi]);
+    }, []);
 
     /**
      * JQL to getChildrenByEpicLink:  "Epic Link" ='CHILD-KEY-1' order by created DESC
@@ -239,7 +239,7 @@ export default function useJiraHook(jiraApi: IJiraApi) {
             updateState({ hasError: true, msg: 'Error fetching current user', isSuccess: false });
             return issueItemDefault;
         }
-    }, [jiraApi, updateState]);
+    }, [updateState]);
 
     const getTreeChildrenByParent = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number, maxResults: number, startAt: number): Promise<IssueTreeNodeType> => {
 

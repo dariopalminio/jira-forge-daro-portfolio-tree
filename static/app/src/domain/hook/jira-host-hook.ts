@@ -15,7 +15,7 @@ export default function useJiraHostHook(jiraHostApi: IJiraHost) {
             console.error("Failed to navigate to new windows:", error);
             // TODO: Handle errors appropriately, e.g., showing user feedback
         }
-    }, [jiraHostApi]);
+    }, []);
 
     return {
         navigateToNewWindows

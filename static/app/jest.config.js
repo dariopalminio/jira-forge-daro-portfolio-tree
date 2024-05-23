@@ -1,5 +1,6 @@
 module.exports = {
-    preset: 'ts-jest',
-    testEnvironment: 'node',
-    // Otras opciones de configuración...
-  };
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  testMatch: ['**/__tests__/**/*.test.ts'], 
+  // Otras opciones de configuración...
+};
