@@ -1,4 +1,4 @@
-import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
+import { IssueTreeNodeType, TreeToggleType } from "../../domain/model/tree-types";
 
 
 export const togglesTreeExample: TreeToggleType = {};

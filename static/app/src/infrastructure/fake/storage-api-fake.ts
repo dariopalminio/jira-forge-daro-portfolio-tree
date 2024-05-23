@@ -1,6 +1,10 @@
-import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
+import { IStorageApi } from "../../domain/outgoing/storage-api.interface";
 
-
+/**
+ * Jira Storage Api FAKE (mocked)
+ * 
+ * In this mode, API client responses are simulated with FAKE responses.
+ */
 export default function StorageApiFake(): IStorageApi {
 
 

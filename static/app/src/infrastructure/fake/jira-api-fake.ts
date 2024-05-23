@@ -1,13 +1,15 @@
-import { IJiraApi } from '../../../domain/outgoing/jira-api.interface';
+import { IJiraApi } from '../../domain/outgoing/jira-api.interface';
 
 /**
- * Jira API
+ * Jira API FAKE (mocked)
+ * 
+ * In this mode, API client responses are simulated with FAKE responses.
  * 
  * The Jira API uses REST API and enables you to interact with Jira programmatically.  
  * This Calls to back-end resolver using invoke and the back-end call to Jira REST API with asUser or asApp.
  * Other strategy is to use requestJira, it communicates directly with jira without going through the Back-end.
  */
-export default function JiraApiFakeImpl(): IJiraApi {
+export default function JiraApiFake(): IJiraApi {
 
 
     async function getCurrentUser(): Promise<any> {
