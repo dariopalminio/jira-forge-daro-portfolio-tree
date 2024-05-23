@@ -4,11 +4,6 @@ import { IssueTreeNodeType } from '../model/tree-types';
 
 /**
  * useIssueHook Custom hook
- *         const startdate: string = props.treeItem?.fields?.customfield_10015;
-        if (!startdate || startdate === undefined || startdate === '') {
-            return 0;
-        }
- * @returns 
  */
 export default function useIssueHook() {
 

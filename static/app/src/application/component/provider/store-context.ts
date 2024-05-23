@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data.type';
+import { ConfigStorageDataDefault, ConfigStorageDataType } from '../../../domain/model/config-storage-data.type';
 
 
 export interface IStoreContext {

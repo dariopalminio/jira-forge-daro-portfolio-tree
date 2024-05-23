@@ -6,7 +6,7 @@ import { TreeToggleType } from "../../../../domain/model/tree-types";
 import useJiraHostHook from "../../../../domain/hook/jira-host-hook";
 import { IJiraHost } from "../../../../domain/outgoing/jira-host.interface";
 import { ServiceKeys } from "../../../../domain/outgoing/service-key";
-import FactoryContext from "../../../../domain/context/factory-context";
+import FactoryContext from "../../provider/factory-context";
 import { useContext } from "react";
 
 interface IPropsAssigneeCell {

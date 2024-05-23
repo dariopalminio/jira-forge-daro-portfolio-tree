@@ -8,7 +8,7 @@ import AssigneeCell from "../table/cells/assignee-cell";
 import StatusCell from "../table/cells/status-cell";
 import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
 import { ServiceKeys } from "../../../domain/outgoing/service-key";
-import FactoryContext from "../../../domain/context/factory-context";
+import FactoryContext from "../provider/factory-context";
 import { IJiraHost } from "../../../domain/outgoing/jira-host.interface";
 
 

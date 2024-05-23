@@ -5,10 +5,8 @@ import { useCallback } from 'react';
 /**
  * Custom hook to interact with JiraHost services.
  * 
- * @returns {object} An object containing the navigateToNewWindows method.
  */
 export default function useJiraHostHook(jiraHostApi: IJiraHost) {
-    //const jiraApi: IJiraHost = GlobalConfig.Factory.get(ServiceKeys.JiraHost);
 
     const navigateToNewWindows = useCallback(async (relativeUrl: string): Promise<void> => {
         try {

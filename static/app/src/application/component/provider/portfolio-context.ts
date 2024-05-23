@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
+import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-types';
 
 
 export interface IPortfolioContext {

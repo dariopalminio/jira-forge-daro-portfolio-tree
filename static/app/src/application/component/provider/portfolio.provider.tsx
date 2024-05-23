@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
-import PortfolioContext from "../../../domain/context/portfolio-context";
-import StoreContext from "../../../domain/context/store-context";
+import PortfolioContext from "./portfolio-context";
+import StoreContext from "./store-context";
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
 
 interface Props {children?: React.ReactNode}

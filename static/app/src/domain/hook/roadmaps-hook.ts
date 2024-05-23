@@ -9,7 +9,6 @@ import { IssueTreeNodeType } from '../model/tree-types';
 /**
  * Custom hook
  * 
- * @returns 
  */
 export default function useRoadmaps() {
 

@@ -7,7 +7,6 @@ import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tr
 /**
  * useJiraHook Custom hook
  * 
- * @returns 
  */
 export default function useJiraHook(jiraApi: IJiraApi) {
 

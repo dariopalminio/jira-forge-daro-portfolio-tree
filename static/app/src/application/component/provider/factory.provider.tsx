@@ -1,6 +1,5 @@
 import { FC, useContext, useEffect, useState } from "react";
-import FactoryContext from "../../../domain/context/factory-context";
-
+import FactoryContext from "./factory-context";
 
 /*
 HACK: Temporary solution for the problem of switching to fake mode. 
@@ -17,7 +16,10 @@ interface Props {children?: React.ReactNode}
 
 /**
  * In this application, dependency injection is handled through the use of context. 
- * A context is created that provides the global object factory instance to provide instances of API clients to custom hook.
+ * A context is created that provides the global object factory instance to provide 
+ * instances of API clients to custom hook.
+ * This is used to inversion of control (IoC). 
+ * A IoC container is used to identify and inject its dependencies using functional programming.
  */
 const FactoryContextProvider: FC<Props> = ({ children }) => {
   const [globalFactory, setGlobalFactory] = useState<any>(GlobalFactory);

@@ -9,7 +9,7 @@ import { supportedLngs } from '../../domain/i18n/supported-lngs';
 import useJiraHook from "../../domain/hook/jira-hook";
 import { IJiraApi } from "../../domain/outgoing/jira-api.interface";
 import { ServiceKeys } from "../../domain/outgoing/service-key";
-import FactoryContext from "../../domain/context/factory-context";
+import FactoryContext from "./provider/factory-context";
 
 interface IProps {
 }

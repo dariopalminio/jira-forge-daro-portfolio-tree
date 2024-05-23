@@ -9,11 +9,9 @@ const CONFIG_KEY = 'CONFIG';
  * 
  * All users share the same configuration storage.
  * 
- * @returns 
  */
 export default function useStorageHook(storageApi: IStorageApi) {
     const [state, setState] = useState<IHookState>(InitialState);
-    //const storageApi: IStorageApi = GlobalConfig.Factory.get(ServiceKeys.StorageApi);
 
     const getConfigStorage = useCallback(async (): Promise<ConfigStorageDataType> => {
         setState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
