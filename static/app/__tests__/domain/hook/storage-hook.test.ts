@@ -2,22 +2,26 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { ServiceKeys } from '../../../src/domain/outgoing/service-key';
 import GlobalFactory from '../../../src/infrastructure/fake/global-factory-fake-mode';
 import useStorageHook from '../../../src/domain/hook/storage-hook';
+import { IStorageApi } from '../../../src/domain/outgoing/storage-api.interface';
 
-
+/**
+ * Test the custom hook called useStorageHook.
+ * Testing based on fake API clients to simulate API requests
+ */
 describe('useStorageHook', () => {
-  let factory: any;
-
+  let factoryMock: any;
+  let storageApiMock: IStorageApi;
 
   beforeEach(() => {
     // Setup mock
-    factory = GlobalFactory();
-    factory.initialize();
+    factoryMock = GlobalFactory();
+    factoryMock.initialize();
+    storageApiMock = factoryMock.get(ServiceKeys.StorageApi);
   });
 
-
-  test('getConfigStorage retrieves configuration successfully', async () => {
+  test('Testing useStorageHook.getConfigStorage (positive): retrieves configuration successfully', async () => {
     const mockData = { key: 'value' };
-    const storageApiMock = factory.get(ServiceKeys.StorageApi);
+
     const { result, waitForNextUpdate } = renderHook(() => useStorageHook(storageApiMock));
 
     expect(result.current.isProcessing).toBeFalsy();

@@ -66,7 +66,7 @@ export default function JiraApiFake(): IJiraApi {
         return data;
     };
 
-    async function searchJql(jql: string): Promise<any> {
+    async function searchJql(jql: string, maxResults: number, startAt: number): Promise<any> {
         console.log("Fake fetch for searchJql( jql ):", jql);
         return {
             "expand": "schema,names",

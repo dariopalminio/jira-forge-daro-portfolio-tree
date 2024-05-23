@@ -25,6 +25,7 @@ export default function useJiraHook(jiraApi: IJiraApi) {
         updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             const currentUserData = await jiraApi.getCurrentUser();
+            updateState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return currentUserData;
         } catch (error) {
             console.error(error);
@@ -42,7 +43,7 @@ export default function useJiraHook(jiraApi: IJiraApi) {
         try {
             const data = await jiraApi.searchJql(jql, maxResults, startAt);
             const tree = buildTree(data);
-            updateState({ isProcessing: false, isSuccess: true });
+            updateState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return tree;
         } catch (error) {
             console.error('Error in searchJql:', error);
