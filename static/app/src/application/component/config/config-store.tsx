@@ -112,7 +112,7 @@ const ConfigStore: React.FC = () => {
 
     return (
         <div>
-            <p style={{ fontSize: "11px", color: "grey" }}>Version 1.3.0 (versión de prueba)</p>
+            <p style={{ fontSize: "11px", color: "grey" }}>Version 2.0.0</p>
             <p style={{ fontSize: "11px", color: "grey" }}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
 
             <form>

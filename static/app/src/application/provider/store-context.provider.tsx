@@ -19,7 +19,7 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     const getConfigDataFromStorage = async () => {
       try {
-        const info: any | null = await getConfigStorage();
+        const info: any | null = await getConfigStorage(); //fetch data from api
         setConfigData(info);
       } catch (error) {
         console.log(error);

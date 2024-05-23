@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './App.module.css';
 import { useTranslation } from "react-i18next";
-import PortfolioContextProvider from './provider/portfolio.provider';
+import PortfolioContextProvider from './provider/portfolio-context.provider';
 import PortfolioPanel from './component/portfolio-panel';
-import StoreContextProvider from './provider/store.provider';
-import FactoryContextProvider from './provider/factory.provider';
+import StoreContextProvider from './provider/store-context.provider';
+import FactoryContextProvider from './provider/factory-context.provider';
 
 
 
