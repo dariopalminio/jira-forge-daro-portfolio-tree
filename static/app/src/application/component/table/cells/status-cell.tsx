@@ -6,6 +6,10 @@ interface IPropsAssigneeCell {
     item: any;
     colHeader?: IColHeader;
 }
+
+/**
+ * StatusCell component
+ */
 const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
     const redStatusNames = ['BLOCKED', 'OFF TRACK', 'CRITICAL', 'BLOQUEADO', 'DEFICIENTE', 'DEFICIENT', 'FALLIDO', 'FAILED', 'FAILURE'];
     const yellowStatusNames = ['AT RISK', 'CON RIESGO', 'NEED ATTENTION', 'ATTENTION'];
@@ -36,24 +40,6 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
         }
     }
 
-    /**
-     * 
-    statusCategory: 
-        colorName: "green"
-        id: 3
-        key: "done"
-        name: "Listo"
-    statusCategory: 
-        colorName: "blue-gray"
-        id: 2
-        key: "new"
-        name: "Por hacer"
-    statusCategory: 
-        colorName: "yellow"
-        id: 4
-        key: "indeterminate"
-        name: "En curso"
-     */
     const getColor = (): string => {
         try {
             const statusName = getStatusKey();

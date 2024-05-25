@@ -13,7 +13,7 @@ interface IProps {
 }
 
 /**
- * TableGridSelector
+ * TableSelectable component
  * 
  * - The order of the columns depends on the headers array input. 
  * - The title of the columns is given by the 'label' property in each item of headers array. 

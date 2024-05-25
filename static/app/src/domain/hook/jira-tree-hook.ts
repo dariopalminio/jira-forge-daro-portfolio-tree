@@ -5,10 +5,10 @@ import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tr
 
 
 /**
- * useJiraHook Custom hook
+ * useJiraTreeHook Custom hook
  * 
  */
-export default function useJiraHook(jiraApi: IJiraApi) {
+export default function useJiraTreeHook(jiraApi: IJiraApi) {
 
     const [state, setState] = useState<IHookState>(InitialState);
     const MAX_ALLOWED_LEVEL = 20;
@@ -16,23 +16,6 @@ export default function useJiraHook(jiraApi: IJiraApi) {
     const updateState = useCallback((newState) => {
         setState(prev => ({ ...prev, ...newState }));
     }, []);
-
-    /**
-     * Get current user logged in Jira
-     * @returns Jira User Object
-     */
-    const getCurrentUser = useCallback(async () => {
-        updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
-        try {
-            const currentUserData = await jiraApi.getCurrentUser();
-            updateState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
-            return currentUserData;
-        } catch (error) {
-            console.error(error);
-            updateState({ hasError: true, msg: 'Error fetching current user', isSuccess: false });
-            return null;
-        }
-    }, [updateState]);
 
     /**
      * Searcj JQL in Jira to retrieve issues from portfolio.
@@ -134,7 +117,7 @@ export default function useJiraHook(jiraApi: IJiraApi) {
             return r;
         } catch (error) {
             updateState({ hasError: true, msg: 'Error addChildrenByLink', isSuccess: false });
-            console.error('Error in useJiraHook.searchJql:', error);
+            console.error('Error in useJiraTreeHook.searchJql:', error);
             return issueItemDefault;
         }
     }, [updateState]);
@@ -290,7 +273,6 @@ export default function useJiraHook(jiraApi: IJiraApi) {
         hasError: state.hasError,
         msg: state.msg,
         isSuccess: state.isSuccess,
-        getCurrentUser,
         searchJql,
         getTreeTogglesFrom,
         addChildrenByLink,

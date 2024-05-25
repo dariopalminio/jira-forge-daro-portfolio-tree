@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import useJiraHook from "../../../domain/hook/jira-hook";
+import useJiraTreeHook from "../../../domain/hook/jira-tree-hook";
 import Button from "../../common/button/button";
 import TextField from "../../common/text-field/text-field";
 import { IColHeader } from "../table";
@@ -17,7 +17,7 @@ import IssueView from "../issue/issue-view";
 import Loading from "../../common/loading/loading";
 import StoreContext from "../../provider/store-context";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
-import useStorageHook from "../../../domain/hook/storage-hook";
+import useJiraStorageHook from "../../../domain/hook/jira-storage-hook";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
 import FactoryContext from "../../provider/factory-context";
 import { ServiceKeys } from "../../../domain/outgoing/service-key";
@@ -29,12 +29,12 @@ const SearchView: React.FC = () => {
     const { getObject } = useContext(FactoryContext);
     const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
     const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByParent,
-        isProcessing, hasError, msg, isSuccess } = useJiraHook(jiraApi);
+        isProcessing, hasError, msg, isSuccess } = useJiraTreeHook(jiraApi);
     const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
     const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
 
     const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
-    const { getConfigStorage, setConfigStorage } = useStorageHook(storageApi);
+    const { getConfigStorage, setConfigStorage } = useJiraStorageHook(storageApi);
     
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();

@@ -2,15 +2,15 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { ServiceKeys } from '../../../src/domain/outgoing/service-key';
 import GlobalFactory from '../../../src/infrastructure/fake/global-factory-fake-mode';
 import { IJiraApi } from '../../../src/domain/outgoing/jira-api.interface';
-import useJiraHook from '../../../src/domain/hook/jira-hook';
+import useJiraTreeHook from '../../../src/domain/hook/jira-tree-hook';
 import { IssueTreeNodeType } from '../../../src/domain/model/tree-types';
 import JiraApiFake from '../../../src/infrastructure/fake/jira-api-fake';
 
 /**
- * Test the custom hook called useJiraHook.
+ * Test the custom hook called useJiraTreeHook.
  * Testing based on fake API clients to simulate API requests
  */
-describe('useStorageHook', () => {
+describe('useJiraStorageHook', () => {
   let factoryMock: any;
   let jiraApiMock: IJiraApi;
 
@@ -21,35 +21,10 @@ describe('useStorageHook', () => {
     jiraApiMock = factoryMock.get(ServiceKeys.JiraApi);
   });
 
-  test('Testing useJiraHook.getCurrentUser (positive): retrieves current user successfully', async () => {
+  test('Testing useJiraTreeHook.searchJql (positive): retrieves data successfully', async () => {
     const mockData = { key: 'value' };
 
-    const { result, waitForNextUpdate } = renderHook(() => useJiraHook(jiraApiMock));
-
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.hasError).toBeFalsy();
-    expect(result.current.isSuccess).toBeFalsy();
-
-    let infoUser: any;
-    await act(async () => {
-        infoUser = await result.current.getCurrentUser();
-    });
-
-    //Check status
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.isSuccess).toBeTruthy();
-    expect(result.current.msg).toBe('');
-    expect(result.current.hasError).toBeFalsy();
-
-    //Check function response data
-    expect(infoUser.locale).toBe("es_ES");
-
-  });
-
-  test('Testing useJiraHook.searchJql (positive): retrieves data successfully', async () => {
-    const mockData = { key: 'value' };
-
-    const { result, waitForNextUpdate } = renderHook(() => useJiraHook(jiraApiMock));
+    const { result, waitForNextUpdate } = renderHook(() => useJiraTreeHook(jiraApiMock));
 
     expect(result.current.isProcessing).toBeFalsy();
     expect(result.current.hasError).toBeFalsy();
@@ -71,10 +46,10 @@ describe('useStorageHook', () => {
     expect(dataTreeFirstLevel?.childrens.length).toBe(4);
   });
 
-  test('Testing useJiraHook.addChildrenByParent (positive): retrieves tree data structure successfully', async () => {
+  test('Testing useJiraTreeHook.addChildrenByParent (positive): retrieves tree data structure successfully', async () => {
     const mockData = { key: 'value' };
 
-    const { result, waitForNextUpdate } = renderHook(() => useJiraHook(jiraApiMock));
+    const { result, waitForNextUpdate } = renderHook(() => useJiraTreeHook(jiraApiMock));
 
     expect(result.current.isProcessing).toBeFalsy();
     expect(result.current.hasError).toBeFalsy();

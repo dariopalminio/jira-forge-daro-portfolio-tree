@@ -15,7 +15,7 @@ interface IProps {
 }
 
 /**
- * RoadmapItem
+ * RoadmapItem component
  * @param props 
  * @returns 
  */

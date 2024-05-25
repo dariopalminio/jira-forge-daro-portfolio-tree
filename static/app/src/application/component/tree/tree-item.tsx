@@ -18,9 +18,7 @@ interface IProps {
 }
 
 /**
- * 
- * @param param0 
- * @returns 
+ * TreeItem component
  */
 const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, togglesChange }) => {
     const { issueTypeNameOf, getChildrenProgressCount } = useIssueHook();

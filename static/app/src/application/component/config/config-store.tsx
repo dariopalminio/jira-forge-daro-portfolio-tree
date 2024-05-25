@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import StoreContext from "../../provider/store-context";
 import FactoryContext from "../../provider/factory-context";
-import useJiraHook from '../../../domain/hook/jira-hook';
-import useStorageHook from "../../../domain/hook/storage-hook";
+import useJiraTreeHook from '../../../domain/hook/jira-tree-hook';
+import useJiraStorageHook from "../../../domain/hook/jira-storage-hook";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
 import Button from "../../common/button/button";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
@@ -14,17 +14,21 @@ import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
 import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
 import AppVersion from "./app-version";
 
+/**
+ * ConfigStore component
+ * @returns 
+ */
 const ConfigStore: React.FC = () => {
     const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
 
     const { getObject } = useContext(FactoryContext);
     const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
-    const { getConfigStorage, setConfigStorage } = useStorageHook(storageApi);
+    const { getConfigStorage, setConfigStorage } = useJiraStorageHook(storageApi);
 
     const { t } = useTranslation();
     
     const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-    const { getOutwardsFromJira } = useJiraHook(jiraApi);
+    const { getOutwardsFromJira } = useJiraTreeHook(jiraApi);
 
     const [outwardsCheckboxes, setOutwardsCheckboxes] = useState<CheckboxType[]>([]);
 

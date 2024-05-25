@@ -15,6 +15,10 @@ interface IPropsAssigneeCell {
     toggles: TreeToggleType;
     togglesChange: (newToggles: TreeToggleType) => void;
 }
+
+/**
+ * KeyCell component
+ */
 const KeyCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
 
     const { getObject } = useContext(FactoryContext);

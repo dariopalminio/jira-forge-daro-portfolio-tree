@@ -10,7 +10,7 @@ const CONFIG_KEY = 'CONFIG';
  * All users share the same configuration storage.
  * 
  */
-export default function useStorageHook(storageApi: IStorageApi) {
+export default function useJiraStorageHook(storageApi: IStorageApi) {
     const [state, setState] = useState<IHookState>(InitialState);
 
     const getConfigStorage = useCallback(async (): Promise<ConfigStorageDataType> => {

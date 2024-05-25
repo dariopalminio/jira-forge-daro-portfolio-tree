@@ -17,8 +17,7 @@ interface IProps {
 }
 
 /**
- * Customized button
- * controlled component
+ * IssueView component
  */
 const IssueView: React.FC<IProps> = (props: IProps) => {
 

@@ -18,6 +18,9 @@ interface IProps {
     toggles: TreeToggleType;
 }
 
+/**
+ * TableSelectableItem component
+ */
 const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, toggles, togglesChange }) => {
     const {statusKeyOf,
         isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf, getChildrenProgressCount} = useIssueHook();

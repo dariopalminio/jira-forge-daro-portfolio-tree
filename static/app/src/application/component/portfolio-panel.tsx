@@ -6,10 +6,10 @@ import styles from './portfolio-panel.module.css';
 import SearchView from "./vew/search-vew";
 import ConfigStore from "./config/config-store";
 import { supportedLngs } from '../../domain/i18n/supported-lngs';
-import useJiraHook from "../../domain/hook/jira-hook";
 import { IJiraApi } from "../../domain/outgoing/jira-api.interface";
 import { ServiceKeys } from "../../domain/outgoing/service-key";
 import FactoryContext from "../provider/factory-context";
+import useJiraUserHook from "../../domain/hook/jira-user-hook";
 
 interface IProps {
 }
@@ -19,7 +19,7 @@ const PortfolioPanel: React.FC<IProps> = (props: IProps) => {
 
     const { getObject } = useContext(FactoryContext);
     const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-    const { getCurrentUser } = useJiraHook(jiraApi);
+    const { getCurrentUser } = useJiraUserHook(jiraApi);
 
     const [currentUser, setCurrentUser] = useState<any>({});
     const { t, i18n } = useTranslation();

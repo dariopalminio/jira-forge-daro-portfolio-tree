@@ -13,6 +13,9 @@ interface IProps {
     toggles: TreeToggleType;
 }
 
+/**
+ * Tree component
+ */
 const Tree: React.FC<IProps> = ({ expandAllLabel, collapseAllLabel, tree, onClick, toggles, togglesChange }) => {
 
 

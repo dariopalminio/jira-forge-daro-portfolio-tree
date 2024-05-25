@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useContext } from "react";
 import StoreContext from "./store-context";
-import useStorageHook from "../../domain/hook/storage-hook";
+import useJiraStorageHook from "../../domain/hook/jira-storage-hook";
 import { ConfigStorageDataDefault, ConfigStorageDataType } from "../../domain/model/config-storage-data.type";
 import { IStorageApi } from "../../domain/outgoing/storage-api.interface";
 import FactoryContext from "./factory-context";
@@ -14,7 +14,7 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
 
   const { getObject } = useContext(FactoryContext);
   const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
-  const { getConfigStorage, setConfigStorage } = useStorageHook(storageApi);
+  const { getConfigStorage, setConfigStorage } = useJiraStorageHook(storageApi);
 
   useEffect(() => {
     const getConfigDataFromStorage = async () => {
