@@ -10,7 +10,7 @@ export const ConfigStorageDataDefault: ConfigStorageDataType = {
   updatedAt: '',
   linksOutwards: [],
   lastJql: '',
-  maxResults: '15'
+  maxResults: '120'
 }
 
 /*

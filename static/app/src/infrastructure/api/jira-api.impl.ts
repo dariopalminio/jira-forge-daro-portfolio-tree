@@ -22,6 +22,16 @@ export default function JiraApiImpl(): IJiraApi {
         }
     };
 
+    /**
+     * Search JQL
+     * 
+     * @param jql - String for search with Jira Query Language (JQL)
+     * @param maxResults The "maxResults" parameter indicates how many results to return per page. 
+     * Each API may have a different limit for number of items returned.
+     * @param startAt  - The "startAt" parameter indicates which item should be used as the first item in the page of results.
+     * The index of the first item to return (0-based) must be 0 or a multiple of maxResults
+     * @returns response.json()
+     */
     async function searchJql(jql: string, maxResults: number, startAt: number): Promise<any> {
         try {
             const body = {
@@ -55,9 +65,9 @@ export default function JiraApiImpl(): IJiraApi {
                 },
                 body: JSON.stringify(body)
             });
-            console.error('***searchJql.response:', response);
+            
             const data = await response.json();
-            console.error('***searchJql.response.json():', data);
+
             if (response.status !== 200) {
                 const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in searchJql function!'
                 throw new Error(errorMessages);
@@ -139,11 +149,24 @@ export default function JiraApiImpl(): IJiraApi {
 
     /**
      * Get children issues
+     * 
      * Query JQL examples: 
      * - example 1: parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} ORDER BY rank
      * - example 2: 'Epic Link' =${epicKey} order by created DESC
-     * @param parentKey 
-     * @returns 
+     * 
+     * Clients can use the "startAt" and "maxResults" parameters to retrieve the desired numbers of results.
+     * The "maxResults" parameter indicates how many results to return per page. Each API may have a different limit for number of items returned.
+     * @param parentKey - identifier of the parent for whom we want to search for the children.
+     * @param maxResults - The "maxResults" parameter is the maximum number of items that a page can return. Each operation can have a different 
+     * limit for the number of items returned, and these limits may change without notice. To find the maximum number of items 
+     * that an operation could return, set maxResults to a large number—for example, over 1000—and if the returned value of 
+     * maxResults is less than the requested value, the returned value is the maximum.
+     * Note that the JIRA server reserves the right to impose a maxResults limit that is lower than the value that a client provides, 
+     * dues to lack or resources or any other condition. When this happens, your results will be truncated. 
+     * Callers should always check the returned maxResults to determine the value that is effectively being used.
+     * @param startAt - The "startAt" parameter indicates which item should be used as the first item in the page of results.
+     * The index of the first item to return (0-based) must be 0 or a multiple of maxResults
+     * @returns response.json()
      */
     async function getChildrens(parentKey: string, maxResults: number, startAt: number): Promise<any> {
         try {

@@ -32,7 +32,7 @@ describe('useJiraStorageHook', () => {
 
     let dataTreeFirstLevel: IssueTreeNodeType | undefined;
     await act(async () => {
-        dataTreeFirstLevel = await result.current.searchJql('',15,0);
+        dataTreeFirstLevel = await result.current.getTreeFromJQL('',15,0);
     });
 
     //Check status
@@ -65,13 +65,13 @@ describe('useJiraStorageHook', () => {
 
     await act(async () => {
         //load first level
-        const data: IssueTreeNodeType | undefined = await result.current.searchJql('',15,0);
+        const data: IssueTreeNodeType | undefined = await result.current.getTreeFromJQL('',15,0);
         expect(data == undefined).toBeFalsy();
         if (data != undefined) dataTreeFirstLevel = data;
         //load childs by links to all levels
-        dataTreeSecondLevel = await result.current.addChildrenByLink(dataTreeFirstLevel, linksOutwards, maxAllowedLevel);
+        dataTreeSecondLevel = await result.current.addChildsToTreeByLink(dataTreeFirstLevel, linksOutwards, maxAllowedLevel);
         //load Epics children and children by parent
-        lastDataTree = await result.current.addChildrenByParent(dataTreeSecondLevel, 150, 0, maxAllowedLevel);
+        lastDataTree = await result.current.addChildsToTreeByParent(dataTreeSecondLevel, 150, 0, maxAllowedLevel);
     });
 
     //Check status

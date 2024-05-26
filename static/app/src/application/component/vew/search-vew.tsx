@@ -28,7 +28,7 @@ import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
 const SearchView: React.FC = () => {
     const { getObject } = useContext(FactoryContext);
     const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-    const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByParent,
+    const { getTreeFromJQL, getTreeTogglesFrom, addChildsToTreeByLink, addChildsToTreeByParent,
         isProcessing, hasError, msg, isSuccess } = useJiraTreeHook(jiraApi);
     const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
     const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
@@ -115,13 +115,14 @@ const SearchView: React.FC = () => {
         }
     ];
 
+    /**
+     * Get max results for pagination
+     */
     const getMaxResults = (): number => {
-        //console.log('***configData?.maxResults:', configData?.maxResults);
         if (!configData?.maxResults || configData?.maxResults === '' || configData?.maxResults === null) {
-            return 15;
+            return 1000;
         }
         const maxResults: number = Number(configData?.maxResults);
-        //console.log('***maxResults:', Math.abs(maxResults));
         return Math.abs(maxResults);
     }
 
@@ -132,7 +133,7 @@ const SearchView: React.FC = () => {
             //load first level, generally are Initiatives
             setProgress(0);
             setProgressTitle('Loading JQL with tree first level...');
-            const dataTree: IssueTreeNodeType | undefined = await searchJql(jql, getMaxResults(), 0);
+            const dataTree: IssueTreeNodeType | undefined = await getTreeFromJQL(jql, getMaxResults(), 0);
             if (dataTree === undefined) throw new Error('Search JQL not found data!')
             const treeToggles = getTreeTogglesFrom(dataTree);
             setToggles(treeToggles);
@@ -141,7 +142,7 @@ const SearchView: React.FC = () => {
             setProgressTitle('Loading childs by links to all tree levels...');
             
             //load childs by links to all levels
-            const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
+            const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
             const newTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
@@ -149,7 +150,7 @@ const SearchView: React.FC = () => {
             setProgressTitle('Loading childs by parent to all tree levels ...');
             
             //load Epics children and children by parent
-            const lastDataTree: IssueTreeNodeType = await addChildrenByParent(newDataTree, 150, 0, MAX_ALLOWED_LEVEL);
+            const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, 150, 0, MAX_ALLOWED_LEVEL);
             const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
             setToggles(lastTreeToggles);
             setDataTree(lastDataTree);
