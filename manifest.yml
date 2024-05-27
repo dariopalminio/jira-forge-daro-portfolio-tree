@@ -14,6 +14,8 @@ resources:
     path: static/app/build
 app:
   id: ari:cloud:ecosystem::app/c2ff51f3-ef19-4523-9ffc-3c877322807f
+  runtime:
+    name: nodejs18.x
 permissions:
   scopes:
     - read:issue-link:jira

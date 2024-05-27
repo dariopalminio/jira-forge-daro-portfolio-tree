@@ -2,6 +2,7 @@
 import JiraApiImpl from "./api/jira-api.impl";
 import StorageApiImpl from "./api/storage-api.impl";
 import JiraHostImpl from "./api/jira-host.impl";
+import JiraUserApiImpl from "./api/jira-user-api";
 import { ServiceKeys } from '../domain/outgoing/service-key';
 
 /**
@@ -15,7 +16,7 @@ export default function GlobalFactory() {
             container.set(ServiceKeys.JiraApi, StorageApiImpl());
             container.set(ServiceKeys.StorageApi, JiraApiImpl());
             container.set(ServiceKeys.JiraHost, JiraHostImpl());
-
+            container.set(ServiceKeys.JiraUserApi, JiraUserApiImpl());
     }
 
     //Get instance for key name

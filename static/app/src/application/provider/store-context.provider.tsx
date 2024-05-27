@@ -16,11 +16,15 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
   const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
   const { getConfigStorage, setConfigStorage } = useJiraStorageHook(storageApi);
 
+  const [initialized, setInitialized] = useState(false);  // State to control initialization
+
   useEffect(() => {
     const getConfigDataFromStorage = async () => {
       try {
+        console.log("StoreContextProvider-->useEffect");
         const info: any | null = await getConfigStorage(); //fetch data from api
         setConfigData(info);
+        setInitialized(true);  // Set initialized to true to force re-render
       } catch (error) {
         console.log(error);
       }
@@ -35,10 +39,11 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
         configData,
         setConfigData,
         configHasChanges,
-        setConfigHasChanges
+        setConfigHasChanges,
+        setConfigStorage
       }}
     >
-      {children}
+      {initialized ? children : null} 
     </StoreContext.Provider>
   );
 };

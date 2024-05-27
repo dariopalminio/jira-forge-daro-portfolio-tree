@@ -2,6 +2,7 @@ import JiraHostApiFake from "./jira-host-api-fake";
 import StorageApiFake from "./storage-api-fake";
 import JiraApiFake from "./jira-api-fake";
 import { ServiceKeys } from '../../domain/outgoing/service-key';
+import JiraUserApiFake from "./jira-user-api-fake";
 
 /**
  * Global Factory for dependency injection and return mocked objects.
@@ -19,6 +20,7 @@ export default function GlobalFactory() {
         container.set(ServiceKeys.JiraApi, JiraApiFake());
         container.set(ServiceKeys.StorageApi, StorageApiFake());
         container.set(ServiceKeys.JiraHost, JiraHostApiFake());
+        container.set(ServiceKeys.JiraUserApi, JiraUserApiFake());
     }
 
     //Get instance for key name

@@ -19,11 +19,9 @@ import AppVersion from "./app-version";
  * @returns 
  */
 const ConfigStore: React.FC = () => {
-    const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
+    const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
 
     const { getObject } = useContext(FactoryContext);
-    const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
-    const { getConfigStorage, setConfigStorage } = useJiraStorageHook(storageApi);
 
     const { t } = useTranslation();
     

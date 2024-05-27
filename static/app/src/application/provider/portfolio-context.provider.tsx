@@ -12,14 +12,17 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
   const [dataTree, setDataTree] = useState<IssueTreeNodeType>(issueItemDefault);
   const [toggles, setToggles] = useState<TreeToggleType>({});
   const [jql, setJql] = useState<string>('');
+  const [initialized, setInitialized] = useState(false);  // State to control initialization
 
   useEffect(() => {
+    console.log("PortfolioContextProvider-->useEffect");
     const loadedJql = configData.lastJql;
     if (loadedJql !== '') {
       setJql(loadedJql);
     } else {
       setJql(jqlDefault); //first time
     }
+    setInitialized(true);  // Set initialized to true to force re-render
   }, []);
 
   return (
@@ -33,7 +36,7 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
         setJql
       }}
     >
-      {children}
+       {initialized ? children : null}  
     </PortfolioContext.Provider>
   );
 };

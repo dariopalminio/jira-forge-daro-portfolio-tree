@@ -42,7 +42,6 @@ describe('useJiraStorageHook', () => {
     //Check function response data
     expect(configStorage.linksOutwards.length).toBe(1);
     expect(configStorage.linksOutwards[0]).toBe('includes');
-    expect(configStorage.maxResults).toBe('15');
     
   });
 

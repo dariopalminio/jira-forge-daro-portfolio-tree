@@ -17,11 +17,11 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
     "test": "jest",
-    "buildToProd": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
-    "buildToDev": "react-scripts build",
-    "eject": "react-scripts eject"
+    "buildToProd": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "buildToDev": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "eject": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts eject"
   },
   "browserslist": {
     "production": [

@@ -12,5 +12,8 @@
     "@forge/api": "^2.8.1",
     "@forge/resolver": "^1.4.6",
     "react-icons": "^4.7.1"
+  },
+  "engines": {
+    "node": "18.20.3"
   }
 }

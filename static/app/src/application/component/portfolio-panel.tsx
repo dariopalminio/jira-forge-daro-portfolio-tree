@@ -6,10 +6,10 @@ import styles from './portfolio-panel.module.css';
 import SearchView from "./vew/search-vew";
 import ConfigStore from "./config/config-store";
 import { supportedLngs } from '../../domain/i18n/supported-lngs';
-import { IJiraApi } from "../../domain/outgoing/jira-api.interface";
 import { ServiceKeys } from "../../domain/outgoing/service-key";
 import FactoryContext from "../provider/factory-context";
 import useJiraUserHook from "../../domain/hook/jira-user-hook";
+import { IJiraUserApi } from "../../domain/outgoing/jira-user-api.interface";
 
 interface IProps {
 }
@@ -18,10 +18,12 @@ const PortfolioPanel: React.FC<IProps> = (props: IProps) => {
     const [tabSelected, setTabSelected] = useState<string>('SearchView');
 
     const { getObject } = useContext(FactoryContext);
-    const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-    const { getCurrentUser } = useJiraUserHook(jiraApi);
+    console.log("*** Initialization: PortfolioPanel-->getObject", getObject);
 
-    const [currentUser, setCurrentUser] = useState<any>({});
+    const jiraUserApi: IJiraUserApi = getObject(ServiceKeys.JiraUserApi);
+    const { getCurrentUser } = useJiraUserHook(jiraUserApi);
+    console.log("*** Initialization: PortfolioPanel-->getCurrentUser", getCurrentUser);
+
     const { t, i18n } = useTranslation();
 
     /**
@@ -42,15 +44,17 @@ const PortfolioPanel: React.FC<IProps> = (props: IProps) => {
     }
 
     useEffect(() => {
+        console.log("PortfolioPanel-->useEffect");
         let isMounted = true;
         const getData = async () => {
             try {
                 const infoUser: any = await getCurrentUser();
-                setCurrentUser(infoUser);
                 console.log("Init infoUser:", infoUser);
                 if (infoUser) {
                     changeLngToUserLng(infoUser.locale);
+                    return;
                 }
+                throw new Error("User Info is null!");
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }

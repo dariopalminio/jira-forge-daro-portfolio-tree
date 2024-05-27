@@ -1,8 +1,8 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { ServiceKeys } from '../../../src/domain/outgoing/service-key';
 import GlobalFactory from '../../../src/infrastructure/fake/global-factory-fake-mode';
-import { IJiraApi } from '../../../src/domain/outgoing/jira-api.interface';
 import useJiraUserHook from '../../../src/domain/hook/jira-user-hook';
+import { IJiraUserApi } from '../../../src/domain/outgoing/jira-user-api.interface';
 
 /**
  * Test the custom hook called useJiraTreeHook.
@@ -10,13 +10,13 @@ import useJiraUserHook from '../../../src/domain/hook/jira-user-hook';
  */
 describe('useJiraUserStorageHook', () => {
   let factoryMock: any;
-  let jiraApiMock: IJiraApi;
+  let jiraApiMock: IJiraUserApi;
 
   beforeEach(() => {
     // Setup mock
     factoryMock = GlobalFactory();
     factoryMock.initialize();
-    jiraApiMock = factoryMock.get(ServiceKeys.JiraApi);
+    jiraApiMock = factoryMock.get(ServiceKeys.JiraUserApi);
   });
 
   test('Testing useJiraUserStorageHook.getCurrentUser (positive): retrieves current user successfully', async () => {
