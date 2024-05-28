@@ -18,7 +18,7 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
         try {
             const name = props?.item?.fields?.status?.name;
             
-            if (name === undefined || name === null || typeof name !== 'string') {
+            if (!name || typeof name !== 'string') {
                 return '';
             }
             return name;
@@ -31,7 +31,7 @@ const StatusCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => 
         try {
             const statusName = props?.item?.fields?.status?.statusCategory?.key;
             
-            if (statusName === undefined || statusName === null || typeof statusName !== 'string') {
+            if (!statusName || typeof statusName !== 'string') {
                 return undefined;
             }
             return statusName;

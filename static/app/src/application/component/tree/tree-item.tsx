@@ -6,7 +6,6 @@ import imgError from "./item-no-image.png"
 import StatusCell from '../table/cells/status-cell';
 import useIssueHook from '../../../domain/hook/issue-hook';
 import Progress from '../../common/progress/progress';
-//className={styles.inputTextField}
 
 
 interface IProps {

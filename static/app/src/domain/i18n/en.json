@@ -28,6 +28,7 @@
     "with.epics.children": "With Epic's children",
     "maxResults.last.label": "Max Results in first levels",
     "issue.type": "Issue type",
-    "children.progress": "Children Progress"
+    "children.progress": "Children Progress",
+    "unassigned": "Unassigned"
 
 }
