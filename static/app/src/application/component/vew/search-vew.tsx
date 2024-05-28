@@ -144,7 +144,6 @@ const SearchView: React.FC = () => {
             setToggles(lastTreeToggles);
             setDataTree(lastDataTree);
             setProgress(100);
-            console.log("lastDataTree:", lastDataTree);
 
         } catch (error) {
             console.log(error);

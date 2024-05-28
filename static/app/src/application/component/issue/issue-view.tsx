@@ -22,7 +22,7 @@ interface IProps {
 const IssueView: React.FC<IProps> = (props: IProps) => {
 
     const { getObject } = useContext(FactoryContext);
-    const jiraHostApi: IJiraHost = getObject(ServiceKeys.StorageApi);
+    const jiraHostApi: IJiraHost = getObject(ServiceKeys.JiraHost);
     const { navigateToNewWindows } = useJiraHostHook(jiraHostApi);
     
     const { t } = useTranslation();
