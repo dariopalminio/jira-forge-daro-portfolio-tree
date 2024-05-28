@@ -19,9 +19,8 @@ import AppVersion from "./app-version";
  * @returns 
  */
 const ConfigStore: React.FC = () => {
-    const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
-
     const { getObject } = useContext(FactoryContext);
+    const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
 
     const { t } = useTranslation();
     
@@ -41,7 +40,7 @@ const ConfigStore: React.FC = () => {
         for (var i = 0; i < jiraOutwards.length; i++) {
             const item: CheckboxType = {
                 label: jiraOutwards[i],
-                checked: outwardsConfigured.includes(jiraOutwards[i])
+                checked: outwardsConfigured?.includes(jiraOutwards[i])
             }
             outwardsCk.push(item);
         }
@@ -55,7 +54,7 @@ const ConfigStore: React.FC = () => {
                 const outwardsCk: CheckboxType[] = getOutwardsCkecboxes(outwardsArray, configData.linksOutwards);
                 setOutwardsCheckboxes(outwardsCk);
             } catch (error) {
-                console.log(error);
+                console.error("Error by useEffect in ConfigStore UI component:", error);
             }
         }
         getData()

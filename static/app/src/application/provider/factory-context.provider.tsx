@@ -35,8 +35,6 @@ const FactoryContextProvider: FC<Props> = ({ children }) => {
       factory.initialize();
       setGlobalFactory(factory);
       setInitialized(true);  // Set initialized to true to force re-render
-      console.log("FactoryContextProvider-->useEffect");
-      console.log("FactoryContextProvider-->globalFactory", globalFactory);
   }, []);
 
   const getObject = (key: string) => {

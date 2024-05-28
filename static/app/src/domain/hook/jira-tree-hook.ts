@@ -10,9 +10,9 @@ import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tr
 export default function useJiraTreeHook(jiraApi: IJiraApi) {
 
     const [state, setState] = useState<IHookState>(InitialState);
-    const MAX_ALLOWED_LEVEL = 20;
+    const MAX_ALLOWED_LEVEL = 8;
 
-    const updateState = useCallback((newState) => {
+    const updateState = useCallback((newState: any) => {
         setState(prev => ({ ...prev, ...newState }));
     }, []);
 
@@ -117,8 +117,8 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
             if (linksOutwards && Array.isArray(linksOutwards) && linksOutwards.length > 0) {
                 outwards = linksOutwards;
             }
-            //const MAX_ALLOWED_LEVEL = 10;
-            const r: IssueTreeNodeType = await getTreeWithChildrenByLink(issuesTree, outwards, 1, maxLevel);
+            const initialLevel: number = 1;
+            const r: IssueTreeNodeType = await getTreeWithChildrenByLink(issuesTree, outwards, initialLevel, maxLevel);
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
             return r;
         } catch (error) {
@@ -208,7 +208,7 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
             }
             return outward;
         } catch (error) {
-            console.error(error);
+            console.error("Error in get outwards from jira:", error);
             throw error;
         }
     }, []);

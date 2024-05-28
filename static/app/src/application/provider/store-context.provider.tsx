@@ -21,12 +21,11 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     const getConfigDataFromStorage = async () => {
       try {
-        console.log("StoreContextProvider-->useEffect");
         const info: any | null = await getConfigStorage(); //fetch data from api
         setConfigData(info);
         setInitialized(true);  // Set initialized to true to force re-render
       } catch (error) {
-        console.log(error);
+        console.error("Error in useEffect when fetch data from api getConfigStorage: ", error);
       }
     }
 

@@ -15,7 +15,6 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
   const [initialized, setInitialized] = useState(false);  // State to control initialization
 
   useEffect(() => {
-    console.log("PortfolioContextProvider-->useEffect");
     const loadedJql = configData.lastJql;
     if (loadedJql !== '') {
       setJql(loadedJql);

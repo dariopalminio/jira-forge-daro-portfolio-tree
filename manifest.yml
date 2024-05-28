@@ -36,6 +36,7 @@ permissions:
     - storage:app
     - read:jira-work
     - read:connect-jira
+    - write:jira-work
   content:
     styles:
       - 'unsafe-inline'

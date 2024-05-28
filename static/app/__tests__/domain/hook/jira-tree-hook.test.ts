@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, cleanup, act } from '@testing-library/react';
 import { ServiceKeys } from '../../../src/domain/outgoing/service-key';
 import GlobalFactory from '../../../src/infrastructure/fake/global-factory-fake-mode';
 import { IJiraApi } from '../../../src/domain/outgoing/jira-api.interface';
@@ -21,10 +21,13 @@ describe('useJiraStorageHook', () => {
     jiraApiMock = factoryMock.get(ServiceKeys.JiraApi);
   });
 
-  test('Testing useJiraTreeHook.searchJql (positive): retrieves data successfully', async () => {
-    const mockData = { key: 'value' };
+  afterEach(() => {
+    cleanup();
+  });
 
-    const { result, waitForNextUpdate } = renderHook(() => useJiraTreeHook(jiraApiMock));
+  test('Testing useJiraTreeHook.searchJql (positive): retrieves data successfully', async () => {
+
+    const { result } = renderHook(() => useJiraTreeHook(jiraApiMock));
 
     expect(result.current.isProcessing).toBeFalsy();
     expect(result.current.hasError).toBeFalsy();
@@ -49,7 +52,7 @@ describe('useJiraStorageHook', () => {
   test('Testing useJiraTreeHook.addChildrenByParent (positive): retrieves tree data structure successfully', async () => {
     const mockData = { key: 'value' };
 
-    const { result, waitForNextUpdate } = renderHook(() => useJiraTreeHook(jiraApiMock));
+    const { result } = renderHook(() => useJiraTreeHook(jiraApiMock));
 
     expect(result.current.isProcessing).toBeFalsy();
     expect(result.current.hasError).toBeFalsy();

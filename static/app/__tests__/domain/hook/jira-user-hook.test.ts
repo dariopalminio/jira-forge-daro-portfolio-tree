@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, cleanup, act } from '@testing-library/react';
 import { ServiceKeys } from '../../../src/domain/outgoing/service-key';
 import GlobalFactory from '../../../src/infrastructure/fake/global-factory-fake-mode';
 import useJiraUserHook from '../../../src/domain/hook/jira-user-hook';
@@ -10,27 +10,31 @@ import { IJiraUserApi } from '../../../src/domain/outgoing/jira-user-api.interfa
  */
 describe('useJiraUserStorageHook', () => {
   let factoryMock: any;
-  let jiraApiMock: IJiraUserApi;
+  let jiraUserApiMock: IJiraUserApi;
 
   beforeEach(() => {
     // Setup mock
     factoryMock = GlobalFactory();
     factoryMock.initialize();
-    jiraApiMock = factoryMock.get(ServiceKeys.JiraUserApi);
+    jiraUserApiMock = factoryMock.get(ServiceKeys.JiraUserApi);
   });
 
-  test('Testing useJiraUserStorageHook.getCurrentUser (positive): retrieves current user successfully', async () => {
-    const mockData = { key: 'value' };
+  afterEach(() => {
+    cleanup();
+  });
 
-    const { result, waitForNextUpdate } = renderHook(() => useJiraUserHook(jiraApiMock));
+
+  test('Testing useJiraUserStorageHook.getCurrentUser (positive): retrieves current user successfully', async () => {
+    const { result } = renderHook(() => useJiraUserHook(jiraUserApiMock));
 
     expect(result.current.isProcessing).toBeFalsy();
     expect(result.current.hasError).toBeFalsy();
     expect(result.current.isSuccess).toBeFalsy();
 
     let infoUser: any;
+
     await act(async () => {
-        infoUser = await result.current.getCurrentUser();
+      infoUser = await result.current.getCurrentUser();
     });
 
     //Check status

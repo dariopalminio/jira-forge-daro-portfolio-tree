@@ -16,14 +16,9 @@ interface IProps {
 
 const PortfolioPanel: React.FC<IProps> = (props: IProps) => {
     const [tabSelected, setTabSelected] = useState<string>('SearchView');
-
     const { getObject } = useContext(FactoryContext);
-    console.log("*** Initialization: PortfolioPanel-->getObject", getObject);
-
     const jiraUserApi: IJiraUserApi = getObject(ServiceKeys.JiraUserApi);
     const { getCurrentUser } = useJiraUserHook(jiraUserApi);
-    console.log("*** Initialization: PortfolioPanel-->getCurrentUser", getCurrentUser);
-
     const { t, i18n } = useTranslation();
 
     /**
@@ -44,12 +39,10 @@ const PortfolioPanel: React.FC<IProps> = (props: IProps) => {
     }
 
     useEffect(() => {
-        console.log("PortfolioPanel-->useEffect");
         let isMounted = true;
         const getData = async () => {
             try {
                 const infoUser: any = await getCurrentUser();
-                console.log("Init infoUser:", infoUser);
                 if (infoUser) {
                     changeLngToUserLng(infoUser.locale);
                     return;

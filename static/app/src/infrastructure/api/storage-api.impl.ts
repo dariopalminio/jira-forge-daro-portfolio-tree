@@ -13,14 +13,13 @@ import { IStorageApi } from '../../domain/outgoing/storage-api.interface';
  */
 export default function StorageApiImpl(): IStorageApi {
 
-
     async function getConfigStorage(key: string): Promise<any> {
         try {
-            //console.log('--->InvokeIssue');
             const payload = {
                 key: key
             };
             const info: any | null = await invoke('getConfigStorage', payload);
+            console.log("invoke getConfigStorage, info:",info);
             return info;
         } catch (error) {
             console.error(error);

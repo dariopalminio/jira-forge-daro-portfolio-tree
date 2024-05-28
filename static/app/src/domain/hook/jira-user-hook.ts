@@ -11,7 +11,7 @@ export default function useJiraUserHook(jiraUserApi: IJiraUserApi) {
     const [state, setState] = useState<IHookState>(InitialState);
     const [currentUser, setCurrentUser] = useState<any>({});
 
-    const updateState = useCallback((newState) => {
+    const updateState = useCallback((newState: any) => {
         setState(prev => ({ ...prev, ...newState }));
     }, []);
 
@@ -20,7 +20,6 @@ export default function useJiraUserHook(jiraUserApi: IJiraUserApi) {
      * @returns Jira User Object
      */
     const getCurrentUser = useCallback(async () => {
-        console.log("*** Function: useJiraUserHook-->getCurrentUser");
         updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
         try {
             const currentUserData = await jiraUserApi.getCurrentUser();

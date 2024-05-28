@@ -1,13 +1,10 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import { ServiceKeys } from '../../../src/domain/outgoing/service-key';
+import { renderHook, cleanup, act } from '@testing-library/react';
 import GlobalFactory from '../../../src/infrastructure/fake/global-factory-fake-mode';
 import useJiraStorageHook from '../../../src/domain/hook/jira-storage-hook';
+import { ServiceKeys } from '../../../src/domain/outgoing/service-key';
 import { IStorageApi } from '../../../src/domain/outgoing/storage-api.interface';
 
-/**
- * Test the custom hook called useJiraStorageHook.
- * Testing based on fake API clients to simulate API requests
- */
+
 describe('useJiraStorageHook', () => {
   let factoryMock: any;
   let storageApiMock: IStorageApi;
@@ -19,31 +16,26 @@ describe('useJiraStorageHook', () => {
     storageApiMock = factoryMock.get(ServiceKeys.StorageApi);
   });
 
+  afterEach(() => {
+    cleanup();
+  });
+
   test('Testing useJiraStorageHook.getConfigStorage (positive): retrieves configuration successfully', async () => {
-    const mockData = { key: 'value' };
 
-    const { result, waitForNextUpdate } = renderHook(() => useJiraStorageHook(storageApiMock));
-
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.hasError).toBeFalsy();
-    expect(result.current.isSuccess).toBeFalsy();
+    const { result } = renderHook(() => useJiraStorageHook(storageApiMock));
 
     let configStorage: any;
+
     await act(async () => {
       configStorage = await result.current.getConfigStorage();
     });
 
-    //Check status
     expect(result.current.isProcessing).toBeFalsy();
     expect(result.current.isSuccess).toBeTruthy();
     expect(result.current.msg).toBe('');
     expect(result.current.hasError).toBeFalsy();
 
-    //Check function response data
     expect(configStorage.linksOutwards.length).toBe(1);
     expect(configStorage.linksOutwards[0]).toBe('includes');
-    
   });
-
-
 });

@@ -18,9 +18,10 @@ export default function useJiraStorageHook(storageApi: IStorageApi) {
         try {
             const data = await storageApi.getConfigStorage(CONFIG_KEY);
             setState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
-            return data || ConfigStorageDataDefault;
+            const dataStructured: ConfigStorageDataType = {...ConfigStorageDataDefault, ...data}
+            return dataStructured || ConfigStorageDataDefault;
         } catch (error) {
-            console.error(error);
+            console.error("Error in Hook named useJiraStorageHook: ", error);
             setState({ ...state, hasError: true, msg: 'Error fetching configuration' });
             return ConfigStorageDataDefault;
         }
