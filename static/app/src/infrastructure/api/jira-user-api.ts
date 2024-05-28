@@ -11,20 +11,14 @@ import { IJiraUserApi } from '../../domain/outgoing/jira-user-api.interface';
  */
 export default function JiraUserApiImpl(): IJiraUserApi {
 
-
-
     async function getCurrentUser(): Promise<any> {
-        console.log("CALL!!! JiraUserApiImpl.getCurrentUser");
         try {
             const data: any = await invoke('getCurrentUser',);
-            console.log("CALLED!!! JiraUserApiImpl.getCurrentUser invoke");
             return data;
         } catch (error) {
             throw error;
         }
     };
-
-
 
     return {
         getCurrentUser
