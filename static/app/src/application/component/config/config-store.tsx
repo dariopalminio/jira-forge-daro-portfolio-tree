@@ -95,27 +95,6 @@ const ConfigStore: React.FC = () => {
         setConfigHasChanges(true);
     }
 
-    const handleMaxResultsChange = async (val: string) => {
-        try {
-            const maxResultsNumber: number = Number(val);
-            const maxResultsStr: string = Math.abs(maxResultsNumber).toString();
-            if (maxResultsStr === 'NaN') {
-                throw new Error('Number of maxResults has format error');
-            }
-            if (maxResultsStr === '0') {
-                throw new Error('Number of maxResults Must be greater than zero');
-            }
-            setConfigData({ ...configData, maxResults: maxResultsStr });
-            setConfigHasChanges(true);
-        } catch (error) {
-            console.log('Error in handleMaxResultsChange function: ', error);
-        };
-    }
-
-    const getAppVersion = () => {
-        return process.env.REACT_APP_VERSION;
-    }
-
     return (
         <div>
             <p style={{ fontSize: "11px", color: "grey" }}>
@@ -133,17 +112,6 @@ const ConfigStore: React.FC = () => {
                     <CheckboxGroup
                         checkboxesList={outwardsCheckboxes}
                         onChange={(checkboxesListEdited: CheckboxType[], index: number) => handleOnChangeOutwards(checkboxesListEdited, index)}
-                    />
-                </div>
-
-                <div style={{ display: 'flex', width: '100%', marginTop: '10px' }}>
-                    <label>{t("maxResults.last.label")}:</label>
-                    <TextField
-                        style={{ marginLeft: '5px', width: '100px' }}
-                        id="maxResults-textfield-config"
-                        placeholder="Here text..."
-                        onChange={(e) => handleMaxResultsChange(e.target.value)}
-                        value={configData.maxResults}
                     />
                 </div>
 

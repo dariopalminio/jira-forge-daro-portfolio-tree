@@ -12,8 +12,7 @@ export default function StorageApiFake(): IStorageApi {
         return {
             updatedAt: '',
             linksOutwards: ['includes'],
-            lastJql: '',
-            maxResults: '100'
+            lastJql: ''
         }
     };
 
