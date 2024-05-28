@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import useJiraHook from "../../../domain/hook/jira-hook";
+import useJiraTreeHook from "../../../domain/hook/jira-tree-hook";
 import Button from "../../common/button/button";
 import TextField from "../../common/text-field/text-field";
 import { IColHeader } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
-import PortfolioContext from "../../../domain/context/portfolio-context";
+import PortfolioContext from "../../provider/portfolio-context";
 import styles from './search-view.module.css';
 import { ModalDialog } from "../../common/dialog";
 import { TabsType } from "../../common/tab-panel/types";
@@ -13,23 +13,29 @@ import Tabs from "../../common/tab-panel/tabs";
 import RoadmapViewPanel from "./roadmaps-view-panel";
 import TableViewPanel from "./table-view-panel";
 import TreeViewPanel from "./tree-view-panel";
-import useJiraHostHook from "../../../domain/hook/jira-host-hook";
 import IssueView from "../issue/issue-view";
 import Loading from "../../common/loading/loading";
-import StoreContext from "../../../domain/context/store-context";
+import StoreContext from "../../provider/store-context";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
-import useStorageHook from "../../../domain/hook/storage-hook";
+import useJiraStorageHook from "../../../domain/hook/jira-storage-hook";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
+import FactoryContext from "../../provider/factory-context";
+import { ServiceKeys } from "../../../domain/outgoing/service-key";
+import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
+import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
 
 
 const SearchView: React.FC = () => {
-
-    const { searchJql, getTreeTogglesFrom, addChildrenByLink, addChildrenByParent,
-        isProcessing, hasError, msg, isSuccess } = useJiraHook();
+    const { getObject } = useContext(FactoryContext);
+    const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
+    const { getTreeFromJQL, getTreeTogglesFrom, addChildsToTreeByLink, addChildsToTreeByParent,
+        isProcessing, hasError, msg, isSuccess } = useJiraTreeHook(jiraApi);
     const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
-    const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
-    const { getConfigStorage,
-        setConfigStorage } = useStorageHook();
+    const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
+
+    const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
+
+
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
@@ -109,50 +115,40 @@ const SearchView: React.FC = () => {
         }
     ];
 
-    const getMaxResults = (): number => {
-        //console.log('***configData?.maxResults:', configData?.maxResults);
-        if (!configData?.maxResults || configData?.maxResults === '' || configData?.maxResults === null) {
-            return 15;
-        }
-        const maxResults: number = Number(configData?.maxResults);
-        //console.log('***maxResults:', Math.abs(maxResults));
-        return Math.abs(maxResults);
-    }
-
     const searchData = async () => {
         try {
-            const MAX_ALLOWED_LEVEL = 10;
+            const MAX_ALLOWED_LEVEL = 7;
+
             //load first level, generally are Initiatives
             setProgress(0);
             setProgressTitle('Loading JQL with tree first level...');
-            const dataTree: IssueTreeNodeType | undefined = await searchJql(jql, getMaxResults(), 0);
+            const dataTree: IssueTreeNodeType | undefined = await getTreeFromJQL(jql);
             if (dataTree === undefined) throw new Error('Search JQL not found data!')
             const treeToggles = getTreeTogglesFrom(dataTree);
             setToggles(treeToggles);
             setDataTree(dataTree);
             setProgress(30);
             setProgressTitle('Loading childs by links to all tree levels...');
+
             //load childs by links to all levels
-            const newDataTree: IssueTreeNodeType = await addChildrenByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
+            const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
             const newTreeToggles = getTreeTogglesFrom(newDataTree);
             setToggles(newTreeToggles);
             setDataTree(newDataTree);
             setProgress(60);
             setProgressTitle('Loading childs by parent to all tree levels ...');
+
             //load Epics children and children by parent
-            const lastDataTree: IssueTreeNodeType = await addChildrenByParent(newDataTree, 150, 0, MAX_ALLOWED_LEVEL);
+            const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, MAX_ALLOWED_LEVEL);
             const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
             setToggles(lastTreeToggles);
             setDataTree(lastDataTree);
             setProgress(100);
+
         } catch (error) {
             console.log(error);
         }
     }
-
-    useEffect(() => {
-        //getDatas()
-    }, []);
 
     const handleSearch = () => {
         searchData()
@@ -207,7 +203,7 @@ const SearchView: React.FC = () => {
                     </div>
                     <div style={{ float: 'right' }}>
 
-                    
+
                         <Button style={{ marginLeft: '5px' }}
                             onClick={() => handleSave()}
                             styleType={"neutro"} >

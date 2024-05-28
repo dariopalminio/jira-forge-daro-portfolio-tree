@@ -2,23 +2,21 @@
 import JiraApiImpl from "./api/jira-api.impl";
 import StorageApiImpl from "./api/storage-api.impl";
 import JiraHostImpl from "./api/jira-host.impl";
+import JiraUserApiImpl from "./api/jira-user-api";
 import { ServiceKeys } from '../domain/outgoing/service-key';
 
 /**
  * Global Factory for dependency injection
- * This is used to inversion of control (IoC). 
- * A IoC container is used to identify and inject its dependencies using functional programming.
- * @returns 
+ * @returns initialize, get
  */
 export default function GlobalFactory() {
     const container: Map<string, any> = new Map();
 
     const initialize = () => { //IN PROD
-            console.log("IS FAKE: running on PROD environment...");;
-            container.set(ServiceKeys.JiraApi, StorageApiImpl());
-            container.set(ServiceKeys.StorageApi, JiraApiImpl());
+            container.set(ServiceKeys.JiraApi, JiraApiImpl());
+            container.set(ServiceKeys.StorageApi, StorageApiImpl());
             container.set(ServiceKeys.JiraHost, JiraHostImpl());
-
+            container.set(ServiceKeys.JiraUserApi, JiraUserApiImpl());
     }
 
     //Get instance for key name

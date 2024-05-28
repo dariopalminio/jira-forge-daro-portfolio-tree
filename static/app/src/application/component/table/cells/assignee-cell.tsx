@@ -39,6 +39,10 @@ interface IPropsAssigneeCell {
     item: any;
     colHeader?: IColHeader;
 }
+
+/**
+ * AssigneeCell component 
+ */
 const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
 
     const getAvatarUrl = (): string | undefined => {

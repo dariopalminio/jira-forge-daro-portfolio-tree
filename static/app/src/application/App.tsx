@@ -1,58 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import ConfigStore from './component/config/config-store';
+import React, { useState } from 'react';
 import styles from './App.module.css';
 import { useTranslation } from "react-i18next";
-import SearchJql from './component/vew/search-vew';
-import useJiraHook from '../domain/hook/jira-hook';
-import { supportedLngs } from '../domain/i18n/supported-lngs';
-import PortfolioContextProvider from './component/provider/portfolio.provider';
+import PortfolioContextProvider from './provider/portfolio-context.provider';
 import PortfolioPanel from './component/portfolio-panel';
-import StoreContextProvider from './component/provider/store.provider';
-
+import StoreContextProvider from './provider/store-context.provider';
+import FactoryContextProvider from './provider/factory-context.provider';
+import 'normalize.css';
 
 
 function App() {
-    const { getCurrentUser } = useJiraHook();
-    const [currentUser, setCurrentUser] = useState<any>({});
-    const { t, i18n } = useTranslation();
-
-    /**
-     * Change the language to display in the browser based on the language of the current user
-     */
-    const changeLngToUserLng = (locale: string) => {
-        if (locale === undefined || typeof locale != 'string' || locale.trim() === '') {
-            console.log('The locale not detected for current user.');
-            return;
-        }
-        let lng: string = locale.toLowerCase();
-        lng = lng.substring(0, 2); // 'es_ES' -> 'es'
-        if (!supportedLngs.includes(lng)) {
-            console.log('The locale is not includedin this app.');
-            return;
-        }
-        i18n.changeLanguage(lng);
-    }
-
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const infoUser: any = await getCurrentUser();
-                setCurrentUser(infoUser);
-                changeLngToUserLng(infoUser.locale);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getData()
-    }, []);
 
     return (
         <div className={styles.app}>
-            <StoreContextProvider>
-                <PortfolioContextProvider>
-                    <PortfolioPanel />
-                </PortfolioContextProvider>
-            </StoreContextProvider>
+            <FactoryContextProvider>
+                <StoreContextProvider>
+                    <PortfolioContextProvider>
+                        <PortfolioPanel />
+                    </PortfolioContextProvider>
+                </StoreContextProvider>
+            </FactoryContextProvider>
             <br />
         </div>
     );

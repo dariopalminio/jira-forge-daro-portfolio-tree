@@ -1,22 +1,23 @@
 
-import * as GlobalConfig from '../../infrastructure/global.config';
 import { IJiraHost } from '../outgoing/jira-host.interface';
-import { ServiceKeys } from '../outgoing/service-key';
+import { useCallback } from 'react';
 
 /**
- * Custom hook
+ * Custom hook to interact with JiraHost services.
  * 
- * @returns 
  */
-export default function useJiraHostHook() {
+export default function useJiraHostHook(jiraHostApi: IJiraHost) {
 
-    const jiraApi: IJiraHost = GlobalConfig.Factory.get(ServiceKeys.JiraHost);
-
-    async function navigateToNewWindows(relativeUrl: string): Promise<void> {
-        jiraApi.navigateToNewWindows(relativeUrl);
-    };
+    const navigateToNewWindows = useCallback(async (relativeUrl: string): Promise<void> => {
+        try {
+            await jiraHostApi.navigateToNewWindows(relativeUrl); //redirect
+        } catch (error) {
+            console.error("Failed to navigate to new windows:", error);
+            // TODO: Handle errors appropriately, e.g., showing user feedback
+        }
+    }, []);
 
     return {
         navigateToNewWindows
     };
-};
+}

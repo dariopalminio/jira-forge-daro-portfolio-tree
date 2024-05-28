@@ -10,7 +10,7 @@ interface IProps {
 }
 
 /**
- * 
+ * TimeLine component
  */
 const TimeLine: React.FC<IProps> = (props: IProps) => {
 

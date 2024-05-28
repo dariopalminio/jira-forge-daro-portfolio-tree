@@ -1,6 +1,9 @@
 import { requestJira } from '@forge/bridge';
-import { invoke } from '@forge/bridge';
 import { IJiraApi } from '../../domain/outgoing/jira-api.interface';
+
+//The "maxResults" parameter indicates how many results to return per page. 
+//Each API may have a different limit for number of items returned.
+const MAX_RESULT = 100;
 
 /**
  * Jira API
@@ -12,62 +15,57 @@ import { IJiraApi } from '../../domain/outgoing/jira-api.interface';
 export default function JiraApiImpl(): IJiraApi {
 
 
+    /**
+     * Search JQL
+     * 
+     * @param jql - String for search with Jira Query Language (JQL)
+     * @returns Promise<any[]> - array of issues
+     */
+    async function searchJql(jql: string): Promise<any[]> {
+        let allIssues: any[] = [];
+        let startAt = 0; //The "startAt" indicates which item should be used as the first item in the page of results.
+        let isFetching = true;
+        while (isFetching) {
+            try {
+                const body = {
+                    "expand": ["names", "children", "descendants"],
+                    "jql": jql,
+                    "maxResults": MAX_RESULT,
+                    "fieldsByKeys": false,
+                    "fields": ["summary", "status", "assignee", "issuelinks", "duedate", "created", "customfield_10015", "issuetype", "project", "subtasks"
+                    ],
+                    "startAt": startAt
+                };
+                const response = await requestJira(`/rest/api/3/search`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
 
-    async function getCurrentUser(): Promise<any> {
-        try {
-            const data: any = await invoke('getCurrentUser',);
-            return data;
-        } catch (error) {
-            throw error;
-        }
-    };
+                const data = await response.json();
 
-    async function searchJql(jql: string, maxResults: number, startAt: number): Promise<any> {
-        try {
-            const body = {
-                "expand": [
-                    "names",
-                    "children",
-                    "descendants"
-                ],
-                "jql": jql,
-                "maxResults": maxResults,
-                "fieldsByKeys": false,
-                "fields": [
-                    "summary",
-                    "status",
-                    "assignee",
-                    "issuelinks",
-                    "duedate",
-                    "created",
-                    "customfield_10015",
-                    "issuetype",
-                    "project",
-                    "subtasks"
-                ],
-                "startAt": startAt
-            };
-            const response = await requestJira(`/rest/api/3/search`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(body)
-            });
-            console.error('***searchJql.response:', response);
-            const data = await response.json();
-            console.error('***searchJql.response.json():', data);
-            if (response.status !== 200) {
-                const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in searchJql function!'
-                throw new Error(errorMessages);
+                if (response.status !== 200) {
+                    const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in searchJql function!'
+                    throw new Error(errorMessages);
+                }
+
+                allIssues = allIssues.concat(data.issues);
+                startAt += data.issues.length;
+
+                // Check if we have fetched all available issues
+                if (startAt >= data.total) {
+                    isFetching = false;
+                }
+            } catch (error) {
+                console.error('***searchJql.catch error***');
+                console.error('***searchJql.catch error:', error);
+                throw error;
             }
-            return data;
-        } catch (error) {
-            console.error('***searchJql.catch error***');
-            console.error('***searchJql.catch error:', error);
-            throw error;
         }
+        return allIssues;
     };
 
     /**
@@ -139,64 +137,63 @@ export default function JiraApiImpl(): IJiraApi {
 
     /**
      * Get children issues
+     * 
      * Query JQL examples: 
      * - example 1: parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} ORDER BY rank
      * - example 2: 'Epic Link' =${epicKey} order by created DESC
-     * @param parentKey 
-     * @returns 
+     * 
+     * Clients can use the "startAt" and "maxResults" parameters to retrieve the desired numbers of results.
+     * The "maxResults" parameter indicates how many results to return per page. Each API may have a different limit for number of items returned.
+     * @param parentKey - identifier of the parent for whom we want to search for the children.
+     * @returns response.json()
      */
-    async function getChildrens(parentKey: string, maxResults: number, startAt: number): Promise<any> {
-        try {
-            const jql = `parent=${parentKey} OR 'Epic Link'=${parentKey} OR 'Parent Link'=${parentKey} order by created DESC`;
-            //console.log(`parent=${epicKey} OR 'Epic Link'=${epicKey} OR 'Parent Link'=${epicKey} order by created DESC`);
+    async function getChildrens(parentKey: string): Promise<any[]> {
+        let allIssues: any[] = [];
+        let startAt = 0;
+        let isFetching = true;
+        while (isFetching) {
+            try {
+                const jql = `parent=${parentKey} OR 'Epic Link'=${parentKey} OR 'Parent Link'=${parentKey} order by created DESC`;
 
-            const body = {
-                "expand": [
-                    "names",
-                    "children",
-                    "descendants"
-                ],
-                "jql": jql,
-                "maxResults": maxResults,
-                "fieldsByKeys": false,
-                "fields": [
-                    "summary",
-                    "status",
-                    "assignee",
-                    "issuelinks",
-                    "duedate",
-                    "created",
-                    "customfield_10015",
-                    "issuetype",
-                    "project",
-                    "subtasks"
-                ],
-                "startAt": startAt
-            };
-            const response = await requestJira(`/rest/api/3/search`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(body)
-            });
-            const data = await response.json();
-            //console.log(`data=${data}`);
-            if (response.status !== 200) {
-                const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in getIssuesByEpikLink function!'
-                throw new Error(errorMessages);
+                const body = {
+                    "expand": ["names","children","descendants"],
+                    "jql": jql,
+                    "maxResults": MAX_RESULT,
+                    "fieldsByKeys": false,
+                    "fields": ["summary","status","assignee","issuelinks","duedate","created","customfield_10015","issuetype","project","subtasks"
+                    ],
+                    "startAt": startAt
+                };
+                const response = await requestJira(`/rest/api/3/search`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json();
+                if (response.status !== 200) {
+                    const errorMessages = data?.errorMessages ? data.errorMessages : 'Internal error in getIssuesByEpikLink function!'
+                    throw new Error(errorMessages);
+                }
+                allIssues = allIssues.concat(data.issues);
+                startAt += data.issues.length;
+
+                // Check if we have fetched all available issues
+                if (startAt >= data.total) {
+                    isFetching = false;
+                }
+            } catch (error) {
+                console.error(error);
+                throw error;
             }
-            return data;
-        } catch (error) {
-            console.error(error);
-            throw error;
         }
+        return allIssues;
     }
 
     return {
         searchJql,
-        getCurrentUser,
         getIssueBySelf,
         getIssueLinkTypes,
         getChildrens,

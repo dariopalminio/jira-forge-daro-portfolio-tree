@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { IColHeader } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
-import PortfolioContext from "../../../domain/context/portfolio-context";
+import PortfolioContext from "../../provider/portfolio-context";
 import { useTranslation } from "react-i18next";
 import { Tree } from "../tree";
 

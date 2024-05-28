@@ -1,22 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import StoreContext from "../../../domain/context/store-context";
-import useJiraHook from '../../../domain/hook/jira-hook';
-import useStorageHook from "../../../domain/hook/storage-hook";
+import StoreContext from "../../provider/store-context";
+import FactoryContext from "../../provider/factory-context";
+import useJiraTreeHook from '../../../domain/hook/jira-tree-hook';
+import useJiraStorageHook from "../../../domain/hook/jira-storage-hook";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
 import Button from "../../common/button/button";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
 import CheckboxGroup from "../../common/checkbox/checkbox-group";
 import TextField from "../../common/text-field/text-field";
+import { ServiceKeys } from '../../../domain/outgoing/service-key';
+import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
+import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
+import AppVersion from "./app-version";
 
+/**
+ * ConfigStore component
+ * @returns 
+ */
 const ConfigStore: React.FC = () => {
-    //const [configData, setConfigData] = useState(null);
-    const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
+    const { getObject } = useContext(FactoryContext);
+    const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
 
-    const { getConfigStorage,
-        setConfigStorage } = useStorageHook();
     const { t } = useTranslation();
-    const { getOutwardsFromJira } = useJiraHook();
+    
+    const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
+    const { getOutwardsFromJira } = useJiraTreeHook(jiraApi);
+
     const [outwardsCheckboxes, setOutwardsCheckboxes] = useState<CheckboxType[]>([]);
 
 
@@ -30,7 +40,7 @@ const ConfigStore: React.FC = () => {
         for (var i = 0; i < jiraOutwards.length; i++) {
             const item: CheckboxType = {
                 label: jiraOutwards[i],
-                checked: outwardsConfigured.includes(jiraOutwards[i])
+                checked: outwardsConfigured?.includes(jiraOutwards[i])
             }
             outwardsCk.push(item);
         }
@@ -44,7 +54,7 @@ const ConfigStore: React.FC = () => {
                 const outwardsCk: CheckboxType[] = getOutwardsCkecboxes(outwardsArray, configData.linksOutwards);
                 setOutwardsCheckboxes(outwardsCk);
             } catch (error) {
-                console.log(error);
+                console.error("Error by useEffect in ConfigStore UI component:", error);
             }
         }
         getData()
@@ -85,26 +95,11 @@ const ConfigStore: React.FC = () => {
         setConfigHasChanges(true);
     }
 
-    const handleMaxResultsChange = async (val: string) => {
-        try {
-            const maxResultsNumber: number = Number(val);
-            const maxResultsStr: string = Math.abs(maxResultsNumber).toString();
-            if (maxResultsStr === 'NaN') {
-                throw new Error('Number of maxResults has format error');
-            }
-            if (maxResultsStr === '0') {
-                throw new Error('Number of maxResults Must be greater than zero');
-            }
-            setConfigData({ ...configData, maxResults: maxResultsStr });
-            setConfigHasChanges(true);
-        } catch (error) {
-            console.log('Error in handleMaxResultsChange function: ', error);
-        };
-    }
-
     return (
         <div>
-            <p style={{ fontSize: "11px", color: "grey" }}>Version 1.3.0 (versión de prueba)</p>
+            <p style={{ fontSize: "11px", color: "grey" }}>
+                <AppVersion/>
+            </p>
             <p style={{ fontSize: "11px", color: "grey" }}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
 
             <form>
@@ -117,17 +112,6 @@ const ConfigStore: React.FC = () => {
                     <CheckboxGroup
                         checkboxesList={outwardsCheckboxes}
                         onChange={(checkboxesListEdited: CheckboxType[], index: number) => handleOnChangeOutwards(checkboxesListEdited, index)}
-                    />
-                </div>
-
-                <div style={{ display: 'flex', width: '100%', marginTop: '10px' }}>
-                    <label>{t("maxResults.last.label")}:</label>
-                    <TextField
-                        style={{ marginLeft: '5px', width: '100px' }}
-                        id="maxResults-textfield-config"
-                        placeholder="Here text..."
-                        onChange={(e) => handleMaxResultsChange(e.target.value)}
-                        value={configData.maxResults}
                     />
                 </div>
 

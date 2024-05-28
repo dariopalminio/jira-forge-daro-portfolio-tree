@@ -1,11 +1,19 @@
-import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
+import { IStorageApi } from "../../domain/outgoing/storage-api.interface";
 
+/**
+ * Jira Storage Api FAKE (mocked)
+ * 
+ * In this mode, API client responses are simulated with FAKE responses.
+ */
 export default function StorageApiFake(): IStorageApi {
 
 
     async function getConfigStorage(key: string): Promise<any> {
         return {
-          }
+            updatedAt: '',
+            linksOutwards: ['includes'],
+            lastJql: ''
+        }
     };
 
     /**
@@ -14,12 +22,12 @@ export default function StorageApiFake(): IStorageApi {
      * @returns 
      */
     async function setConfigStorage(key: string, data: any): Promise<any> {
-  
-            const payload = {
-                key: key, //'CONFIG'
-                data: data
-            };
-            return data;
+
+        const payload = {
+            key: key, //'CONFIG'
+            data: data
+        };
+        return data;
 
     };
 

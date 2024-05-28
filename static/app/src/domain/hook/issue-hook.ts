@@ -1,64 +1,29 @@
 
-import * as GlobalConfig from '../../infrastructure/global.config';
 import { IssueTreeNodeType } from '../model/tree-types';
 
 
 /**
  * useIssueHook Custom hook
- *         const startdate: string = props.treeItem?.fields?.customfield_10015;
-        if (!startdate || startdate === undefined || startdate === '') {
-            return 0;
-        }
- * @returns 
  */
 export default function useIssueHook() {
-
+    
     const issueTypeNameOf = (issueTree: IssueTreeNodeType): string => {
-        const name: string = issueTree?.fields?.issuetype?.name? issueTree.fields.issuetype.name  : '';
+        const name: string = issueTree?.fields?.issuetype?.name || '';
         return name;
     }
 
     const statusKeyOf = (issueTree: IssueTreeNodeType): string => {
-        try {
-            const statusName = issueTree?.fields?.status?.statusCategory?.key;
-
-            if (statusName === undefined || statusName === null || typeof statusName !== 'string') {
-                return '';
-            }
-            return statusName;
-        } catch (error) {
-            return '';
-        }
+        return issueTree?.fields?.status?.statusCategory?.key || '';
     }
 
     const stardateOf = (issueTree: IssueTreeNodeType): string => {
-        try {
-            const stardate: string = issueTree?.fields?.customfield_10015;
-
-            if (stardate === undefined || stardate === null || typeof stardate !== 'string') {
-                return '';
-            }
-
+            const stardate: string = issueTree?.fields?.customfield_10015 || '';
             return stardate;
-        } catch (error) {
-            console.log('Error reading stardate with field named customfield_10015:', error);
-            return '';
-        }
     }
 
     const duedateOf = (issueTree: IssueTreeNodeType): string => {
-        try {
-            const duedate: string = issueTree?.fields?.duedate;
-
-            if (duedate === undefined || duedate === null || typeof duedate !== 'string') {
-                return '';
-            }
-
+            const duedate: string = issueTree?.fields?.duedate || '';
             return duedate;
-        } catch (error) {
-            console.log('Error reading duedate:', error);
-            return '';
-        }
     }
 
     /**

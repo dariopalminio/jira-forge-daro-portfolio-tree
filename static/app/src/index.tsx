@@ -5,7 +5,7 @@ import './infrastructure/i18n/i18n-index';
 
 //import './index.css';
 
-import '@atlaskit/css-reset';
+//import '@atlaskit/css-reset';
 
 
 ReactDOM.render(
