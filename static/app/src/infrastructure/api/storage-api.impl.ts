@@ -19,7 +19,6 @@ export default function StorageApiImpl(): IStorageApi {
                 key: key
             };
             const info: any | null = await invoke('getConfigStorage', payload);
-            console.log("invoke getConfigStorage, info:",info);
             return info;
         } catch (error) {
             console.error(error);

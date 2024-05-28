@@ -17,13 +17,10 @@ export default function GlobalFactory() {
             container.set(ServiceKeys.StorageApi, StorageApiImpl());
             container.set(ServiceKeys.JiraHost, JiraHostImpl());
             container.set(ServiceKeys.JiraUserApi, JiraUserApiImpl());
-            console.log("*** GlobalFactory-->initialize");
     }
 
     //Get instance for key name
     const get = (key: string) => {
-        console.log("*** GlobalFactory-->get(key):", key);
-        console.log("*** GlobalFactory-->get, container.get(key):", container.get(key));
         return container.get(key);
     };
 
