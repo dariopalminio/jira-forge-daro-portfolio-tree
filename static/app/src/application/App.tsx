@@ -5,7 +5,7 @@ import PortfolioContextProvider from './provider/portfolio-context.provider';
 import PortfolioPanel from './component/portfolio-panel';
 import StoreContextProvider from './provider/store-context.provider';
 import FactoryContextProvider from './provider/factory-context.provider';
-
+import 'normalize.css';
 
 
 function App() {
