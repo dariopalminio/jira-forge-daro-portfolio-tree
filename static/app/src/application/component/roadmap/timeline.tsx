@@ -23,7 +23,7 @@ const TimeLine: React.FC<IProps> = (props: IProps) => {
                 qdays += value[i].days;
             }
             quartesReactNode.push(
-                <div className={styles.quarterTimeBlock} 
+                <div key={'quarter_' + key} className={styles.quarterTimeBlock} 
                     style={{ width: `${((qdays * 2) -1)}px` }} >
                     <span className={styles.quarterText}>{key}</span>
                 </div>
@@ -41,7 +41,7 @@ const TimeLine: React.FC<IProps> = (props: IProps) => {
         for (const [key, value] of Object.entries(props.quarters.data)) {
             for (let i = 0; i < value.length; i++) {
                 monthsReactNode.push(
-                    <div className={styles.monthTimeBlock} 
+                    <div key={'month_' + key + '_i_' + i} className={styles.monthTimeBlock} 
                         style={{ width: `${(value[i].days * 2)-1}px` }}>
                         <span className={styles.monthText}>{value[i].month}</span>
                     </div>

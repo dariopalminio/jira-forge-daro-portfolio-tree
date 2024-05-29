@@ -30,7 +30,7 @@ const TableSelectable: React.FC<IProps> = (props: IProps) => {
 
     const getHeaderCellElements = (): React.ReactNode => {
         return props.headers?.map((element: IColHeader, index: number) => {
-            return (
+            return (element.isVisible &&
                 <div key={index} style={{width: element.width}}>
                     {element.label}
                 </div>
@@ -39,14 +39,16 @@ const TableSelectable: React.FC<IProps> = (props: IProps) => {
     }
 
     const getGridTemplateColumns = ()=> {
-        const cols = props.headers?.length;
+        const cols = props.headers.filter(header => header.isVisible).length;
         return {gridTemplateColumns: `repeat(${cols}, 1fr)`};
     }
 
     const getTableWidth = ()=> {
         let width: number = 0;
         for (var i = 0; i < props.headers.length; i++) {
-            width = width + props.headers[i].width;
+            if (props.headers[i].isVisible){
+                width = width + props.headers[i].width;
+            }
         }
         return width;
     }
@@ -67,7 +69,7 @@ const TableSelectable: React.FC<IProps> = (props: IProps) => {
                         (item: any, index: number) => {
                             return (
                                 <TableSelectableItem 
-                                key={index} 
+                                key={'table' + item.key + '_i_' + index} 
                                 headers={props.headers}
                                 level={0}
                                 toggles={props.toggles}

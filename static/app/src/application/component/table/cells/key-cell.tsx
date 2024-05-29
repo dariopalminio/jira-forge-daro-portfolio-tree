@@ -22,7 +22,7 @@ interface IPropsAssigneeCell {
 const KeyCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
 
     const { getObject } = useContext(FactoryContext);
-    const jiraHostApi: IJiraHost = getObject(ServiceKeys.StorageApi);
+    const jiraHostApi: IJiraHost = getObject(ServiceKeys.JiraHost);
     const { navigateToNewWindows } = useJiraHostHook(jiraHostApi);
 
     const getPaddingLeft = (): string => {

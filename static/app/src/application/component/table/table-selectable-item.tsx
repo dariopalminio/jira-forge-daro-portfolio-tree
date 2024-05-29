@@ -22,8 +22,8 @@ interface IProps {
  * TableSelectableItem component
  */
 const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, toggles, togglesChange }) => {
-    const {statusKeyOf,
-        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf, getChildrenProgressCount} = useIssueHook();
+    const { statusKeyOf,
+        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf, getChildrenProgressCount } = useIssueHook();
 
     const handleOnClick = (item: any) => {
         onClick(item);
@@ -48,19 +48,20 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
     }
 
     const getCellElement = (colHeader: IColHeader, index: number): React.ReactNode => {
+        const keyIndex = 'cell_' + item.key + '_i_' + index;
         switch (colHeader.prop) {
             case 'key': {
                 return (
-                    <KeyCell key={index} item={item} colHeader={colHeader} toggles={toggles} togglesChange={togglesChange} />)
+                    <KeyCell key={keyIndex} item={item} colHeader={colHeader} toggles={toggles} togglesChange={togglesChange} />)
             }
             case 'assignee': {
                 return (
-                    <AssigneeCell key={index} item={item} colHeader={colHeader} />
+                    <AssigneeCell key={keyIndex} item={item} colHeader={colHeader} />
                 )
             }
             case 'issuetype': {
                 return (
-                    <div key={index} style={{ width: colHeader.width, cursor: 'pointer' }}
+                    <div key={keyIndex} style={{ width: colHeader.width, cursor: 'pointer' }}
                         onClick={() => handleOnClick(item)}>
                         <label className={styles.textOverflow}
                             style={{ cursor: 'pointer' }}
@@ -72,7 +73,7 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
             }
             case 'summary': {
                 return (
-                    <div key={index} style={{ width: colHeader.width, cursor: 'pointer' }}
+                    <div key={keyIndex} style={{ width: colHeader.width, cursor: 'pointer' }}
                         onClick={() => handleOnClick(item)}>
                         <label className={styles.textOverflow}
                             style={{ cursor: 'pointer' }}
@@ -84,43 +85,44 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
             }
             case 'status': {
                 return (
-                    <StatusCell key={index} item={item} colHeader={colHeader} />
+                    <StatusCell key={keyIndex} item={item} colHeader={colHeader} />
                 )
             }
             case 'startdate': {
-                const labelColor: string = isStartdateExpiredAndTodo(item)? 'red': 'black';
+                const labelColor: string = isStartdateExpiredAndTodo(item) ? 'red' : 'black';
                 return (
-                    <div key={index} style={{ width: colHeader.width, color: `${labelColor}` }}>
+                    <div key={keyIndex} style={{ width: colHeader.width, color: `${labelColor}` }}>
                         {item?.fields?.customfield_10015}
                     </div>
                 )
             }
             case 'duedate': {
-                const labelColor: string = isDuedateExpiredAndInprogress(item)? 'red': 'black';
+                const labelColor: string = isDuedateExpiredAndInprogress(item) ? 'red' : 'black';
                 return (
-                    <div key={index} style={{ width: colHeader.width, color: `${labelColor}` }}>
+                    <div key={keyIndex} style={{ width: colHeader.width, color: `${labelColor}` }}>
                         {item?.fields?.duedate}
                     </div>
                 )
             }
             case 'project': {
                 return (
-                    <div key={index} style={{ width: colHeader.width }}>
+                    <div key={keyIndex} style={{ width: colHeader.width }}>
                         <label className={styles.textOverflow}>
-                        {item?.fields?.project?.name}
+                            {item?.fields?.project?.name}
                         </label>
                     </div>
                 )
             }
-            //<Progress progress={getChildrenProgressCount(treeItem)}
             case 'progress': {
                 return (
-                    <Progress progress={getChildrenProgressCount(item)} />
+                    <div key={keyIndex}>
+                        <Progress progress={getChildrenProgressCount(item)} />
+                    </div>
                 )
             }
             default: {
                 return (
-                    <div key={index} style={{ width: colHeader.width }}>
+                    <div key={keyIndex} style={{ width: colHeader.width }}>
                         {getFieldValue(colHeader.prop)}
                     </div>
                 )
@@ -131,14 +133,14 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
     const getRowCellElements = (): React.ReactNode => {
         return headers.map(
             (element: IColHeader, index: number) => {
-                return getCellElement(element, index)
+                return (element.isVisible ? getCellElement(element, index) : undefined)
             }
         )
     }
 
     const getGridTemplateColumns = () => {
-        const cols = headers?.length;
-        return { gridTemplateColumns: `repeat(${cols}, 1fr)` };
+        const columnCount = headers.filter(header => header.isVisible).length;
+        return { gridTemplateColumns: `repeat(${columnCount}, 1fr)` };
     }
 
     return (
@@ -155,7 +157,7 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
                     (item: any, index: number) => {
                         return (
                             <TableSelectableItem
-                                key={index}
+                                key={'table-item_' + item.key + '_i_' + index}
                                 headers={headers}
                                 level={level + 1}
                                 item={item}

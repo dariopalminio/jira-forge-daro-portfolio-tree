@@ -1,6 +1,17 @@
 .assigneeLabel { 
+    vertical-align: middle;
+    display: inline;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100px;
+}
+.inlineContainerImgLabel img,
+.inlineContainerImgLabel label {
+    display: inline;
+    vertical-align: middle;
+}
+
+.inlineContainerImgLabel img {
+    margin-right: 5px; 
 }

@@ -45,8 +45,11 @@ Upstream Portfolio Features:
 - Table view.
 - Cross-roadmap view.
 
+# Future Features
 
 Other in the furure:
+- Show initiative performance field
+- Hide columns
 - Licence for Listing Forge apps
 - Project releases/versions view.
 - Save multiple JQL.

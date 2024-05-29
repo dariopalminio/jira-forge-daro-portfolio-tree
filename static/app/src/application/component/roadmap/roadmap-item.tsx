@@ -107,7 +107,7 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
             return 0;
         }
         const days: number = getDaysBetweenTwoDates(props.timelineData.firstDate, new Date(duedate));
-        console.log('*************************************days:', days * 2);
+        
         return days * 2;
     }
 
@@ -218,7 +218,7 @@ const RoadmapItem: React.FC<IProps> = (props: IProps) => {
                         return (
                             <RoadmapItem
                                 timelineData={props.timelineData}
-                                key={index}
+                                key={'roadmap-item_' + item + '_i_' + index}
                                 toggles={props.toggles}
                                 togglesChange={props.togglesChange}
                                 treeItem={item}

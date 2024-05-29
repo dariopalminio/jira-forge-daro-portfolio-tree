@@ -63,7 +63,7 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
             const colLeft = qTotalDays * zoomFactor;
             const colWidth = ((qdays * zoomFactor) - 1);
             quartesReactNode.push(
-                <div className={styles.column}
+                <div key={key + 'schedule-col'} className={styles.column}
                     style={{ left: `${colLeft}px`, width: `${colWidth}px`, background: getQuarterBackground(key) }}
                 />
             );
@@ -72,7 +72,6 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
         return (
             quartesReactNode
         )
-
     }
 
     const getDaysFromFirstDateUntilToDate = (): number => {
@@ -112,7 +111,7 @@ const Roadmaps: React.FC<IProps> = (props: IProps) => {
                         (item: any, index: number) => {
                             return (
                                 <RoadmapItem
-                                    key={index}
+                                    key={'roadmap_' + item.key + '_i_' + index}
                                     timelineData={props.timelineData}
                                     toggles={props.toggles}
                                     togglesChange={props.togglesChange}

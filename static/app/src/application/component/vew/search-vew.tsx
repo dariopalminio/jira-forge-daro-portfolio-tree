@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useJiraTreeHook from "../../../domain/hook/jira-tree-hook";
 import Button from "../../common/button/button";
@@ -17,11 +17,9 @@ import IssueView from "../issue/issue-view";
 import Loading from "../../common/loading/loading";
 import StoreContext from "../../provider/store-context";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
-import useJiraStorageHook from "../../../domain/hook/jira-storage-hook";
-import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
+import { CheckboxType } from "../../common/checkbox/checkbox";
 import FactoryContext from "../../provider/factory-context";
 import { ServiceKeys } from "../../../domain/outgoing/service-key";
-import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
 import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
 
 
@@ -32,9 +30,6 @@ const SearchView: React.FC = () => {
         isProcessing, hasError, msg, isSuccess } = useJiraTreeHook(jiraApi);
     const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
     const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
-
-    const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
-
 
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
@@ -49,54 +44,61 @@ const SearchView: React.FC = () => {
     };
     const [withEpicsChildren, setWithEpicsChildren] = useState<CheckboxType>(withEpicsChildrenDefault);
 
-
-
-    const TableHeadersDefault: IColHeader[] = [
+    const TableHeadersDefaultConfig: IColHeader[] = [
         {
             "prop": "key",
             "label": t("key"),
-            "width": 230
+            "width": 230,
+            "isVisible": true
         },
         {
             "prop": "issuetype",
             "label": t("issue.type"),
-            "width": 100
+            "width": 100,
+            "isVisible": true
         },
         {
             "prop": "summary",
             "label": t("summary"),
-            "width": 250
+            "width": 250,
+            "isVisible": true
         },
         {
             "prop": "project",
             "label": t("project"),
-            "width": 160
+            "width": 160,
+            "isVisible": true
         },
         {
             "prop": "assignee",
             "label": t("assignee"),
-            "width": 160
+            "width": 160,
+            "isVisible": true
         },
         {
             "prop": "startdate",
             "label": t("startdate"),
-            "width": 100
+            "width": 100,
+            "isVisible": true
         },
         {
             "prop": "duedate",
             "label": t("duedate"),
-            "width": 100
+            "width": 100,
+            "isVisible": true
         },
         {
             "prop": "status",
             "label": t("status"),
-            "width": 150
+            "width": 150,
+            "isVisible": true
         },
         {
             "prop": "progress",
             "label": t("children.progress"),
-            "width": 260
-        },
+            "width": 260,
+            "isVisible": true
+        }
     ];
 
     const tabs: TabsType = [
@@ -223,19 +225,19 @@ const SearchView: React.FC = () => {
 
 
                 {tabSelected === 'tree' && (
-                    <TreeViewPanel headers={TableHeadersDefault}
+                    <TreeViewPanel headers={TableHeadersDefaultConfig}
                         onClick={(item: IssueTreeNodeType) => handleClick(item)} />
                 )}
 
                 {tabSelected === 'table' && (
-                    <TableViewPanel headers={TableHeadersDefault}
+                    <TableViewPanel headers={TableHeadersDefaultConfig}
                         onClick={(item: IssueTreeNodeType) => handleClick(item)} />
 
                 )}
 
                 {tabSelected === 'roadmaps' &&
                     (
-                        <RoadmapViewPanel headers={TableHeadersDefault}
+                        <RoadmapViewPanel headers={TableHeadersDefaultConfig}
                             onClick={(item: IssueTreeNodeType) => handleClick(item)} />
                     )
                 }

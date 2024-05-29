@@ -1,6 +1,7 @@
+import { useTranslation } from "react-i18next";
 import { IColHeader } from "../types";
 import styles from './assignee-cell.module.css';
-import imgError from "./user-no-image.png"
+import imgAvatarErrorOrUndefined from "./user-no-image.png"
 
 /**
 "fields": {
@@ -45,23 +46,26 @@ interface IPropsAssigneeCell {
  */
 const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) => {
 
-    const getAvatarUrl = (): string | undefined => {
-        try {
-            const url = props?.item?.fields?.assignee?.avatarUrls['16x16'];
-            if (url === undefined || url === null || typeof url !== 'string') {
-                throw new Error(`Property named props.item.fields.assignee.avatarUrls['16x16'] not found`);
-            }
-            return url;
-        } catch (error) {
-            console.log(error);
-            return undefined;
+    const { t } = useTranslation();
+    
+    const isAssigned = (): boolean => {
+        return !!props?.item?.fields?.assignee;
+    };
+
+    const getAvatarUrl = (): string => {
+        const url = props?.item?.fields?.assignee?.avatarUrls?.['16x16'];
+
+        if (!url || typeof url !== 'string') {
+            return '';
         }
-    }
+
+        return url;
+    };
 
     const getDisplayName = (): string | undefined => {
         try {
             const displayName = props?.item?.fields?.assignee?.displayName;
-            if (displayName === undefined || displayName === null || typeof displayName !== 'string') {
+            if (!displayName || typeof displayName !== 'string') {
                 return undefined;
             }
             return displayName;
@@ -71,18 +75,26 @@ const AssigneeCell: React.FC<IPropsAssigneeCell> = (props: IPropsAssigneeCell) =
     }
 
     return (
-        <div style={{ width: props.colHeader?.width? props.colHeader?.width : '200px'}}>
-            {
-                getAvatarUrl() &&
-                <img src={getAvatarUrl()}
-                    onError={(e) => {
-                        e.currentTarget.src = imgError
-                    }}
-                    height="16" width="16" />
+        <div style={{ width: props.colHeader?.width ? props.colHeader?.width : '200px' }}>
+            {isAssigned() &&
+                <div className={styles.inlineContainerImgLabel}>
+                    <img src={getAvatarUrl()}
+                        onError={(e) => {
+                            e.currentTarget.src = imgAvatarErrorOrUndefined
+                        }}
+                        height="16" width="16" />
+                    <label className={styles.assigneeLabel}>{getDisplayName()}</label>
+                </div>
             }
-            {
-                getDisplayName() &&
-                <label className={styles.assigneeLabel}>{getDisplayName()}</label>
+            {!isAssigned() &&
+                <div className={styles.inlineContainerImgLabel}>
+                    <img src={imgAvatarErrorOrUndefined}
+                        onError={(e) => {
+                            e.currentTarget.src = imgAvatarErrorOrUndefined
+                        }}
+                        height="16" width="16" />
+                    <label className={styles.assigneeLabel}>{t("unassigned")}</label>
+                </div>
             }
         </div>
     )
