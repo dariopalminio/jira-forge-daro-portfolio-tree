@@ -98,7 +98,7 @@ const SearchView: React.FC = () => {
             "label": t("children.progress"),
             "width": 260,
             "isVisible": true
-        },
+        }
     ];
 
     const tabs: TabsType = [

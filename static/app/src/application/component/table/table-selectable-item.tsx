@@ -22,8 +22,8 @@ interface IProps {
  * TableSelectableItem component
  */
 const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, toggles, togglesChange }) => {
-    const {statusKeyOf,
-        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf, getChildrenProgressCount} = useIssueHook();
+    const { statusKeyOf,
+        isStartdateExpiredAndTodo, isDuedateExpiredAndInprogress, issueTypeNameOf, getChildrenProgressCount } = useIssueHook();
 
     const handleOnClick = (item: any) => {
         onClick(item);
@@ -89,7 +89,7 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
                 )
             }
             case 'startdate': {
-                const labelColor: string = isStartdateExpiredAndTodo(item)? 'red': 'black';
+                const labelColor: string = isStartdateExpiredAndTodo(item) ? 'red' : 'black';
                 return (
                     <div key={keyIndex} style={{ width: colHeader.width, color: `${labelColor}` }}>
                         {item?.fields?.customfield_10015}
@@ -97,7 +97,7 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
                 )
             }
             case 'duedate': {
-                const labelColor: string = isDuedateExpiredAndInprogress(item)? 'red': 'black';
+                const labelColor: string = isDuedateExpiredAndInprogress(item) ? 'red' : 'black';
                 return (
                     <div key={keyIndex} style={{ width: colHeader.width, color: `${labelColor}` }}>
                         {item?.fields?.duedate}
@@ -108,12 +108,11 @@ const TableSelectableItem: React.FC<IProps> = ({ headers, level, item, onClick, 
                 return (
                     <div key={keyIndex} style={{ width: colHeader.width }}>
                         <label className={styles.textOverflow}>
-                        {item?.fields?.project?.name}
+                            {item?.fields?.project?.name}
                         </label>
                     </div>
                 )
             }
-            //<Progress progress={getChildrenProgressCount(treeItem)}
             case 'progress': {
                 return (
                     <div key={keyIndex}>

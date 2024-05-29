@@ -29,6 +29,7 @@
     "maxResults.last.label": "Máxima cantidad de resultados en primer nivel",
     "issue.type": "Tipo de item",
     "children.progress": "Progreso de subtareas",
-    "unassigned": "Sin asignar"
+    "unassigned": "Sin asignar",
+    "performance": "Desempeño"
 
 }
