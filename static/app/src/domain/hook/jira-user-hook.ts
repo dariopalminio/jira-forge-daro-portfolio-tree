@@ -8,7 +8,7 @@ import { IJiraUserApi } from '../outgoing/jira-user-api.interface';
  */
 export default function useJiraUserHook(jiraUserApi: IJiraUserApi) {
 
-    const [resultState, setResultState] = useState<IHookResultState>(InitialResultState);
+    const [resultState, setResultState] = useState<IHookResultState>(InitialResultState);  //Result status
     const [currentUser, setCurrentUser] = useState<any>({});
 
     const updateState = useCallback((newState: any) => {

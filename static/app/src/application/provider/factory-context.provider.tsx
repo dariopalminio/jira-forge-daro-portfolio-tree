@@ -8,6 +8,7 @@ maintainable practice, especially as the project grows.
 */
 //For production comment this import and for fake mode uncomment this import
 //import GlobalFactory from '../../infrastructure/fake/global-factory-fake-mode';
+import Loading from "../common/loading/loading";
 
 //For production uncomment this import and for fake mode comment it
 import GlobalFactory from "../../infrastructure/global-factory";
@@ -43,7 +44,7 @@ const FactoryContextProvider: FC<Props> = ({ children }) => {
 
   return (
       <FactoryContext.Provider value={{ getObject }}>
-          {initialized ? children : null}  
+          {initialized ? children : <Loading title={''} progress={30} />}  
       </FactoryContext.Provider>
   );
 };

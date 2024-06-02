@@ -130,17 +130,17 @@ const SearchView: React.FC = () => {
             //load first level, generally are Initiatives
             setProgress(0);
             setProgressTitle('Loading JQL with tree first level...');
-            const dataTree: IssueTreeNodeType | undefined = await getTreeFromJQL(jql);
-            if (dataTree === undefined) throw new Error('Search JQL not found data!')
-            const treeToggles = getTreeTogglesFrom(dataTree);
+            const dataTreeFirst: IssueTreeNodeType | undefined = await getTreeFromJQL(jql);
+            if (dataTreeFirst === undefined) throw new Error('Search JQL not found data!')
+            const treeToggles = getTreeTogglesFrom(dataTreeFirst);
             setToggles(treeToggles);
-            setDataTree(dataTree);
+            setDataTree(dataTreeFirst);
             setProgress(30);
             setProgressTitle('Loading childs by links to all tree levels...');
 
-            if (dataTree && dataTree.hasChildren){
+            if (dataTreeFirst && dataTreeFirst.hasChildren){
                 //load childs by links to all levels
-                const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
+                const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTreeFirst, configData.linksOutwards, MAX_ALLOWED_LEVEL);
                 const newTreeToggles = getTreeTogglesFrom(newDataTree);
                 setToggles(newTreeToggles);
                 setDataTree(newDataTree);

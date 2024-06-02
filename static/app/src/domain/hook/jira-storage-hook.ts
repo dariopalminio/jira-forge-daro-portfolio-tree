@@ -11,7 +11,8 @@ const CONFIG_KEY = 'CONFIG';
  * 
  */
 export default function useJiraStorageHook(storageApi: IStorageApi) {
-    const [resultState, setResultState] = useState<IHookResultState>(InitialResultState);
+    
+    const [resultState, setResultState] = useState<IHookResultState>(InitialResultState); //Result status
 
     const getConfigStorage = useCallback(async (): Promise<ConfigStorageDataType> => {
         setResultState(ProcessingResultState);

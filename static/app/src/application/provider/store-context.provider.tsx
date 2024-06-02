@@ -5,6 +5,7 @@ import { ConfigStorageDataDefault, ConfigStorageDataType } from "../../domain/mo
 import { IStorageApi } from "../../domain/outgoing/storage-api.interface";
 import FactoryContext from "./factory-context";
 import { ServiceKeys } from "../../domain/outgoing/service-key";
+import Loading from "../common/loading/loading";
 
 interface Props { children?: React.ReactNode }
 
@@ -45,7 +46,7 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
         resultState
       }}
     >
-      {initialized ? children : null}
+      {initialized ? children : <Loading title={''} progress={60} />}
     </StoreContext.Provider>
   );
 };

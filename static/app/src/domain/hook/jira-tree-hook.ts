@@ -9,10 +9,11 @@ import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tr
  */
 export default function useJiraTreeHook(jiraApi: IJiraApi) {
 
-    const [resultState, setResultState] = useState<IHookResultState>(InitialResultState);
     const MAX_ALLOWED_LEVEL = 8;
 
-    const updateState = useCallback((newState: any) => {
+    const [resultState, setResultState] = useState<IHookResultState>(InitialResultState); //Result status
+
+    const updateResultState = useCallback((newState: any) => {
         setResultState(prev => ({ ...prev, ...newState }));
     }, []);
 
@@ -33,18 +34,18 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
             const data: any[] = await jiraApi.searchJql(jql);
             const tree = buildTree(data);
             if (tree && tree.hasChildren){
-                updateState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
+                setResultState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
             }else{
-                updateState({ isProcessing: false, hasError: false, msg: "No.issues.found", isSuccess: true });
+                setResultState({ isProcessing: false, hasError: false, msg: "No.issues.found", isSuccess: true });
             }
             return tree;
         } catch (error: any) {
             const errorMessage = error?.message || 'An unknown error occurred';
             console.error('Error in searchJql:', errorMessage);
-            updateState({ isProcessing: false, hasError: true, msg: errorMessage , isSuccess: false });
+            updateResultState({ isProcessing: false, hasError: true, msg: errorMessage , isSuccess: false });
             return issueItemDefault;
         }
-    }, [jiraApi, updateState]);
+    }, [jiraApi, updateResultState]);
 
     const buildTree = (issues: any[]): IssueTreeNodeType => {
         const treeArray = issues?.map((item: IssueTreeNodeType) => convertToIssueTreeNodeType(item, 1)) || [];
@@ -124,14 +125,14 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
             }
             const initialLevel: number = 1;
             const r: IssueTreeNodeType = await getTreeWithChildrenByLink(issuesTree, outwards, initialLevel, maxLevel);
-            updateState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
+            setResultState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
             return r;
         } catch (error) {
-            updateState({ isProcessing: false, hasError: true, msg: 'Error addChildrenByLink', isSuccess: false });
+            setResultState({ isProcessing: false, hasError: true, msg: 'Error addChildrenByLink', isSuccess: false });
             console.error('Error in addChildsToTreeByLink:', error);
             return issueItemDefault;
         }
-    }, [updateState]);
+    }, [updateResultState]);
 
     /**
      * Get recursively Children of each issue in tree by Links Hierarchy and subtasks.
@@ -207,14 +208,14 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
         setResultState(ProcessingResultState);
         try {
             const r: IssueTreeNodeType = await getTreeChildrenByParent(issuesTree, 0, maxLevel);
-            updateState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
+            setResultState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
             return r;
         } catch (error) {
             console.error(error);
-            updateState({ isProcessing: false, hasError: true, msg: 'Error fetching current user', isSuccess: false });
+            setResultState({ isProcessing: false, hasError: true, msg: 'Error fetching current user', isSuccess: false });
             return issueItemDefault;
         }
-    }, [updateState]);
+    }, [updateResultState]);
 
     const getTreeChildrenByParent = async (issuesTree: IssueTreeNodeType, level: number, maxLevel: number): Promise<IssueTreeNodeType> => {
 

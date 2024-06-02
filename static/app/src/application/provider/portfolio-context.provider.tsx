@@ -6,6 +6,7 @@ import FactoryContext from "./factory-context";
 import { IJiraApi } from "../../domain/outgoing/jira-api.interface";
 import { ServiceKeys } from "../../domain/outgoing/service-key";
 import useJiraTreeHook from "../../domain/hook/jira-tree-hook";
+import Loading from "../common/loading/loading";
 
 interface Props { children?: React.ReactNode }
 
@@ -46,7 +47,7 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
         resultState, getTreeFromJQL, getTreeTogglesFrom, addChildsToTreeByLink, addChildsToTreeByParent
       }}
     >
-       {initialized ? children : null}  
+       {initialized ? children : <Loading title={''} progress={90} />}  
     </PortfolioContext.Provider>
   );
 };
