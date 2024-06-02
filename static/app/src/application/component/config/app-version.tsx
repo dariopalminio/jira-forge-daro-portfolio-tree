@@ -2,7 +2,7 @@
  * The version of the application
  * 
  */
-const AppVersion = () => {
+const AppVersion: React.FC = () => {
 
   const getVersion = () => {
     //WARNING: Ensure that the version value is the same as that "version" value in package.json
@@ -12,7 +12,7 @@ const AppVersion = () => {
 
   return (
     <div>
-      <p>Daro Portfolio Tree, Version: {getVersion()}</p>
+       <p style={{ fontSize: "11px", color: "grey" }}>Daro Portfolio Tree, Version: {getVersion()}</p>
     </div>
   );
 };

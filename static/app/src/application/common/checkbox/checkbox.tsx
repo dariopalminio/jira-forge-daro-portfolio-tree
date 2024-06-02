@@ -27,7 +27,7 @@ const Checkbox: React.FC<IProps> = (props: IProps) => {
                         id={`checkboxInputId${props.id}`}
                         name={`checkboxInputId${props.id}`}
                         type="checkbox"
-                        onClick={props.toggle} 
+                        onChange={props.toggle} 
                         checked={props.item.checked}
                         />
 

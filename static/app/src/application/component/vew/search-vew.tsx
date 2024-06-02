@@ -18,21 +18,23 @@ import StoreContext from "../../provider/config-store-context";
 import { ConfigStorageDataType } from "../../../domain/model/config-storage-data-type";
 import { CheckboxType } from "../../common/checkbox/checkbox";
 import Alert from "../../common/alert/alert";
-
+import { StatusFilterType, defaultStatusFilter } from "../../../domain/model/status-filter-type";
+import FilterPanel from "../filter/filter-panel";
 
 const SearchView: React.FC = () => {
-    const { resultState,
+    const { resultState, toggles, dataTree,
         setToggles,
         jql,
         setJql,
         searchAndLoadDataTree,
         progress } = useContext(PortfolioContext);
-
     const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
     const [tabSelected, setTabSelected] = useState<string>('tree');
+
+    const [filter, setFilter] = useState<StatusFilterType>(defaultStatusFilter);
 
     const withEpicsChildrenDefault: CheckboxType = {
         label: t('with.epics.children'),
@@ -114,7 +116,7 @@ const SearchView: React.FC = () => {
     ];
 
     const handleSearch = async () => {
-        const maxLeve = 7; //maximum allowable depth of the tree
+        const maxLeve = 2; //maximum allowable depth of the tree
         await searchAndLoadDataTree(jql, configData.linksOutwards, maxLeve)
     }
 
@@ -152,6 +154,10 @@ const SearchView: React.FC = () => {
         setWithEpicsChildren({ ...withEpicsChildren, checked: !withEpicsChildren.checked })
     }
 
+    const handlerOnChangeFilter = (newFilter: StatusFilterType) => {
+        setFilter(newFilter)
+    }
+
     return (
         <div id="TabPanel" className={styles.panelContainer}>
             <div id="actionPanel" className={styles.actionPanel}>
@@ -183,11 +189,20 @@ const SearchView: React.FC = () => {
 
             <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
 
-            <div id="contentPanel" style={{ height: "100%" }}>
+            <FilterPanel
+                        toggles={toggles}
+                        onChangeToggles={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                        filter={filter}
+                        onChangeFilter={(statusFilter: StatusFilterType) => handlerOnChangeFilter(statusFilter)}/>
 
+            <div id="contentPanel" style={{ height: "100%" }}>
 
                 {tabSelected === 'tree' && (
                     <TreeViewPanel headers={TableHeadersDefaultConfig}
+                        tree={dataTree}
+                        toggles={toggles}
+                        filter={filter}
+                        togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                         onClick={(item: IssueTreeNodeType) => handleClick(item)} />
                 )}
 

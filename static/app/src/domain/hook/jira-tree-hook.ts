@@ -139,6 +139,7 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
      * Get Tree Toggle
      * Each issue has a boolean value associated with your key to indicate if it is open
      * (showing its children) or not.
+     * Returns a data dictionary to indicate that nodes are expanded (opened) or collapsed (closed).
      */
     const getTreeTogglesFrom = useCallback((issuesTree: IssueTreeNodeType): TreeToggleType => {
 
