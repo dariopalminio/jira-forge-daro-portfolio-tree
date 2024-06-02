@@ -10,7 +10,7 @@ import { ProgressType, progressEmpty } from '../model/progress.type';
  */
 export default function useJiraTreeHook(jiraApi: IJiraApi) {
 
-    const MAX_ALLOWED_LEVEL = 8;
+    const MAX_ALLOWED_LEVEL = 8; //maximum allowable depth of the tree
 
     const [resultState, setResultState] = useState<IHookResultState>(InitialResultState); //Result status
     const [dataTree, setDataTree] = useState<IssueTreeNodeType>(issueItemDefault);
@@ -21,15 +21,10 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
         setResultState(prev => ({ ...prev, ...newState }));
     }, []);
 
-    const searchAndLoadDataTree = useCallback(async (jqlToSearch: string, linksOutwards: string[]) => {
+    const searchAndLoadDataTree = useCallback(async (jqlToSearch: string, linksOutwards: string[], maxLevel: number) => {
         try {
-            const MAX_ALLOWED_LEVEL = 7;
-
             //load first level, generally are Initiatives
-            setProgress({
-                percentage: 0,
-                title: 'Loading JQL with tree first level...'
-            });
+            setProgress({ percentage: 0, title: 'Loading JQL with tree first level...' });
             const dataTreeFirst: IssueTreeNodeType | undefined = await getTreeFromJQL(jqlToSearch);
             if (dataTreeFirst === undefined) throw new Error('Search JQL not found data!')
             const treeToggles = getTreeTogglesFrom(dataTreeFirst);
@@ -42,7 +37,7 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
                     percentage: 30,
                     title: 'Loading childs by links to all tree levels...'
                 });
-                const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTreeFirst, linksOutwards, MAX_ALLOWED_LEVEL);
+                const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTreeFirst, linksOutwards, maxLevel);
                 const newTreeToggles = getTreeTogglesFrom(newDataTree);
                 setToggles(newTreeToggles);
                 setDataTree(newDataTree);
@@ -52,7 +47,7 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
                     percentage: 60,
                     title: 'Loading childs by parent to all tree levels ...'
                 });
-                const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, MAX_ALLOWED_LEVEL);
+                const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, maxLevel);
                 const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
                 setToggles(lastTreeToggles);
                 setDataTree(lastDataTree);

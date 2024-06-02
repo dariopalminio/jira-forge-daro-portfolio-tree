@@ -5,7 +5,7 @@ import { progressEmpty, ProgressType } from '../../domain/model/progress.type';
 
 export interface IPortfolioTreeContext {
     resultState: any;
-    searchAndLoadDataTree: (jqlToSearch: string, linksOutwards: string[]) => void;
+    searchAndLoadDataTree: (jqlToSearch: string, linksOutwards: string[], maxLevel: number) => void;
     dataTree:  IssueTreeNodeType ;
     toggles: TreeToggleType;
     setToggles: (newToggles: TreeToggleType) => void;
@@ -16,7 +16,7 @@ export interface IPortfolioTreeContext {
 
 export const PortfolioContextDefaultValues: IPortfolioTreeContext = {
     resultState: InitialResultState,
-    searchAndLoadDataTree: (jqlToSearch: string, linksOutwards: string[]): void=> {},
+    searchAndLoadDataTree: (jqlToSearch: string, linksOutwards: string[], maxLevel: number): void=> {},
     dataTree: issueItemDefault,
     toggles: {},
     setToggles: (newToggles: TreeToggleType) => { },

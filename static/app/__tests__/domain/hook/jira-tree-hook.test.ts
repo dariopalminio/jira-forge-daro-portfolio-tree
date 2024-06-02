@@ -37,7 +37,10 @@ describe('useJiraStorageHook', () => {
 
     await act(async () => {
         //load first level
-        await result.current.searchAndLoadDataTree('',['includes']);
+        const maxLeve = 2; //maximum allowable depth of the tree
+        const linksOutwards: string[] = ['includes'];
+        const jql: string = '';
+        await result.current.searchAndLoadDataTree(jql, linksOutwards, maxLeve);
         expect(result.current.dataTree == undefined).toBeFalsy();
     });
 
@@ -61,8 +64,8 @@ describe('useJiraStorageHook', () => {
     //Check first node in level 2
     expect(result.current.dataTree?.childrens[0]?.childrens[0]?.hasChildren).toBe(true);
 
-    //Check if level 3 does not exist
-    expect(result.current.dataTree?.childrens[0]?.childrens[0]?.childrens[0]?.hasChildren).toBe(true);
+    //Check if level 3 does not exist, maximum allowable depth of the tree is 2
+    expect(result.current.dataTree?.childrens[0]?.childrens[0]?.childrens[0]?.hasChildren).toBe(false);
   });
 
 });
