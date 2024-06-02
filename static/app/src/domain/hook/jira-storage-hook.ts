@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data.type';
+import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data-type';
 import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookResultState, InitialResultState, ProcessingResultState } from './hook-result-state.type';
 

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { ConfigStorageDataDefault, ConfigStorageDataType } from '../../domain/model/config-storage-data.type';
+import { ConfigStorageDataDefault, ConfigStorageDataType } from '../../domain/model/config-storage-data-type';
 import { InitialResultState } from '../../domain/hook/hook-result-state.type';
 
 

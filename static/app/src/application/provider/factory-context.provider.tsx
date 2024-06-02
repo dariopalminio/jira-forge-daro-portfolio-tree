@@ -1,5 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
 import FactoryContext from "./factory-context";
+import Loading from "../common/loading/loading";
 
 /*
 HACK: Temporary solution for the problem of switching to fake mode. 
@@ -7,11 +8,10 @@ This is technical debt. Commenting lines of code is an easy solution but it is n
 maintainable practice, especially as the project grows.
 */
 //For production comment this import and for fake mode uncomment this import
-//import GlobalFactory from '../../infrastructure/fake/global-factory-fake-mode';
-import Loading from "../common/loading/loading";
+import GlobalFactory from '../../infrastructure/fake/global-factory-fake-mode';
 
 //For production uncomment this import and for fake mode comment it
-import GlobalFactory from "../../infrastructure/global-factory";
+//import GlobalFactory from "../../infrastructure/global-factory";
 
 interface Props {children?: React.ReactNode}
 

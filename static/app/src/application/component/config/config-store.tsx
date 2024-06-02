@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import StoreContext from "../../provider/store-context";
-import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
+import { ConfigStorageDataType } from "../../../domain/model/config-storage-data-type";
 import Button from "../../common/button/button";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
 import CheckboxGroup from "../../common/checkbox/checkbox-group";

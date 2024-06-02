@@ -1,7 +1,7 @@
 import { FC, useEffect, useState, useContext } from "react";
 import StoreContext from "./store-context";
 import useJiraStorageHook from "../../domain/hook/jira-storage-hook";
-import { ConfigStorageDataDefault, ConfigStorageDataType } from "../../domain/model/config-storage-data.type";
+import { ConfigStorageDataDefault, ConfigStorageDataType } from "../../domain/model/config-storage-data-type";
 import { IStorageApi } from "../../domain/outgoing/storage-api.interface";
 import FactoryContext from "./factory-context";
 import { ServiceKeys } from "../../domain/outgoing/service-key";

@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import useJiraTreeHook from "../../../domain/hook/jira-tree-hook";
 import Button from "../../common/button/button";
 import TextField from "../../common/text-field/text-field";
 import { IColHeader } from "../table";
@@ -16,12 +15,10 @@ import TreeViewPanel from "./tree-view-panel";
 import IssueView from "../issue/issue-view";
 import Loading from "../../common/loading/loading";
 import StoreContext from "../../provider/store-context";
-import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
+import { ConfigStorageDataType } from "../../../domain/model/config-storage-data-type";
 import { CheckboxType } from "../../common/checkbox/checkbox";
-import FactoryContext from "../../provider/factory-context";
-import { ServiceKeys } from "../../../domain/outgoing/service-key";
-import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
 import Alert from "../../common/alert/alert";
+import { ProgressType, progressEmpty } from "../../../domain/model/progress.type";
 
 
 const SearchView: React.FC = () => {
@@ -36,13 +33,13 @@ const SearchView: React.FC = () => {
         getTreeTogglesFrom, 
         addChildsToTreeByLink, 
         addChildsToTreeByParent } = useContext(PortfolioContext);
+    const [progress, setProgress] = useState<ProgressType>(progressEmpty);
+
     const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
     const [tabSelected, setTabSelected] = useState<string>('tree');
-    const [progress, setProgress] = useState<number>(0);
-    const [progressTitle, setProgressTitle] = useState<string>(t('Loading...'));
 
     const withEpicsChildrenDefault: CheckboxType = {
         label: t('with.epics.children'),
@@ -123,37 +120,46 @@ const SearchView: React.FC = () => {
         }
     ];
 
-    const searchData = async () => {
+    const searchAndLoadDataTree = async (jqlToSearch: string) => {
         try {
             const MAX_ALLOWED_LEVEL = 7;
 
             //load first level, generally are Initiatives
-            setProgress(0);
-            setProgressTitle('Loading JQL with tree first level...');
-            const dataTreeFirst: IssueTreeNodeType | undefined = await getTreeFromJQL(jql);
+            setProgress({
+                percentage: 0,
+                title: 'Loading JQL with tree first level...'
+            });
+            const dataTreeFirst: IssueTreeNodeType | undefined = await getTreeFromJQL(jqlToSearch);
             if (dataTreeFirst === undefined) throw new Error('Search JQL not found data!')
             const treeToggles = getTreeTogglesFrom(dataTreeFirst);
             setToggles(treeToggles);
             setDataTree(dataTreeFirst);
-            setProgress(30);
-            setProgressTitle('Loading childs by links to all tree levels...');
 
             if (dataTreeFirst && dataTreeFirst.hasChildren){
                 //load childs by links to all levels
+                setProgress({
+                    percentage: 30,
+                    title: 'Loading childs by links to all tree levels...'
+                });
                 const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTreeFirst, configData.linksOutwards, MAX_ALLOWED_LEVEL);
                 const newTreeToggles = getTreeTogglesFrom(newDataTree);
                 setToggles(newTreeToggles);
                 setDataTree(newDataTree);
-                setProgress(60);
-                setProgressTitle('Loading childs by parent to all tree levels ...');
 
                 //load Epics children and children by parent
+                setProgress({
+                    percentage: 60,
+                    title: 'Loading childs by parent to all tree levels ...'
+                });
                 const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, MAX_ALLOWED_LEVEL);
                 const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
                 setToggles(lastTreeToggles);
                 setDataTree(lastDataTree);
-                setProgress(100);
             }
+            setProgress({
+                percentage: 100,
+                title: ''
+            });
 
         } catch (error) {
             console.log(error);
@@ -161,7 +167,7 @@ const SearchView: React.FC = () => {
     }
 
     const handleSearch = () => {
-        searchData()
+        searchAndLoadDataTree(jql)
     }
 
     const handleChange = async (val: string) => {
@@ -262,7 +268,7 @@ const SearchView: React.FC = () => {
 
             </ModalDialog>
 
-            {resultState.isProcessing && <Loading title={progressTitle} progress={progress} />}
+            {resultState.isProcessing && <Loading title={progress.title} progress={progress.percentage} />}
 
             {(!resultState.hasError && resultState.msg) &&  <Alert severity="info">{resultState.msg ? t(resultState.msg) : ''}</Alert>}
 
