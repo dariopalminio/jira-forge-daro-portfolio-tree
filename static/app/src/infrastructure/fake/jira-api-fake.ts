@@ -11,9 +11,11 @@ import { IJiraApi } from '../../domain/outgoing/jira-api.interface';
  */
 export default function JiraApiFake(): IJiraApi {
 
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
     async function searchJql(jql: string): Promise<any[]> {
         console.log("Fake fetch for searchJql( jql ):", jql);
+        await delay(1000); 
         return [
             {
                 "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
@@ -1249,57 +1251,6 @@ export default function JiraApiFake(): IJiraApi {
         };
     };
 
-
-    async function getIssueLinkTypes(): Promise<any> {
-        console.log("Fake for getIssueLinkTypes( ):");
-        return {
-            "issueLinkTypes": [
-                {
-                    "id": "10000",
-                    "name": "Blocks",
-                    "inward": "is blocked by",
-                    "outward": "blocks",
-                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10000"
-                },
-                {
-                    "id": "10001",
-                    "name": "Cloners",
-                    "inward": "is cloned by",
-                    "outward": "clones",
-                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10001"
-                },
-                {
-                    "id": "10002",
-                    "name": "Duplicate",
-                    "inward": "is duplicated by",
-                    "outward": "duplicates",
-                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10002"
-                },
-                {
-                    "id": "10007",
-                    "name": "Initiative",
-                    "inward": "is included by",
-                    "outward": "includes",
-                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10007"
-                },
-                {
-                    "id": "10006",
-                    "name": "Problem/Incident",
-                    "inward": "is caused by",
-                    "outward": "causes",
-                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10006"
-                },
-                {
-                    "id": "10003",
-                    "name": "Relates",
-                    "inward": "relates to",
-                    "outward": "relates to",
-                    "self": "https://dariopalminio.atlassian.net/rest/api/3/issueLinkType/10003"
-                }
-            ]
-        }
-    }
-
     async function getChildrens(epicKey: string): Promise<any[]> {
         //console.log("Fake fetch for getChildrens with epicKey:", epicKey);
         const num = Math.floor(Math.random() * 1000);
@@ -1906,7 +1857,6 @@ export default function JiraApiFake(): IJiraApi {
     return {
         searchJql,
         getIssueBySelf,
-        getIssueLinkTypes,
         getChildrens,
         getProjectVersions
     };

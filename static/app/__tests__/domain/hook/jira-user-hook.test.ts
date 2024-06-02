@@ -27,9 +27,9 @@ describe('useJiraUserStorageHook', () => {
   test('Testing useJiraUserStorageHook.getCurrentUser (positive): retrieves current user successfully', async () => {
     const { result } = renderHook(() => useJiraUserHook(jiraUserApiMock));
 
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.hasError).toBeFalsy();
-    expect(result.current.isSuccess).toBeFalsy();
+    expect(result.current.resultState.isProcessing).toBeFalsy();
+    expect(result.current.resultState.hasError).toBeFalsy();
+    expect(result.current.resultState.isSuccess).toBeFalsy();
 
     let infoUser: any;
 
@@ -38,10 +38,10 @@ describe('useJiraUserStorageHook', () => {
     });
 
     //Check status
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.isSuccess).toBeTruthy();
-    expect(result.current.msg).toBe('');
-    expect(result.current.hasError).toBeFalsy();
+    expect(result.current.resultState.isProcessing).toBeFalsy();
+    expect(result.current.resultState.isSuccess).toBeTruthy();
+    expect(result.current.resultState.msg).toBe(undefined);
+    expect(result.current.resultState.hasError).toBeFalsy();
 
     //Check function response data
     expect(infoUser.locale).toBe("es_ES");

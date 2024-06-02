@@ -14,7 +14,8 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
 
   const { getObject } = useContext(FactoryContext);
   const storageApi: IStorageApi = getObject(ServiceKeys.StorageApi);
-  const { getConfigStorage, setConfigStorage } = useJiraStorageHook(storageApi);
+  const { resultState, getConfigStorage, setConfigStorage,
+    getOutwardsFromJira } = useJiraStorageHook(storageApi);
 
   const [initialized, setInitialized] = useState(false);  // State to control initialization
 
@@ -39,10 +40,12 @@ const StoreContextProvider: FC<Props> = ({ children }) => {
         setConfigData,
         configHasChanges,
         setConfigHasChanges,
-        setConfigStorage
+        setConfigStorage,
+        getOutwardsFromJira,
+        resultState
       }}
     >
-      {initialized ? children : null} 
+      {initialized ? children : null}
     </StoreContext.Provider>
   );
 };

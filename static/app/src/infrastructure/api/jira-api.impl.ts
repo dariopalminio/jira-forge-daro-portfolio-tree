@@ -104,25 +104,6 @@ export default function JiraApiImpl(): IJiraApi {
     };
 
     /**
-     * Get issue link types
-     * https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-link-types/
-     */
-    async function getIssueLinkTypes(): Promise<any> {
-        try {
-            const response = await requestJira(`/rest/api/3/issueLinkType`, {
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    };
-
-    /**
      * Get project versions paginated
      * GET /rest/api/2/project/{projectIdOrKey}/version
      * Returns a paginated list of all versions in a project. See the Get project versions resource if you want to get a full list of versions without pagination.
@@ -154,7 +135,6 @@ export default function JiraApiImpl(): IJiraApi {
     return {
         searchJql,
         getIssueBySelf,
-        getIssueLinkTypes,
         getChildrens,
         getProjectVersions
     };

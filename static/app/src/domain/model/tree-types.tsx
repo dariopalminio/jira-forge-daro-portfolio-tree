@@ -26,3 +26,4 @@ export type IssueTreeNodeType = {
 
 export type TreeToggleType = { [key: string]: boolean };
 
+export const emptyTreeToggle: TreeToggleType = {};

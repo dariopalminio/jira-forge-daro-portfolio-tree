@@ -30,6 +30,10 @@
     "issue.type": "Issue type",
     "children.progress": "Children Progress",
     "unassigned": "Unassigned",
-    "performance": "Performance"
+    "performance": "Performance",
+    "No.issues.found": "No issues were found matching your search",
+    "Loading...": "Loading...",
+    "Processing...": "Processing...",
+    "Saving...": "Saving..."
 
 }

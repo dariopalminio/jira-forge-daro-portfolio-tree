@@ -21,22 +21,28 @@ import { CheckboxType } from "../../common/checkbox/checkbox";
 import FactoryContext from "../../provider/factory-context";
 import { ServiceKeys } from "../../../domain/outgoing/service-key";
 import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
+import Alert from "../../common/alert/alert";
 
 
 const SearchView: React.FC = () => {
-    const { getObject } = useContext(FactoryContext);
-    const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-    const { getTreeFromJQL, getTreeTogglesFrom, addChildsToTreeByLink, addChildsToTreeByParent,
-        isProcessing, hasError, msg, isSuccess } = useJiraTreeHook(jiraApi);
-    const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
+    const { resultState, 
+        dataTree, 
+        setDataTree, 
+        toggles, 
+        setToggles, 
+        jql, 
+        setJql, 
+        getTreeFromJQL, 
+        getTreeTogglesFrom, 
+        addChildsToTreeByLink, 
+        addChildsToTreeByParent } = useContext(PortfolioContext);
     const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
-
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
     const [tabSelected, setTabSelected] = useState<string>('tree');
     const [progress, setProgress] = useState<number>(0);
-    const [progressTitle, setProgressTitle] = useState<string>('Loading...');
+    const [progressTitle, setProgressTitle] = useState<string>(t('Loading...'));
 
     const withEpicsChildrenDefault: CheckboxType = {
         label: t('with.epics.children'),
@@ -132,20 +138,22 @@ const SearchView: React.FC = () => {
             setProgress(30);
             setProgressTitle('Loading childs by links to all tree levels...');
 
-            //load childs by links to all levels
-            const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
-            const newTreeToggles = getTreeTogglesFrom(newDataTree);
-            setToggles(newTreeToggles);
-            setDataTree(newDataTree);
-            setProgress(60);
-            setProgressTitle('Loading childs by parent to all tree levels ...');
+            if (dataTree && dataTree.hasChildren){
+                //load childs by links to all levels
+                const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
+                const newTreeToggles = getTreeTogglesFrom(newDataTree);
+                setToggles(newTreeToggles);
+                setDataTree(newDataTree);
+                setProgress(60);
+                setProgressTitle('Loading childs by parent to all tree levels ...');
 
-            //load Epics children and children by parent
-            const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, MAX_ALLOWED_LEVEL);
-            const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
-            setToggles(lastTreeToggles);
-            setDataTree(lastDataTree);
-            setProgress(100);
+                //load Epics children and children by parent
+                const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, MAX_ALLOWED_LEVEL);
+                const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
+                setToggles(lastTreeToggles);
+                setDataTree(lastDataTree);
+                setProgress(100);
+            }
 
         } catch (error) {
             console.log(error);
@@ -254,9 +262,11 @@ const SearchView: React.FC = () => {
 
             </ModalDialog>
 
-            {hasError && <label>{msg}</label>}
+            {resultState.isProcessing && <Loading title={progressTitle} progress={progress} />}
 
-            {isProcessing && <Loading title={progressTitle} progress={progress} />}
+            {(!resultState.hasError && resultState.msg) &&  <Alert severity="info">{resultState.msg ? t(resultState.msg) : ''}</Alert>}
+
+            {resultState.hasError && <Alert severity="error">{resultState.msg}</Alert>}
 
         </div>
 

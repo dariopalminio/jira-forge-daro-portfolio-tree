@@ -1,5 +1,6 @@
 import { invoke } from '@forge/bridge';
 import { IStorageApi } from '../../domain/outgoing/storage-api.interface';
+import { requestJira } from '@forge/bridge';
 
 /**
  * Storage API
@@ -45,8 +46,28 @@ export default function StorageApiImpl(): IStorageApi {
         }
     };
 
+        /**
+     * Get issue link types
+     * https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-link-types/
+     */
+        async function getIssueLinkTypes(): Promise<any> {
+            try {
+                const response = await requestJira(`/rest/api/3/issueLinkType`, {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error(error);
+                throw error;
+            }
+        };
+
     return {
         getConfigStorage,
+        getIssueLinkTypes,
         setConfigStorage
     };
 };
