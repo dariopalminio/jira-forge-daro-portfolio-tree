@@ -57,7 +57,7 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [jiraApi, updateResultState]);
 
     /**
      * Get Tree from JQL
@@ -169,8 +169,9 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
             const r: IssueTreeNodeType = await getTreeWithChildrenByLink(issuesTree, outwards, initialLevel, maxLevel);
             setResultState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
             return r;
-        } catch (error) {
-            setResultState({ isProcessing: false, hasError: true, msg: 'Error addChildrenByLink', isSuccess: false });
+        } catch (error: any) {
+            const errorMessage = error?.message || 'An unknown error occurred';
+            setResultState({ isProcessing: false, hasError: true, msg: errorMessage, isSuccess: false });
             console.error('Error in addChildsToTreeByLink:', error);
             return issueItemDefault;
         }
