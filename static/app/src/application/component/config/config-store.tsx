@@ -1,31 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import StoreContext from "../../provider/store-context";
-import FactoryContext from "../../provider/factory-context";
-import useJiraTreeHook from '../../../domain/hook/jira-tree-hook';
-import useJiraStorageHook from "../../../domain/hook/jira-storage-hook";
-import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
+import StoreContext from "../../provider/config-store-context";
+import { ConfigStorageDataType } from "../../../domain/model/config-storage-data-type";
 import Button from "../../common/button/button";
 import Checkbox, { CheckboxType } from "../../common/checkbox/checkbox";
 import CheckboxGroup from "../../common/checkbox/checkbox-group";
 import TextField from "../../common/text-field/text-field";
-import { ServiceKeys } from '../../../domain/outgoing/service-key';
-import { IStorageApi } from "../../../domain/outgoing/storage-api.interface";
-import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
 import AppVersion from "./app-version";
+import Alert from "../../common/alert/alert";
+import Loading from "../../common/loading/loading";
 
 /**
  * ConfigStore component
  * @returns 
  */
 const ConfigStore: React.FC = () => {
-    const { getObject } = useContext(FactoryContext);
-    const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
+    const { resultState, configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage,
+        getOutwardsFromJira
+     } = useContext(StoreContext);
 
     const { t } = useTranslation();
-    
-    const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-    const { getOutwardsFromJira } = useJiraTreeHook(jiraApi);
 
     const [outwardsCheckboxes, setOutwardsCheckboxes] = useState<CheckboxType[]>([]);
 
@@ -97,9 +91,7 @@ const ConfigStore: React.FC = () => {
 
     return (
         <div>
-            <p style={{ fontSize: "11px", color: "grey" }}>
-                <AppVersion/>
-            </p>
+            <AppVersion/>
             <p style={{ fontSize: "11px", color: "grey" }}>configuration data: {configData !== null ? JSON.stringify(configData) : 'null'}</p>
 
             <form>
@@ -132,6 +124,10 @@ const ConfigStore: React.FC = () => {
                     <Button onClick={() => handleSave()} style={{ marginTop: '10px', float: 'right' }}>{t('save')}</Button>
                 </div>
             )}
+
+            {resultState.isProcessing && <Loading title={resultState.msg ? t(resultState.msg) : ''} progress={50} />}
+
+            {resultState.hasError && <Alert severity="error">{resultState.msg}</Alert>}
 
         </div>
     );

@@ -30,10 +30,10 @@ describe('useJiraStorageHook', () => {
       configStorage = await result.current.getConfigStorage();
     });
 
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.isSuccess).toBeTruthy();
-    expect(result.current.msg).toBe('');
-    expect(result.current.hasError).toBeFalsy();
+    expect(result.current.resultState.isProcessing).toBeFalsy();
+    expect(result.current.resultState.isSuccess).toBeTruthy();
+    expect(result.current.resultState.msg).toBe(undefined);
+    expect(result.current.resultState.hasError).toBeFalsy();
 
     expect(configStorage.linksOutwards.length).toBe(1);
     expect(configStorage.linksOutwards[0]).toBe('includes');

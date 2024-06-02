@@ -1,5 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
 import FactoryContext from "./factory-context";
+import Loading from "../common/loading/loading";
 
 /*
 HACK: Temporary solution for the problem of switching to fake mode. 
@@ -43,7 +44,7 @@ const FactoryContextProvider: FC<Props> = ({ children }) => {
 
   return (
       <FactoryContext.Provider value={{ getObject }}>
-          {initialized ? children : null}  
+          {initialized ? children : <Loading title={''} progress={30} />}  
       </FactoryContext.Provider>
   );
 };

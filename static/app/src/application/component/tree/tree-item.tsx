@@ -6,6 +6,7 @@ import imgError from "./item-no-image.png"
 import StatusCell from '../table/cells/status-cell';
 import useIssueHook from '../../../domain/hook/issue-hook';
 import Progress from '../../common/progress/progress';
+import { StatusFilterType, defaultStatusFilter } from '../../../domain/model/status-filter-type';
 
 
 interface IProps {
@@ -14,12 +15,13 @@ interface IProps {
     treeItem: IssueTreeNodeType;
     togglesChange: (newToggles: TreeToggleType) => void;
     toggles: TreeToggleType;
+    filter: StatusFilterType;
 }
 
 /**
  * TreeItem component
  */
-const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, togglesChange }) => {
+const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, togglesChange, filter }) => {
     const { issueTypeNameOf, getChildrenProgressCount } = useIssueHook();
 
     const handleClickOpen = () => {
@@ -46,7 +48,18 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
         return toggles[treeItem.key];
     }
 
-    return (
+    const getStatusString = (item: any): string => {
+        const statusName = item?.fields?.status?.statusCategory?.key;
+        return typeof statusName === 'string' ? statusName : '';
+    }
+
+    const isVisible = (item: any): boolean => {
+        const status: string = getStatusString(item);
+        return filter.statesToShow.includes(status)
+    }
+
+    return (<>{
+        isVisible(treeItem) &&
         <span className={styles.treeItemContainer} style={{ height: '20px' }}>
             <span className={styles.treeItem}
                 style={{ marginLeft: getPaddingLeft() }}>
@@ -84,8 +97,8 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                             <StatusCell item={treeItem} />
                         </div>
                         &nbsp;
-                        <Progress progress={getChildrenProgressCount(treeItem)} 
-                    />
+                        <Progress progress={getChildrenProgressCount(treeItem)}
+                        />
                     </span>
                 </a>
 
@@ -100,12 +113,14 @@ const TreeItem: React.FC<IProps> = ({ level, treeItem, onClick, toggles, toggles
                                 treeItem={item}
                                 togglesChange={togglesChange}
                                 toggles={toggles}
+                                filter={filter}
                                 onClick={(item) => handleOnClick(item)} />
                         );
                     }
                 )
             }
         </span>
+    }</>
     )
 }
 

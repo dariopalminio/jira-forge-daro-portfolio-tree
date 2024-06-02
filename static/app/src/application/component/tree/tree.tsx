@@ -3,6 +3,7 @@ import { IssueTreeNodeType, TreeToggleType } from '../../../domain/model/tree-ty
 import Button from '../../common/button/button';
 import TreeItem from './tree-item';
 import styles from './tree-item.module.css';
+import { StatusFilterType } from '../../../domain/model/status-filter-type';
 
 interface IProps {
     expandAllLabel: string;
@@ -11,51 +12,21 @@ interface IProps {
     tree: IssueTreeNodeType;
     togglesChange: (newToggles: TreeToggleType) => void;
     toggles: TreeToggleType;
+    filter: StatusFilterType;
 }
 
 /**
  * Tree component
  */
-const Tree: React.FC<IProps> = ({ expandAllLabel, collapseAllLabel, tree, onClick, toggles, togglesChange }) => {
+const Tree: React.FC<IProps> = ({ expandAllLabel, collapseAllLabel, tree, onClick, toggles, togglesChange, filter }) => {
 
 
     const handleOnClickLink = (item: IssueTreeNodeType) => {
         onClick(item);
     }
 
-    const expand = () => {
-        let togg: TreeToggleType = {};
-        for (var key in toggles) {
-            togg[`${key}`] = true;
-        }
-        togglesChange({ ...togg });
-    }
-
-    const collapse = () => {
-        let togg: TreeToggleType = {};
-        for (var key in toggles) {
-            togg[`${key}`] = false;
-        }
-        togglesChange({ ...togg });
-    }
-
     return (
         <div className={styles.treeContainer}>
-
-            <div className={styles.treeHeader}>
-
-                <Button styleType={"secondary"}
-                    style={{ height: "15px", marginTop: '2px', fontSize: '10px', float: 'left' }}
-                    onClick={() => expand()}>
-                    {expandAllLabel}
-                </Button>
-                <Button styleType={"secondary"}
-                    style={{ height: "15px", marginTop: '2px', marginLeft: '2px', fontSize: '10px', float: 'left' }}
-                    onClick={() => collapse()}>
-                    {collapseAllLabel}
-                </Button>
-
-            </div>
             {tree?.childrens?.map((item, index) => {
                 return (
                     <TreeItem
@@ -64,6 +35,7 @@ const Tree: React.FC<IProps> = ({ expandAllLabel, collapseAllLabel, tree, onClic
                         toggles={toggles}
                         togglesChange={togglesChange}
                         treeItem={item}
+                        filter={filter}
                         onClick={(item) => handleOnClickLink(item)} />
                 );
             })}

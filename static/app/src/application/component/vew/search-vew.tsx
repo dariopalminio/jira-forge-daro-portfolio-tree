@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import useJiraTreeHook from "../../../domain/hook/jira-tree-hook";
 import Button from "../../common/button/button";
 import TextField from "../../common/text-field/text-field";
 import { IColHeader } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
-import PortfolioContext from "../../provider/portfolio-context";
+import PortfolioContext from "../../provider/portfolio-tree-context";
 import styles from './search-view.module.css';
 import { ModalDialog } from "../../common/dialog";
 import { TabsType } from "../../common/tab-panel/types";
@@ -15,28 +14,27 @@ import TableViewPanel from "./table-view-panel";
 import TreeViewPanel from "./tree-view-panel";
 import IssueView from "../issue/issue-view";
 import Loading from "../../common/loading/loading";
-import StoreContext from "../../provider/store-context";
-import { ConfigStorageDataType } from "../../../domain/model/config-storage-data.type";
+import StoreContext from "../../provider/config-store-context";
+import { ConfigStorageDataType } from "../../../domain/model/config-storage-data-type";
 import { CheckboxType } from "../../common/checkbox/checkbox";
-import FactoryContext from "../../provider/factory-context";
-import { ServiceKeys } from "../../../domain/outgoing/service-key";
-import { IJiraApi } from "../../../domain/outgoing/jira-api.interface";
-
+import Alert from "../../common/alert/alert";
+import { StatusFilterType, defaultStatusFilter } from "../../../domain/model/status-filter-type";
+import FilterPanel from "../filter/filter-panel";
 
 const SearchView: React.FC = () => {
-    const { getObject } = useContext(FactoryContext);
-    const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-    const { getTreeFromJQL, getTreeTogglesFrom, addChildsToTreeByLink, addChildsToTreeByParent,
-        isProcessing, hasError, msg, isSuccess } = useJiraTreeHook(jiraApi);
-    const { dataTree, setDataTree, toggles, setToggles, jql, setJql } = useContext(PortfolioContext);
+    const { resultState, toggles, dataTree,
+        setToggles,
+        jql,
+        setJql,
+        searchAndLoadDataTree,
+        progress } = useContext(PortfolioContext);
     const { configData, setConfigData, configHasChanges, setConfigHasChanges, setConfigStorage } = useContext(StoreContext);
-
     const [isValid, setIsValid] = useState<boolean>(true);
     const { t } = useTranslation();
     const [issueToShow, setIssueToShow] = useState<IssueTreeNodeType | null>(null);
     const [tabSelected, setTabSelected] = useState<string>('tree');
-    const [progress, setProgress] = useState<number>(0);
-    const [progressTitle, setProgressTitle] = useState<string>('Loading...');
+
+    const [filter, setFilter] = useState<StatusFilterType>(defaultStatusFilter);
 
     const withEpicsChildrenDefault: CheckboxType = {
         label: t('with.epics.children'),
@@ -117,43 +115,9 @@ const SearchView: React.FC = () => {
         }
     ];
 
-    const searchData = async () => {
-        try {
-            const MAX_ALLOWED_LEVEL = 7;
-
-            //load first level, generally are Initiatives
-            setProgress(0);
-            setProgressTitle('Loading JQL with tree first level...');
-            const dataTree: IssueTreeNodeType | undefined = await getTreeFromJQL(jql);
-            if (dataTree === undefined) throw new Error('Search JQL not found data!')
-            const treeToggles = getTreeTogglesFrom(dataTree);
-            setToggles(treeToggles);
-            setDataTree(dataTree);
-            setProgress(30);
-            setProgressTitle('Loading childs by links to all tree levels...');
-
-            //load childs by links to all levels
-            const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTree, configData.linksOutwards, MAX_ALLOWED_LEVEL);
-            const newTreeToggles = getTreeTogglesFrom(newDataTree);
-            setToggles(newTreeToggles);
-            setDataTree(newDataTree);
-            setProgress(60);
-            setProgressTitle('Loading childs by parent to all tree levels ...');
-
-            //load Epics children and children by parent
-            const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, MAX_ALLOWED_LEVEL);
-            const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
-            setToggles(lastTreeToggles);
-            setDataTree(lastDataTree);
-            setProgress(100);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const handleSearch = () => {
-        searchData()
+    const handleSearch = async () => {
+        const maxLeve = 2; //maximum allowable depth of the tree
+        await searchAndLoadDataTree(jql, configData.linksOutwards, maxLeve)
     }
 
     const handleChange = async (val: string) => {
@@ -190,6 +154,10 @@ const SearchView: React.FC = () => {
         setWithEpicsChildren({ ...withEpicsChildren, checked: !withEpicsChildren.checked })
     }
 
+    const handlerOnChangeFilter = (newFilter: StatusFilterType) => {
+        setFilter(newFilter)
+    }
+
     return (
         <div id="TabPanel" className={styles.panelContainer}>
             <div id="actionPanel" className={styles.actionPanel}>
@@ -221,11 +189,20 @@ const SearchView: React.FC = () => {
 
             <Tabs tabs={tabs} idTabSelected={tabSelected} onClick={(idTab: string) => setTabSelected(idTab)}></Tabs>
 
-            <div id="contentPanel" style={{ height: "100%" }}>
+            <FilterPanel
+                        toggles={toggles}
+                        onChangeToggles={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
+                        filter={filter}
+                        onChangeFilter={(statusFilter: StatusFilterType) => handlerOnChangeFilter(statusFilter)}/>
 
+            <div id="contentPanel" style={{ height: "100%" }}>
 
                 {tabSelected === 'tree' && (
                     <TreeViewPanel headers={TableHeadersDefaultConfig}
+                        tree={dataTree}
+                        toggles={toggles}
+                        filter={filter}
+                        togglesChange={(newToggles: TreeToggleType) => handlerToggleChange(newToggles)}
                         onClick={(item: IssueTreeNodeType) => handleClick(item)} />
                 )}
 
@@ -254,9 +231,11 @@ const SearchView: React.FC = () => {
 
             </ModalDialog>
 
-            {hasError && <label>{msg}</label>}
+            {resultState.isProcessing && <Loading title={progress.title} progress={progress.percentage} />}
 
-            {isProcessing && <Loading title={progressTitle} progress={progress} />}
+            {(!resultState.hasError && resultState.msg) && <Alert severity="info">{resultState.msg ? t(resultState.msg) : ''}</Alert>}
+
+            {resultState.hasError && <Alert severity="error">{resultState.msg}</Alert>}
 
         </div>
 

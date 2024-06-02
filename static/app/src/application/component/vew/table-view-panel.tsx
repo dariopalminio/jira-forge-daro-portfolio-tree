@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../common/splitable-container"
 import { IColHeader, TableSelectable } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
-import PortfolioContext from "../../provider/portfolio-context";
+import PortfolioContext from "../../provider/portfolio-tree-context";
 import { useTranslation } from "react-i18next";
 import { Tree } from "../tree";
 
@@ -14,7 +14,7 @@ interface IProps {
 
 export const TableViewPanel: React.FC<IProps> = (props: IProps) => {
 
-    const { dataTree, setDataTree, toggles, setToggles } = useContext(PortfolioContext);
+    const { dataTree, toggles, setToggles } = useContext(PortfolioContext);
     const idSpliter = "TablePanelView";
     const { t } = useTranslation();
 

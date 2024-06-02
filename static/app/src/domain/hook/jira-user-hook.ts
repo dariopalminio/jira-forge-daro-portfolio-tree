@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { IHookState, InitialState } from './hook.type';
+import { IHookResultState, InitialResultState, ProcessingResultState } from './hook-result-state.type';
 import { IJiraUserApi } from '../outgoing/jira-user-api.interface';
 
 /**
@@ -8,11 +8,11 @@ import { IJiraUserApi } from '../outgoing/jira-user-api.interface';
  */
 export default function useJiraUserHook(jiraUserApi: IJiraUserApi) {
 
-    const [state, setState] = useState<IHookState>(InitialState);
+    const [resultState, setResultState] = useState<IHookResultState>(InitialResultState);  //Result status
     const [currentUser, setCurrentUser] = useState<any>({});
 
     const updateState = useCallback((newState: any) => {
-        setState(prev => ({ ...prev, ...newState }));
+        setResultState(prev => ({ ...prev, ...newState }));
     }, []);
 
     /**
@@ -20,24 +20,21 @@ export default function useJiraUserHook(jiraUserApi: IJiraUserApi) {
      * @returns Jira User Object
      */
     const getCurrentUser = useCallback(async () => {
-        updateState({ isProcessing: true, hasError: false, msg: '', isSuccess: false });
+        setResultState(ProcessingResultState);
         try {
             const currentUserData = await jiraUserApi.getCurrentUser();
             setCurrentUser(currentUserData);
-            updateState({ isProcessing: false, hasError: false, msg: '', isSuccess: true });
+            updateState({ isProcessing: false, hasError: false, msg: undefined, isSuccess: true });
             return currentUserData;
         } catch (error) {
             console.error(error);
-            updateState({ hasError: true, msg: 'Error fetching current user', isSuccess: false });
+            updateState({ isProcessing: false, hasError: true, msg: 'Error fetching current user', isSuccess: false });
             return null;
         }
     }, [updateState]);
 
     return {
-        isProcessing: state.isProcessing,
-        hasError: state.hasError,
-        msg: state.msg,
-        isSuccess: state.isSuccess,
+        resultState,
         getCurrentUser,
         currentUser
     };

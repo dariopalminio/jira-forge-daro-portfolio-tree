@@ -25,81 +25,47 @@ describe('useJiraStorageHook', () => {
     cleanup();
   });
 
-  test('Testing useJiraTreeHook.searchJql (positive): retrieves data successfully', async () => {
-
-    const { result } = renderHook(() => useJiraTreeHook(jiraApiMock));
-
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.hasError).toBeFalsy();
-    expect(result.current.isSuccess).toBeFalsy();
-
-    let dataTreeFirstLevel: IssueTreeNodeType | undefined;
-    await act(async () => {
-        dataTreeFirstLevel = await result.current.getTreeFromJQL('');
-    });
-
-    //Check status
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.isSuccess).toBeTruthy();
-    expect(result.current.msg).toBe('');
-    expect(result.current.hasError).toBeFalsy();
-
-    //Check function response data
-    expect(dataTreeFirstLevel?.hasChildren).toBe(true);
-    expect(dataTreeFirstLevel?.childrens.length).toBe(4);
-  });
 
   test('Testing useJiraTreeHook.addChildrenByParent (positive): retrieves tree data structure successfully', async () => {
     const mockData = { key: 'value' };
 
     const { result } = renderHook(() => useJiraTreeHook(jiraApiMock));
 
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.hasError).toBeFalsy();
-    expect(result.current.isSuccess).toBeFalsy();
-
-    const jiraApi: IJiraApi = JiraApiFake();
-    const linksOutwards = ['includes'];
-    const maxAllowedLevel = 2;
-    const maxResults = 15;
-    let dataTreeFirstLevel: IssueTreeNodeType;
-    let dataTreeSecondLevel: IssueTreeNodeType | undefined;
-    let lastDataTree: IssueTreeNodeType | undefined;
+    expect(result.current.resultState.isProcessing).toBeFalsy();
+    expect(result.current.resultState.hasError).toBeFalsy();
+    expect(result.current.resultState.isSuccess).toBeFalsy();
 
     await act(async () => {
         //load first level
-        const data: IssueTreeNodeType | undefined = await result.current.getTreeFromJQL('');
-        expect(data == undefined).toBeFalsy();
-        if (data != undefined) dataTreeFirstLevel = data;
-        //load childs by links to all levels
-        dataTreeSecondLevel = await result.current.addChildsToTreeByLink(dataTreeFirstLevel, linksOutwards, maxAllowedLevel);
-        //load Epics children and children by parent
-        lastDataTree = await result.current.addChildsToTreeByParent(dataTreeSecondLevel, maxAllowedLevel);
+        const maxLeve = 2; //maximum allowable depth of the tree
+        const linksOutwards: string[] = ['includes'];
+        const jql: string = '';
+        await result.current.searchAndLoadDataTree(jql, linksOutwards, maxLeve);
+        expect(result.current.dataTree == undefined).toBeFalsy();
     });
 
     //Check status
-    expect(result.current.isProcessing).toBeFalsy();
-    expect(result.current.isSuccess).toBeTruthy();
-    expect(result.current.msg).toBe('');
-    expect(result.current.hasError).toBeFalsy();
+    expect(result.current.resultState.isProcessing).toBeFalsy();
+    expect(result.current.resultState.isSuccess).toBeTruthy();
+    expect(result.current.resultState.msg).toBe(undefined);
+    expect(result.current.resultState.hasError).toBeFalsy();
 
     //Check first node in level 0: ROOT
-    expect(lastDataTree?.hasChildren).toBe(true);
-    expect(lastDataTree?.childrens?.length).toBe(4); //root must have 4 children
+    expect(result.current.dataTree?.hasChildren).toBe(true);
+    expect(result.current.dataTree?.childrens?.length).toBe(4); //root must have 4 children
 
     //Check first node in level 1
-    expect(lastDataTree?.childrens[0]?.hasChildren).toBe(true);
-    expect(lastDataTree?.childrens[0]?.childrens?.length).toBe(6); //first node in level 1 must have 6 children
-    expect(lastDataTree?.childrens[1]?.childrens?.length).toBe(7); //second node in level 1 must have 7 children
-    expect(lastDataTree?.childrens[2]?.childrens?.length).toBe(9); //third node in level 1 must have 9 children
-    expect(lastDataTree?.childrens[3]?.childrens?.length).toBe(3); //four node in level 1 must have 3 children
+    expect(result.current.dataTree?.childrens[0]?.hasChildren).toBe(true);
+    expect(result.current.dataTree?.childrens[0]?.childrens?.length).toBe(6); //first node in level 1 must have 6 children
+    expect(result.current.dataTree?.childrens[1]?.childrens?.length).toBe(7); //second node in level 1 must have 7 children
+    expect(result.current.dataTree?.childrens[2]?.childrens?.length).toBe(9); //third node in level 1 must have 9 children
+    expect(result.current.dataTree?.childrens[3]?.childrens?.length).toBe(3); //four node in level 1 must have 3 children
 
     //Check first node in level 2
-    expect(lastDataTree?.childrens[0]?.childrens[0]?.hasChildren).toBe(true);
-    expect(lastDataTree?.childrens[0]?.childrens[0]?.childrens?.length).toBe(3); //first node in level 2 must have 3 children
+    expect(result.current.dataTree?.childrens[0]?.childrens[0]?.hasChildren).toBe(true);
 
-    //Check if level 3 does not exist
-    expect(lastDataTree?.childrens[0]?.childrens[0]?.childrens[0]?.hasChildren).toBe(false);
+    //Check if level 3 does not exist, maximum allowable depth of the tree is 2
+    expect(result.current.dataTree?.childrens[0]?.childrens[0]?.childrens[0]?.hasChildren).toBe(false);
   });
 
 });

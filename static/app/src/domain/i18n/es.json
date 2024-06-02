@@ -30,6 +30,13 @@
     "issue.type": "Tipo de item",
     "children.progress": "Progreso de subtareas",
     "unassigned": "Sin asignar",
-    "performance": "Desempeño"
+    "performance": "Desempeño",
+    "No.issues.found": "Sin resultados. No se encontraron issues.",
+    "Loading...": "Cargando...",
+    "Processing...": "Procesando...",
+    "Saving...": "Guardando...",
+    "new": "Pendiente",
+    "indeterminate": "En Progreso",
+    "done": "Terminado"
 
 }

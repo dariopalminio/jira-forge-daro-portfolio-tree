@@ -1,0 +1,41 @@
+/* Alert.module.css */
+.alertBox {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .alertBox {
+        width: 95%;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .alertBox {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 0.5rem;
+    }
+}
+
+.alertCloseButton {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    font-weight: bold;
+    float: none;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.alertCloseButton:hover {
+    color: black;
+}
