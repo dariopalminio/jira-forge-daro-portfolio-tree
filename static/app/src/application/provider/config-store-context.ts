@@ -3,7 +3,7 @@ import { ConfigStorageDataDefault, ConfigStorageDataType } from '../../domain/mo
 import { InitialResultState } from '../../domain/hook/hook-result-state.type';
 
 
-export interface IStoreContext {
+export interface IConfigStoreContext {
     configData: ConfigStorageDataType;
     setConfigData: (newConfigData: ConfigStorageDataType) => void;
     configHasChanges: boolean;
@@ -14,7 +14,7 @@ export interface IStoreContext {
 };
 // const setConfigStorage = useCallback(async (configData: ConfigStorageDataType): Promise<ConfigStorageDataType> => {
 
-export const StoreContextDefaultValues: IStoreContext = {
+export const StoreContextDefaultValues: IConfigStoreContext = {
     configData: ConfigStorageDataDefault,
     setConfigData: (newConfigData: ConfigStorageDataType) => { },
     configHasChanges: false,
@@ -28,7 +28,7 @@ export const StoreContextDefaultValues: IStoreContext = {
     resultState: InitialResultState
 };
 
-const StoreContext = createContext<IStoreContext>(StoreContextDefaultValues);
+const ConfigStoreContext = createContext<IConfigStoreContext>(StoreContextDefaultValues);
 
 
-export default StoreContext;
+export default ConfigStoreContext;

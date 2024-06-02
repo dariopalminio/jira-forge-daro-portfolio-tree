@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { SplitableContainer, SplitLeft, SplitBar, SplitRight } from "../../common/splitable-container"
 import { IColHeader, TableSelectable } from "../table";
 import { IssueTreeNodeType, TreeToggleType } from "../../../domain/model/tree-types";
-import PortfolioContext, { IPortfolioContext } from "../../provider/portfolio-context";
+import PortfolioTreeContext from "../../provider/portfolio-tree-context";
 import Roadmaps from "../roadmap/roadmaps";
 import { useTranslation } from "react-i18next";
 import { QuartersType } from "../../../domain/model/quarter-types";
@@ -16,7 +16,7 @@ interface IProps {
 
 export const RoadmapViewPanel: React.FC<IProps> = (props: IProps) => {
     const { getExtremeDatesFromTree, getRoadmapsQuarters, quarters, setQuarters } = useRoadmaps();
-    const { dataTree, setDataTree, toggles, setToggles } = useContext(PortfolioContext);
+    const { dataTree, toggles, setToggles } = useContext(PortfolioTreeContext);
     const idSpliter = "RoadmapPanelView";
     const { t } = useTranslation();
 

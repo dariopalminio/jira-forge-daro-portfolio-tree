@@ -1,7 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
-import PortfolioContext from "./portfolio-context";
-import StoreContext from "./store-context";
-import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from "../../domain/model/tree-types";
+import PortfolioTreeContext from "./portfolio-tree-context";
+import StoreContext from "./config-store-context";
 import FactoryContext from "./factory-context";
 import { IJiraApi } from "../../domain/outgoing/jira-api.interface";
 import { ServiceKeys } from "../../domain/outgoing/service-key";
@@ -12,15 +11,13 @@ interface Props { children?: React.ReactNode }
 
 const jqlDefault: string = "project=POR and issuetype='Initiative' order by created DESC";
 
-const PortfolioContextProvider: FC<Props> = ({ children }) => {
+const PortfolioTreeContextProvider: FC<Props> = ({ children }) => {
   const { configData, setConfigData, configHasChanges, setConfigHasChanges } = useContext(StoreContext);
-
   const { getObject } = useContext(FactoryContext);
   const jiraApi: IJiraApi = getObject(ServiceKeys.JiraApi);
-  const { resultState, getTreeFromJQL, getTreeTogglesFrom, addChildsToTreeByLink, addChildsToTreeByParent } = useJiraTreeHook(jiraApi);
-  
-  const [dataTree, setDataTree] = useState<IssueTreeNodeType>(issueItemDefault);
-  const [toggles, setToggles] = useState<TreeToggleType>({});
+  const { resultState, dataTree,
+    toggles,
+    progress, searchAndLoadDataTree, setToggles } = useJiraTreeHook(jiraApi);
   const [jql, setJql] = useState<string>('');
   const [initialized, setInitialized] = useState(false);  // State to control initialization
 
@@ -36,21 +33,22 @@ const PortfolioContextProvider: FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <PortfolioContext.Provider
+    <PortfolioTreeContext.Provider
       value={{
+        searchAndLoadDataTree,
         dataTree,
-        setDataTree,
         toggles,
         setToggles,
         jql,
-        setJql, 
-        resultState, getTreeFromJQL, getTreeTogglesFrom, addChildsToTreeByLink, addChildsToTreeByParent
+        setJql,
+        resultState,
+        progress
       }}
     >
-       {initialized ? children : <Loading title={''} progress={90} />}  
-    </PortfolioContext.Provider>
+      {initialized ? children : <Loading title={''} progress={90} />}
+    </PortfolioTreeContext.Provider>
   );
 };
 
-export default PortfolioContextProvider;
+export default PortfolioTreeContextProvider;
 

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { IJiraApi } from '../outgoing/jira-api.interface';
 import { IHookResultState, InitialResultState, ProcessingResultState } from './hook-result-state.type';
 import { issueItemDefault, IssueTreeNodeType, TreeToggleType } from '../model/tree-types';
+import { ProgressType, progressEmpty } from '../model/progress.type';
 
 /**
  * useJiraTreeHook Custom hook
@@ -12,9 +13,55 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
     const MAX_ALLOWED_LEVEL = 8;
 
     const [resultState, setResultState] = useState<IHookResultState>(InitialResultState); //Result status
-
+    const [dataTree, setDataTree] = useState<IssueTreeNodeType>(issueItemDefault);
+    const [toggles, setToggles] = useState<TreeToggleType>({});
+    const [progress, setProgress] = useState<ProgressType>(progressEmpty);
+    
     const updateResultState = useCallback((newState: any) => {
         setResultState(prev => ({ ...prev, ...newState }));
+    }, []);
+
+    const searchAndLoadDataTree = useCallback(async (jqlToSearch: string, linksOutwards: string[]) => {
+        try {
+            const MAX_ALLOWED_LEVEL = 7;
+
+            //load first level, generally are Initiatives
+            setProgress({
+                percentage: 0,
+                title: 'Loading JQL with tree first level...'
+            });
+            const dataTreeFirst: IssueTreeNodeType | undefined = await getTreeFromJQL(jqlToSearch);
+            if (dataTreeFirst === undefined) throw new Error('Search JQL not found data!')
+            const treeToggles = getTreeTogglesFrom(dataTreeFirst);
+            setToggles(treeToggles);
+            setDataTree(dataTreeFirst);
+
+            if (dataTreeFirst && dataTreeFirst.hasChildren){
+                //load childs by links to all levels
+                setProgress({
+                    percentage: 30,
+                    title: 'Loading childs by links to all tree levels...'
+                });
+                const newDataTree: IssueTreeNodeType = await addChildsToTreeByLink(dataTreeFirst, linksOutwards, MAX_ALLOWED_LEVEL);
+                const newTreeToggles = getTreeTogglesFrom(newDataTree);
+                setToggles(newTreeToggles);
+                setDataTree(newDataTree);
+
+                //load Epics children and children by parent
+                setProgress({
+                    percentage: 60,
+                    title: 'Loading childs by parent to all tree levels ...'
+                });
+                const lastDataTree: IssueTreeNodeType = await addChildsToTreeByParent(newDataTree, MAX_ALLOWED_LEVEL);
+                const lastTreeToggles = getTreeTogglesFrom(lastDataTree);
+                setToggles(lastTreeToggles);
+                setDataTree(lastDataTree);
+            }
+            setProgress({percentage: 100, title: '' });
+
+        } catch (error) {
+            console.log(error);
+        }
     }, []);
 
     /**
@@ -259,9 +306,10 @@ export default function useJiraTreeHook(jiraApi: IJiraApi) {
 
     return {
         resultState,
-        getTreeFromJQL,
-        getTreeTogglesFrom,
-        addChildsToTreeByLink,
-        addChildsToTreeByParent
+        searchAndLoadDataTree,
+        dataTree,
+        toggles,
+        setToggles,
+        progress
     };
 };

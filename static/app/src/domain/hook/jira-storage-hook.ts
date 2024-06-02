@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ConfigStorageDataDefault, ConfigStorageDataType } from '../model/config-storage-data-type';
 import { IStorageApi } from '../outgoing/storage-api.interface';
 import { IHookResultState, InitialResultState, ProcessingResultState } from './hook-result-state.type';
@@ -13,13 +13,19 @@ const CONFIG_KEY = 'CONFIG';
 export default function useJiraStorageHook(storageApi: IStorageApi) {
     
     const [resultState, setResultState] = useState<IHookResultState>(InitialResultState); //Result status
+    const [configData, setConfigData] = useState<ConfigStorageDataType>(ConfigStorageDataDefault);
 
+    const [configHasChanges, setConfigHasChanges] = useState<boolean>(false);
+  
+
+    
     const getConfigStorage = useCallback(async (): Promise<ConfigStorageDataType> => {
         setResultState(ProcessingResultState);
         try {
             const data = await storageApi.getConfigStorage(CONFIG_KEY);
             setResultState({ ...resultState, isSuccess: true });
             const dataStructured: ConfigStorageDataType = {...ConfigStorageDataDefault, ...data}
+            setConfigData(dataStructured || ConfigStorageDataDefault);
             return dataStructured || ConfigStorageDataDefault;
         } catch (error) {
             console.error("Error in Hook named useJiraStorageHook: ", error);
@@ -74,6 +80,10 @@ export default function useJiraStorageHook(storageApi: IStorageApi) {
         resultState,
         getConfigStorage,
         setConfigStorage,
-        getOutwardsFromJira
+        getOutwardsFromJira,
+        configData, 
+        setConfigData, 
+        configHasChanges, 
+        setConfigHasChanges
     };
 };
