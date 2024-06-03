@@ -1,4 +1,5 @@
 
+import { IssueProgressType } from '../model/issue-progress-type';
 import { IssueTreeNodeType } from '../model/tree-types';
 
 
@@ -81,9 +82,9 @@ export default function useIssueHook() {
         return hasDuedate;
     }
 
-    const getChildrenProgressCount = (issueTree: IssueTreeNodeType) => {
+    const getChildrenProgressCount = (issueTree: IssueTreeNodeType): IssueProgressType => {
 
-        let progress = {
+        let progress: IssueProgressType = {
             todo: 0,
             inprogress: 0,
             done: 0
@@ -110,10 +111,46 @@ export default function useIssueHook() {
                     }
                 }
             }
+        }else{
+            return getProgressCountWithoutChildren(issueTree);
         }
 
         return {...progress};
     }
+
+    /**
+     * Get the progress of items without children
+     */
+    const getProgressCountWithoutChildren = (issueTree: IssueTreeNodeType): IssueProgressType => {
+
+        let progress: IssueProgressType = {
+            todo: 0,
+            inprogress: 0,
+            done: 0
+        };
+
+        const statusName = issueTree.fields?.status?.statusCategory?.key;
+        switch (statusName) {
+            case 'new': {
+                progress.todo = 100;
+                break;
+            }
+            case 'indeterminate': {
+                progress.inprogress = 100;
+                break;
+            }
+            case 'done': {
+                progress.done = 100;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        return {...progress};
+    }
+
 
     return {
         issueTypeNameOf,

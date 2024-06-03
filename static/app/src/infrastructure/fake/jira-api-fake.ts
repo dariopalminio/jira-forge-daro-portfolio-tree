@@ -183,14 +183,14 @@ export default function JiraApiFake(): IJiraApi {
                         "self": "https://daropalmi.atlassian.net/rest/api/3/status/10020",
                         "description": "",
                         "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/generic.png",
-                        "name": "FUNNEL",
+                        "name": "In Progress",
                         "id": "10020",
                         "statusCategory": {
                             "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/2",
                             "id": 2,
-                            "key": "new",
-                            "colorName": "blue-gray",
-                            "name": "To Do"
+                            "key": "indeterminate",
+                            "colorName": "blue",
+                            "name": "In Progress"
                         }
                     },
                     "customfield_10015": "2022-11-29"
@@ -1078,14 +1078,14 @@ export default function JiraApiFake(): IJiraApi {
                     "self": "https://daropalmi.atlassian.net/rest/api/3/status/1",
                     "description": "The issue is open and ready for the assignee to start work on it.",
                     "iconUrl": "https://daropalmi.atlassian.net/images/icons/statuses/open.png",
-                    "name": "Open",
-                    "id": "1",
+                    "name": "In Progress",
+                    "id": "2",
                     "statusCategory": {
                         "self": "https://daropalmi.atlassian.net/rest/api/3/statuscategory/2",
                         "id": 2,
-                        "key": "new",
+                        "key": "indeterminate",
                         "colorName": "blue-gray",
-                        "name": "To Do"
+                        "name": "In Progress"
                     }
                 },
                 "components": [
@@ -1461,12 +1461,12 @@ export default function JiraApiFake(): IJiraApi {
                         "self": "https://dariopalminio.atlassian.net/rest/api/3/status/10000",
                         "description": "",
                         "iconUrl": "https://dariopalminio.atlassian.net/",
-                        "name": "Backlog",
+                        "name": "Done",
                         "id": "10000",
                         "statusCategory": {
                             "self": "https://dariopalminio.atlassian.net/rest/api/3/statuscategory/2",
                             "id": 2,
-                            "key": "new",
+                            "key": "done",
                             "colorName": "blue-gray",
                             "name": "Por hacer"
                         }

@@ -1,20 +1,14 @@
 import React from "react";
 import styles from './progress.module.css';
 
-/**
-        let progress = {
-            todo: 0,
-            inprogress: 0,
-            done: 0
-        };
- */
-
 interface IProps {
-    progress: any;
+    progress: any; //type ProgressType = {todo: number; inprogress: number; done: number;};
 }
 
+/**
+ * Progress bar component with three states: todo, inprogress and done.
+ */
 const Progress: React.FC<IProps> = (props: IProps) => {
-
 
     const getWithInprogressPercentage = (): string => {
         const total = props.progress.inprogress + props.progress.done + props.progress.todo;
