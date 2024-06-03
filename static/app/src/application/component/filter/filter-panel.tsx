@@ -78,26 +78,34 @@ const FilterPanel: React.FC<Props> = ({ toggles, onChangeToggles, filter, onChan
     }
 
     return (
-        <div className={styles.filteringPanel}>
-            <Button styleType={"secondary"}
-                style={{ height: "15px", marginTop: '2px', fontSize: '10px', float: 'left' }}
-                onClick={() => collapse()}>
-                {t("collapse.all")}
-            </Button>
+        <div className={styles.filteringContainerPanel}>
+            <div className={styles.expandPanel}>
+                <Button
+                    styleType="secondary"
+                    style={{ height: '20px', marginTop: '6px', fontSize: '10px', float: 'left' }}
+                    onClick={() => collapse()}
+                >
+                    {t("collapse.all")}
+                </Button>
 
-            <Button styleType={"secondary"}
-                style={{ height: "15px", marginTop: '2px', marginLeft: '2px', fontSize: '10px', float: 'left' }}
-                onClick={() => expand()}>
-                {t("expand.all")}
-            </Button>
+                <Button
+                    styleType="secondary"
+                    style={{ height: '20px', marginTop: '6px', marginLeft: '2px', fontSize: '10px', float: 'left' }}
+                    onClick={() => expand()}
+                >
+                    {t("expand.all")}
+                </Button>
+            </div>
 
-            &nbsp;&nbsp;&nbsp;&nbsp;
-
-            <CheckboxGroup
-                checkboxesList={outwardsCheckboxes}
-                onChange={(checkboxesListEdited: CheckboxType[], index: number) => handleOnChangeFilter(checkboxesListEdited, index)}
-            />
-
+            <div className={styles.filterStatusPanel}>
+                <label>
+                    {t('filter.by')}:&nbsp;&nbsp;
+                </label>
+                <CheckboxGroup
+                    checkboxesList={outwardsCheckboxes}
+                    onChange={(checkboxesListEdited, index) => handleOnChangeFilter(checkboxesListEdited, index)}
+                />
+            </div>
         </div>
     );
 };

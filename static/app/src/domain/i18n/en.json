@@ -37,6 +37,7 @@
     "Saving...": "Saving...",
     "new": "Todo",
     "indeterminate": "In Progress",
-    "done": "Done"
+    "done": "Done",
+    "filter.by": "Filtro por estados"
 
 }

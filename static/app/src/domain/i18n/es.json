@@ -37,6 +37,7 @@
     "Saving...": "Guardando...",
     "new": "Pendiente",
     "indeterminate": "En Progreso",
-    "done": "Terminado"
+    "done": "Terminado",
+    "filter.by": "Filtro por estados"
 
 }
