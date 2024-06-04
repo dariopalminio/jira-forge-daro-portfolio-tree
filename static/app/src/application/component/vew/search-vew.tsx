@@ -116,7 +116,7 @@ const SearchView: React.FC = () => {
     ];
 
     const handleSearch = async () => {
-        const maxLeve = 2; //maximum allowable depth of the tree
+        const maxLeve = 7; //maximum allowable depth of the tree
         await searchAndLoadDataTree(jql, configData.linksOutwards, maxLeve)
     }
 
